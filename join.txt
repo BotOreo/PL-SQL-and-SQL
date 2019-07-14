@@ -1,0 +1,79 @@
+--cross join
+select ename, job, dname
+from emp cross join dept;
+
+select ename, job, dname
+from emp, dept;
+
+--equi join
+select empno, ename, deptno, dname 
+from emp natural join dept;
+
+select empno, ename, deptno, dname
+from emp join dept
+using(deptno);
+
+select empno, ename, emp.deptno, dname
+from emp join dept
+on emp.deptno = dept.deptno;
+
+select empno, ename, emp.deptno, dname
+from emp, dept
+where emp.deptno = dept.deptno;
+
+--table alias
+select empno, ename, e.deptno, dname
+from emp e, dept d
+where e.deptno = d.deptno;
+
+--non-equi
+select empno, ename, e.deptno, dname
+from emp e, dept d
+where e.deptno between 10 and 20;
+
+select empno, ename, e.deptno, dname
+from emp e, dept d
+where e.deptno = d.deptno
+and e.deptno between 10 and 20;
+
+--self join
+
+select worker.empno, worker.ename, worker.mgr, boss.ename
+from emp worker join emp boss
+on worker.mgr = boss.empno;
+
+select worker.empno, worker.ename, worker.mgr, boss.ename
+from emp worker, emp boss
+where worker.mgr = boss.empno;
+
+--left join
+select worker.empno, worker.ename, worker.mgr, boss.ename
+from emp worker left outer join emp boss
+on worker.mgr = boss.empno;
+
+select worker.empno, worker.ename, worker.mgr, boss.ename
+from emp worker, emp boss
+where worker.mgr = boss.empno (+);
+
+--right join
+select worker.empno, worker.ename, worker.mgr, boss.ename
+from emp worker right outer join emp boss
+on worker.mgr = boss.empno;
+
+select worker.empno, worker.ename, worker.mgr, boss.ename
+from emp worker, emp boss
+where worker.mgr(+)=boss.empno;
+
+--full join
+select worker.empno, worker.ename, worker.mgr, boss.ename
+from emp worker full join emp boss
+on worker.mgr = boss.empno;
+
+
+
+
+
+
+
+
+

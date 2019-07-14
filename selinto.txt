@@ -1,0 +1,26 @@
+set serveroutput on
+set verify off
+
+accept ptid prompt 'Please enter the patient ID: '
+
+declare
+  v_ptlname patient.pt_lname%type; 
+  v_ptfname patient.pt_fname%type; 
+  v_dname   doctor.doc_name%type; 
+  vdid      doctor.doc_id%type; 
+
+
+begin
+   select pt_lname, pt_fname, doc_name, doc_id
+   into   v_ptlname, v_ptfname, v_dname, vdid
+   from   patient natural join doctor
+   --where  patient.doc_id = doctor.doc_id
+   where pt_id = &ptid;
+
+   dbms_output.put_line('Patient name: '||v_ptlname||' '||v_ptfname);
+
+   dbms_output.put_line('He/she is the patient of Dr. '||v_dname||' (' ||Vdid|| ')' );
+   
+
+end;
+/

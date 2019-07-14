@@ -1,0 +1,14 @@
+create or replace function calcnum (p_num IN number) return number is
+
+  p_num1 number(7);
+  v_num2 number(7) := 2;
+
+begin
+
+  p_num1 := p_num * v_num2;
+  return p_num1;
+
+  dbms_output.put_line('calculate numbers');
+
+end;
+/

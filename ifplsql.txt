@@ -1,0 +1,37 @@
+create or replace function calczakat (p_sal number) return number is
+
+  zakatrate number := 0.025;
+  payzakat  number;
+
+begin
+
+  if p_sal > 5000 then 
+     payzakat := p_sal * zakatrate;
+  else
+     payzakat := 0;
+  end if;
+ 
+  return (payzakat);
+
+end;
+/
+
+declare
+  amt number;
+  sal number;
+  name varchar2(30);
+
+begin
+  select doc_name, salpermon
+  into   name, sal
+  from   doctor
+  where  doc_id = &docid;
+
+  amt := calczakat(sal);
+
+  dbms_output.put_line('Dr. '||name||' salary is: '||sal);
+  dbms_output.put_line('The amount of zakat for Dr. '||name||' is '||amt); 
+
+end;
+/    
+    

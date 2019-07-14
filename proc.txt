@@ -1,0 +1,8 @@
+--procedure
+
+create or replace procedure printname(p_name varchar2) is
+begin
+   dbms_output.put_line(p_name);
+end;
+/
+

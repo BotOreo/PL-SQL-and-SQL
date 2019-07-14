@@ -1,0 +1,19 @@
+DECLARE
+
+  cnt     number := 1;
+ 
+BEGIN
+
+  WHILE cnt <=3 LOOP
+
+     dbms_output.put_line('Passengers in class E'||cnt||', your seats are:');
+
+     FOR i in 1..2 LOOP
+         dbms_output.put_line('------  E'||cnt||'SQ'||i);
+     END LOOP;
+
+     cnt := cnt + 1;
+
+  END LOOP;
+END;
+/

@@ -1,0 +1,15 @@
+DECLARE
+
+  cnt number := 1;
+
+BEGIN
+
+  LOOP  
+     dbms_output.put_line ('the no is '||cnt);
+     EXIT WHEN cnt >= 5; 
+     cnt := cnt + 1;
+  END LOOP;
+    
+
+END;
+/

@@ -1,0 +1,48 @@
+select count(salpermon), sum(salpermon), 
+       avg(salpermon), max(salpermon), 
+       min(salpermon) 
+from doctor;
+
+select area, sum(salpermon)
+from doctor
+group by area;
+
+select area, sum(salpermon)
+from doctor
+group by area
+having sum(salpermon) > 20000;
+
+select sum(salpermon) totsal
+from doctor
+group by area;
+
+select area, count(doc_id)
+from doctor
+--where area in ('Neurology','Family Practice')
+group by area;
+
+
+
+select doc_name, salpermon 
+from doctor
+where area = 'Neurology'
+
+select doc_name, salpermon from doctor
+where salpermon >ANY (select salpermon 
+from doctor where area = 'Neurology')
+
+select doc_name, salpermon from doctor
+where salpermon <ANY (select salpermon 
+from doctor where area = 'Neurology')
+
+select doc_name, salpermon from doctor
+where salpermon =ANY (select salpermon 
+from doctor where area = 'Neurology')
+
+select doc_name, salpermon from doctor
+where salpermon >ALL (select salpermon 
+from doctor where area = 'Neurology')
+
+select doc_name, salpermon from doctor
+where salpermon <ALL (select salpermon 
+from doctor where area = 'Neurology')

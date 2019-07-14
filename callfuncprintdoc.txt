@@ -1,0 +1,8 @@
+declare
+  p_num number;
+
+begin
+  p_num := printdoc1(&pnum);
+  dbms_output.put_line (p_num);
+end;
+/

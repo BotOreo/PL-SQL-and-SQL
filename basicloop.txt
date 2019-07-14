@@ -1,0 +1,16 @@
+DECLARE
+ 
+  v_cnt number := 1;
+
+
+BEGIN
+
+  LOOP
+     dbms_output.put_line('the number is '||v_cnt);
+     EXIT WHEN v_cnt >= 10;
+     v_cnt := v_cnt + 1;
+  END LOOP;
+
+
+END;
+/

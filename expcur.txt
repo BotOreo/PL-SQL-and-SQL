@@ -1,0 +1,26 @@
+DECLARE
+         v_pt_id      patient.pt_id%TYPE;
+         v_pt_lname   patient.pt_lname%TYPE;
+
+         --#1
+         CURSOR pt_cursor IS
+            SELECT pt_id, pt_lname
+            FROM   patient;
+
+
+BEGIN
+         --#2
+         OPEN pt_cursor;
+         LOOP
+           --#3
+           FETCH pt_cursor INTO v_pt_id, v_pt_lname;
+
+           EXIT WHEN (pt_cursor%ROWCOUNT > 10) OR (pt_cursor%NOTFOUND);
+           
+           DBMS_OUTPUT.PUT_LINE
+   	      (TO_CHAR(v_pt_id)||'	'|| v_pt_lname);
+         END LOOP;
+         --#4
+         CLOSE pt_cursor;
+END ;
+   /

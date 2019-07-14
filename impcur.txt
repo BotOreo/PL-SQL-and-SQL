@@ -1,0 +1,22 @@
+set serveroutput on
+set verify off
+DECLARE
+
+  v_name  varchar2(20);
+
+BEGIN
+  
+  SELECT pt_lname
+  into   v_name
+  from patient
+  where  doc_id = &did;
+
+
+EXCEPTION
+  WHEN TOO_MANY_ROWS THEN
+     dbms_output.put_line('there too manyy rows');
+  WHEN NO_DATA_FOUND THEN
+     dbms_output.put_line('0 rows');
+
+END;
+    /

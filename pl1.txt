@@ -1,0 +1,30 @@
+set serveroutput ON
+set verify off
+
+accept vnum prompt 'Please enter a valid number: '
+
+declare
+  v_num  doctor.salpermon%type;
+  v_sal  doctor.salpermon%type;
+  v_name varchar2(100);
+  v_area doctor.area%type;
+
+begin
+  
+  select doc_name||area, salpermon, area
+  into   v_name, v_sal, v_area
+  from   doctor
+  where  doc_id = &vdocid;
+
+  v_num := v_sal * &vnum;
+
+  dbms_output.put_line('The doctor name is : '||v_name||' in dept '||v_area);
+  dbms_output.put_line('The salary * another number is : '||to_char(v_num,'fm$99,999,999,999.00'));
+
+exception
+  when no_data_found then 
+      dbms_output.put_line('The are no such doctor id.');
+
+end;
+/
+

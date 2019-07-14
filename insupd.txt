@@ -1,0 +1,31 @@
+SET VERIFY OFF
+ACCEPT title PROMPT 'Movie title:  '
+ACCEPT phone PROMPT 'Phone number: ' 
+DECLARE
+	v_m_id		movie.m_id%TYPE;
+	v_fee		movie.fee%TYPE;
+	v_c_id 	        customer.c_id%TYPE;
+       
+BEGIN
+	-- Determine customer ID.
+	SELECT c_id
+	INTO v_c_id
+	FROM customer
+	WHERE phone = '&phone';
+	
+        -- Determine movie ID and fee.
+	SELECT m_id, fee
+	INTO v_m_id, v_fee
+	FROM movie
+	WHERE title = '&title';
+
+        -- Add new rental data
+	INSERT INTO rental
+	VALUES (v_c_id, v_m_id, SYSDATE, SYSDATE + 5);
+	
+        -- Update customer balance
+	UPDATE customer
+	SET curr_bal = nvl(curr_bal,0) + v_fee
+	WHERE c_id = v_c_id;
+END;
+/

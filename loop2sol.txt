@@ -1,0 +1,16 @@
+DECLARE
+
+  cnt     number := 1;
+  mydate  date:= '28-NOV-17';
+BEGIN
+
+  LOOP
+
+     dbms_output.put_line('In '||cnt|| ' day(s), the date will be '||mydate);
+     exit when cnt >= 5;
+
+     cnt := cnt +1;
+     mydate := mydate +1;
+  END LOOP;
+END;
+/

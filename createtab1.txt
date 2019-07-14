@@ -1,0 +1,408 @@
+DROP TABLE PATIENT cascade constraints;
+DROP TABLE BILLING cascade constraints;
+DROP TABLE DOCTOR cascade constraints;
+DROP TABLE RENTAL cascade constraints;
+DROP TABLE MOVIE cascade constraints;
+DROP TABLE CUSTOMER cascade constraints;
+
+
+-- table level
+CREATE TABLE DOCTOR1
+ (DOC_ID                                            NUMBER(3),
+ DOC_NAME                                           VARCHAR2(9),
+ DATEHIRED                                          DATE,
+ SALPERMON                                          NUMBER(12),
+ AREA                                               VARCHAR2(20),
+ SUPERVISOR_ID                                      NUMBER(3),
+ CHGPERAPPT                                         NUMBER(3),
+ ANNUAL_BONUS                                       NUMBER(5),
+	CONSTRAINT DOCTOR1_DOC_ID_PK PRIMARY KEY (DOC_ID, DOC_NAME));
+
+--column level
+CREATE TABLE DOCTOR2
+ (DOC_ID                                            NUMBER(3) CONSTRAINT DOCTOR2_DOC_ID_PK PRIMARY KEY,
+ DOC_NAME                                           VARCHAR2(9),
+ DATEHIRED                                          DATE,
+ SALPERMON                                          NUMBER(12),
+ AREA                                               VARCHAR2(20) CONSTRAINT DOCTOR2_AREA_NN NOT NULL,
+ SUPERVISOR_ID                                      NUMBER(3) NOT NULL,
+ CHGPERAPPT                                         NUMBER(3),
+ ANNUAL_BONUS                                       NUMBER(5));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CREATE TABLE BILLING
+ (PT_ID                                             NUMBER(3),
+ BALANCE                                            NUMBER(9),
+ DUEDATE                                            DATE,
+ PHONE                                              VARCHAR2(8),
+ ADDR                                               VARCHAR2(20),
+ CITY                                               VARCHAR2(11),
+ ST                                                 CHAR(2),
+ ZIP                                                NUMBER(5),
+ PT_INS                                             VARCHAR2(11),
+	CONSTRAINT BILLING_PT_ID_PK PRIMARY KEY (PT_ID));
+
+CREATE TABLE PATIENT
+ (PT_ID                                             NUMBER(3),
+ PT_LNAME                                           VARCHAR2(15),
+ PT_FNAME                                           VARCHAR2(15),
+ PTDOB                                              DATE,
+ DOC_ID                                             NUMBER(3),
+ NEXTAPPTDATE                                       DATE,
+ LASTAPPTDATE                                       DATE,
+	CONSTRAINT PATIENT_PT_ID_PK PRIMARY KEY (PT_ID),
+	CONSTRAINT PATIENT_DOC_ID_FK FOREIGN KEY(DOC_ID)
+		REFERENCES DOCTOR);
+
+CREATE TABLE CUSTOMER
+	(C_ID	  NUMBER(3),
+	PHONE	  VARCHAR2(8),
+	LNAME	  VARCHAR2(10),
+	FNAME	  VARCHAR2(10),
+	CURR_BAL  NUMBER(5,2),
+	DUEDATE	  DATE,
+	CONSTRAINT CUST_C_ID_PK PRIMARY KEY(C_ID));
+
+CREATE TABLE MOVIE
+	(M_ID	  NUMBER(3),
+	FEE	  NUMBER(3,2),
+	TITLE	  VARCHAR2(20),
+	CATEGORY  VARCHAR2(10),
+	CONSTRAINT MOVIE_M_ID_PK PRIMARY KEY(M_ID));
+
+CREATE TABLE RENTAL
+	(C_ID	  NUMBER(3),
+	M_ID	  NUMBER(3),
+	DATE_OUT  DATE,
+	DUE_DATE  DATE,
+	CONSTRAINT RENTAL_PK PRIMARY KEY (C_ID, M_ID),
+	CONSTRAINT RENTAL_C_ID_FK FOREIGN KEY (C_ID)
+		REFERENCES CUSTOMER,
+	CONSTRAINT RENTAL_M_ID_FK FOREIGN KEY (M_ID)
+		REFERENCES MOVIE);
+
+INSERT INTO BILLING VALUES(168, 15650, TO_DATE('21-AUG-01'), '833-9569', 
+'128 W. Apple #4', 'Jonesboro', 'IL', '62952', 'SIH');
+
+INSERT INTO BILLING VALUES(331, 300, TO_DATE('09-SEP-01'), '833-5587', 
+'3434 Mulberry St.', 'Anna', 'IL', '62906', 'BCBS');
+
+INSERT INTO BILLING VALUES(313, 0, TO_DATE('01-JAN-02'), '893-9987', 
+'334 Tailgate Ln', 'COBDEN', 'IL', '62920', 'Military');
+
+INSERT INTO BILLING VALUES(816, 0, TO_DATE('01-JAN-02'), '833-6654',
+ '8814 W. Apple ', 'JONESBORO', 'IL', '62952', 'SIH');
+
+INSERT INTO BILLING VALUES(314, 100, TO_DATE('31-MAR-01'), '457-6658', 
+'445 Oak St.', 'Carbondale', 'IL', '62901', 'BCBS');
+
+INSERT INTO BILLING VALUES(264, 35000, TO_DATE('11-JAN-01'), '942-8065', 
+'8898 Bighill Drive', 'HERRIN', 'IL', '62948', 'MediSupplA');
+
+INSERT INTO BILLING VALUES(103, 4500, TO_DATE('01-JUL-01'), '833-5547', 
+'298 Murphy School Rd', 'Anna', 'IL', '62906', 'HealthCare');
+
+INSERT INTO BILLING VALUES(108, 0, TO_DATE('01-JAN-03'), '833-5542',
+ '334 Pansie Hill Rd.', 'JONESBORO', 'IL', '62952', 'HealthCare');
+
+INSERT INTO BILLING VALUES(943, 0, TO_DATE('01-JAN-05'), '529-9963', 
+'456 E. Grand #14', 'Carbondale', 'IL', '62901', 'Military');
+
+INSERT INTO BILLING VALUES(847, 98000, TO_DATE('31-JAN-00'), '549-8854',
+ '6543 W. Parkview Ln.', 'Carbondale', 'IL', '62901', 'BCBS');
+
+INSERT INTO BILLING VALUES(504, 0, TO_DATE('01-JAN-01'), '549-6139', 
+'6657 N. Allen', 'Carbondale', 'IL', '62901', 'QualityCare');
+
+INSERT INTO BILLING VALUES(809, 450, TO_DATE('19-JUL-01'), '687-8852',
+ '3345 Hwy 127 N.', 'Murphysboro', 'IL', '62966', 'QualityCare');
+
+INSERT INTO BILLING VALUES(703, 225, TO_DATE('31-AUG-01'), '529-8332', 
+'909 N. Brown St.', 'Carbondale', 'IL', '62901', 'HealthCare');
+
+INSERT INTO BILLING VALUES(696, 79850, TO_DATE('15-JUL-01'), '549-7231',
+ '5546 W. James', 'Carbondale', 'IL', '62901', 'BCBS');
+
+INSERT INTO BILLING VALUES(966, 98700, TO_DATE('15-JUL-01'), '833-5375',
+ '9009 Taylor Ave.', 'Anna', 'IL', '62906', 'BCBS');
+
+INSERT INTO BILLING VALUES(267, 0, TO_DATE('01-JAN-03'), '942-3321', 
+'6755 US Route 148', 'HERRIN', 'IL', '62948', 'QualityCare');
+
+INSERT INTO BILLING VALUES(307, 450, TO_DATE('31-AUG-01'), '457-6967', 
+'234 N. Allen', 'Carbondale', 'IL', '62901', 'HealthCare');
+
+INSERT INTO BILLING VALUES(719, 0, TO_DATE('01-JAN-02'), '549-7848',
+ '867 Henderson St.', 'Carbondale', 'IL', '62901', 'HealthCare');
+
+INSERT INTO BILLING VALUES(439, 500, TO_DATE('31-AUG-01'), '833-5541',
+'4456 N.Springer', 'Anna', 'IL', '62906', 'QualityCare');
+
+INSERT INTO BILLING VALUES(315, 1500, TO_DATE('14-SEP-01'), '833-6272', 
+'404 Williford Rd.', 'JONESBORO', 'IL', '62952', 'HealthCare');
+
+INSERT INTO BILLING VALUES(163, 0, TO_DATE('01-JAN-02'), '833-2133', 
+'129 Fountain St.', 'Anna', 'IL', '62906', 'HealthCare');
+
+INSERT INTO BILLING VALUES(669, 128450, TO_DATE('15-JUL-01'), '833-6654', 
+'353 Tin Bender Rd.', 'Jonesboro', 'IL', '62952', 'BCBS');
+
+INSERT INTO CUSTOMER
+VALUES(388, '549-6730', 'Woolard', 'Jessica', NULL, NULL);
+
+INSERT INTO CUSTOMER
+VALUES(402, '529-8420', 'St. James', 'Ellen', 4.99, TO_DATE('3-JUL-03'));
+
+INSERT INTO CUSTOMER
+VALUES(673, '549-8400', 'Akers', 'Janet', 9.97, TO_DATE('23-JUN-03'));
+
+INSERT INTO CUSTOMER
+VALUES(579, '549-1234', 'Poston', 'Blaine', NULL, NULL);
+
+INSERT INTO CUSTOMER
+VALUES(799, '549-6711', 'Ackers', 'John', 1.99, TO_DATE('1-JUL-03'));
+
+INSERT INTO CUSTOMER
+VALUES(767, '453-8228', 'Ralston', 'Cheri', 14.90, TO_DATE('30-JUN-03'));
+
+INSERT INTO CUSTOMER
+VALUES(133, '453-2271', 'Akers', 'Leita', 20.18, TO_DATE('2-JUL-03'));
+
+INSERT INTO CUSTOMER
+VALUES(239, '549-1235', 'Macke', 'Greg', NULL, NULL);
+
+INSERT INTO CUSTOMER
+VALUES(400, '549-8440', 'Salyers', 'Loretta', 5.00, TO_DATE('6-JUL-03'));
+
+INSERT INTO CUSTOMER
+VALUES(701, '549-8840', 'Williams', 'Tisha', 20.00, TO_DATE('28-JUN-03'));
+
+
+INSERT INTO DOCTOR VALUES(432, 'Harrison' , TO_DATE('05-DEC-94'), 12000,
+ 'Pediatrics', 100, 75, 4500);
+
+INSERT INTO DOCTOR VALUES(509, 'Vester' , TO_DATE('09-JAN-00'), 8100,
+ 'Pediatrics', 432, 40, null);
+
+INSERT INTO DOCTOR VALUES(389, 'Lewis' , TO_DATE('21-JAN-96'), 10000, 
+'Pediatrics', 432, 40, 2250);
+
+INSERT INTO DOCTOR VALUES(504, 'Cotner' , TO_DATE('16-JUN-98'), 11500,
+ 'Neurology', 289, 85, 7500);
+
+INSERT INTO DOCTOR VALUES(235, 'Smith' , TO_DATE('22-JUN-98'), 4550, 
+'Family Practice', 100, 25, 2250);
+
+INSERT INTO DOCTOR VALUES(356, 'James' , TO_DATE('01-AUG-98'), 7950,
+ 'Neurology', 289, 80, 6500);
+
+INSERT INTO DOCTOR VALUES(558, 'James' , TO_DATE('02-MAY-95'), 9800, 
+'Orthopedics', 876, 85, 7700);
+
+INSERT INTO DOCTOR VALUES(876, 'Robertson' , TO_DATE('02-MAR-95'), 10500, 
+'Orthopedics', 100, 90, 8900);
+
+INSERT INTO DOCTOR VALUES(889, 'Thompson' , TO_DATE('18-MAR-97'), 6500,
+ 'Rehab', 100, 65, 3200);
+
+INSERT INTO DOCTOR VALUES(239, 'Pronger' , TO_DATE('18-DEC-99'), 3500, 
+'Rehab',889, 40, null);
+
+INSERT INTO DOCTOR VALUES(289, 'Borque' , TO_DATE('30-JUN-89'), 16500, 
+'Neurology', 100, 95, 6500);
+
+INSERT INTO DOCTOR VALUES(100, 'Stevenson' , TO_DATE('30-JUN-79'), 23500, 
+'Director', null,null,null );
+
+
+INSERT INTO MOVIE
+VALUES(204, 1.99, 'City of Angels', 'Drama');
+
+INSERT INTO MOVIE
+VALUES(216, 2.99, 'Ocean''s Eleven', 'Action');
+
+INSERT INTO MOVIE
+VALUES(233, 2.99, 'Gone in 60 Seconds', 'Action');
+
+INSERT INTO MOVIE
+VALUES(236, .99, 'Monsters, Inc.', 'Kids');
+
+INSERT INTO MOVIE
+VALUES(237, .99, 'E.T.', 'Kids');
+
+INSERT INTO MOVIE
+VALUES(249, 1.99, 'U-571', 'Action');
+
+INSERT INTO MOVIE
+VALUES(254, 2.99, 'Road to Perdition', 'Drama');
+
+INSERT INTO MOVIE
+VALUES(255, 2.99, 'Amelie', 'Foreign');
+
+INSERT INTO MOVIE
+VALUES(278, 1.99, 'Monster''s Ball', 'Drama');
+
+INSERT INTO MOVIE
+VALUES(287, 2.99, 'A Knight''s Tale', NULL);
+
+INSERT INTO MOVIE
+VALUES(289, 1.99, 'The Royal Tenenbaums', 'Comedy');
+
+INSERT INTO MOVIE
+VALUES(304, 2.99, 'Wild, Wild West', 'Comedy');
+
+INSERT INTO MOVIE
+VALUES(315, 2.99, 'Himalaya', 'Foreign');
+
+INSERT INTO MOVIE
+VALUES(316, .99, 'Horse Whisperer', 'Drama');
+
+INSERT INTO MOVIE
+VALUES(320, 1.99, 'A Beautiful Mind', 'Drama');
+
+INSERT INTO MOVIE
+VALUES(324, 2.99, 'Field of Dreams', 'Family');
+
+INSERT INTO MOVIE
+VALUES(325, 2.99, 'Beautiful Life', 'Foreign');
+
+INSERT INTO MOVIE
+VALUES(337, 1.99, 'Grease', NULL);
+
+INSERT INTO MOVIE
+VALUES(349, 1.99, 'Cast Away', 'Drama');
+
+INSERT INTO MOVIE
+VALUES(354, 2.99, 'O Brother', NULL);
+
+INSERT INTO MOVIE
+VALUES(355, 1.99, 'Spiderman', 'Kids');
+
+INSERT INTO patient VALUES(168, 'James', 'Paul', TO_DATE('14-MAR-97'), 432, 
+TO_DATE('01-JUL-03'), TO_DATE('01-JUN-03'));
+
+INSERT INTO patient VALUES(331, 'Anderson', 'Brian', TO_DATE('06-MAR-48'), 235,
+TO_DATE('01-JUL-03'), TO_DATE('01-JUN-03'));
+
+INSERT INTO patient VALUES(313, 'James', 'Scott', TO_DATE('01-MAR-33'), 235, 
+TO_DATE('20-JUL-03'), TO_DATE('20-JUN-03'));
+
+INSERT INTO patient VALUES(816, 'Smith', 'Jason', TO_DATE('12-DEC-99'), 509, 
+TO_DATE('15-NOV-03'), TO_DATE('15-MAY-03'));
+
+INSERT INTO patient VALUES(314, 'Porter', 'Susan', TO_DATE('14-NOV-67'), 235, 
+TO_DATE('01-OCT-03'), TO_DATE('01-MAR-03'));
+
+INSERT INTO patient VALUES(315, 'Saillez', 'Debbie', TO_DATE('09-SEP-55'), 235,
+TO_DATE('01-JUL-03'), TO_DATE('01-JUN-03'));
+
+INSERT INTO patient VALUES(719, 'Rogers', 'Anthony', TO_DATE('07-DEC-41'), 504,
+TO_DATE('01-NOV-03'), TO_DATE('01-JAN-03'));
+
+INSERT INTO patient VALUES(264, 'Walters', 'Stephanie', TO_DATE('01-JAN-45'), 
+504, TO_DATE('12-DEC-03'), TO_DATE('12-DEC-02'));
+
+INSERT INTO patient VALUES(267, 'Westra', 'Lynn', TO_DATE('12-JUL-57'), 235,
+ TO_DATE('02-FEB-04'), TO_DATE('02-FEB-03'));
+
+INSERT INTO patient VALUES(103, 'Poole', 'Jennifer', TO_DATE('13-MAY-02'), 389,
+TO_DATE('01-DEC-03'), TO_DATE('01-JUN-03'));
+
+INSERT INTO patient VALUES(108, 'Baily', 'Ryan', TO_DATE('25-DEC-77'), 235, 
+TO_DATE('06-JUN-05'), TO_DATE('06-JUN-03'));
+
+INSERT INTO patient VALUES(943, 'Crow', 'Lewis', TO_DATE('16-OCT-49'), 235, 
+TO_DATE('01-JUL-05'), TO_DATE('01-MAR-02'));
+
+INSERT INTO patient VALUES(847, 'Cochran', 'John', TO_DATE('03-MAR-48'), 356, 
+TO_DATE('02-DEC-05'), TO_DATE('01-JAN-02'));
+
+INSERT INTO patient VALUES(163, 'Roach', 'Becky', TO_DATE('08-SEP-75'), 235, 
+TO_DATE('01-DEC-05'), TO_DATE('01-JAN-02'));
+
+INSERT INTO patient VALUES(504, 'Jackson', 'John', TO_DATE('14-OCT-43'), 235, 
+TO_DATE('21-JUL-03'), TO_DATE('10-NOV-02'));
+
+INSERT INTO patient VALUES(809, 'Kowalczyk', 'Paul', TO_DATE('12-NOV-51'), 558,
+TO_DATE('29-JUL-03'), TO_DATE('19-JUN-03'));
+
+INSERT INTO patient VALUES(703, 'Davis', 'Linda', TO_DATE('17-JUL-02'), 509, 
+TO_DATE('21-JUL-03'), TO_DATE('22-MAY-03'));
+
+INSERT INTO patient VALUES(307, 'Jones', 'J.C.', TO_DATE('17-JUL-02'), 509,
+TO_DATE('21-JUL-03'), TO_DATE('22-MAY-03'));
+
+INSERT INTO patient VALUES(439, 'Wright', 'Chasity', TO_DATE('23-APR-73'), 235,
+TO_DATE(''), TO_DATE(''));
+
+INSERT INTO patient VALUES(696, 'Vanderchuck', 'Keith', TO_DATE('08-AUG-68'), 
+504, TO_DATE(''), TO_DATE('15-JUN-03'));
+
+INSERT INTO patient VALUES(966, 'Mcginnis', 'Allen', TO_DATE('03-MAY-59'), 504,
+TO_DATE(''), TO_DATE('15-JUN-03'));
+
+INSERT INTO patient VALUES(669, 'Sakic', 'Joe', TO_DATE('16-SEP-76'), 504, 
+TO_DATE(''), TO_DATE('15-JUN-03'));
+
+INSERT INTO RENTAL
+VALUES(673,216,TO_DATE('30-JUN-03'),TO_DATE('02-JUL-03'));
+
+INSERT INTO RENTAL
+VALUES(673,249,TO_DATE('30-JUN-03'),TO_DATE('01-JUL-03'));
+
+INSERT INTO RENTAL
+VALUES(388,320,TO_DATE('01-JUL-03'),TO_DATE('04-JUL-03'));
+
+INSERT INTO RENTAL
+VALUES(400,354,TO_DATE('29-JUN-03'),TO_DATE('30-JUN-03'));
+
+INSERT INTO RENTAL
+VALUES(579,354,TO_DATE('01-JUL-03'),TO_DATE('04-JUL-03'));
+
+INSERT INTO RENTAL
+VALUES(579,320,TO_DATE('01-JUL-03'),TO_DATE('03-JUL-03'));
+
+INSERT INTO RENTAL
+VALUES(673,304,TO_DATE('29-JUN-03'),TO_DATE('01-JUL-03'));
+
+INSERT INTO RENTAL
+VALUES(673,337,TO_DATE('01-JUL-03'),TO_DATE('04-JUL-03'));
+
+INSERT INTO RENTAL
+VALUES(388,216,TO_DATE('30-JUN-03'),TO_DATE('02-JUL-03'));
+
+INSERT INTO RENTAL
+VALUES(388,316,TO_DATE('01-JUL-03'),TO_DATE('04-JUL-03'));
+
+INSERT INTO RENTAL
+VALUES(388,236,TO_DATE('01-JUL-03'),TO_DATE('04-JUL-03'));
+
+INSERT INTO RENTAL
+VALUES(400,320,TO_DATE('01-JUL-03'),TO_DATE('04-JUL-03'));
+
+INSERT INTO RENTAL
+VALUES(400,255,TO_DATE('29-JUN-03'),TO_DATE('01-JUL-03'));
+
+INSERT INTO RENTAL
+VALUES(701,216,TO_DATE('30-JUN-03'),TO_DATE('02-JUL-03'));
+
+INSERT INTO RENTAL
+VALUES(701,278,TO_DATE('29-JUN-03'),TO_DATE('01-JUL-03'));
+
+

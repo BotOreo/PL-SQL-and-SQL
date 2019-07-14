@@ -1,0 +1,25 @@
+select doc_name, salpermon, salpermon*12+100*322-50 AS "Annual Sal" 
+from doctor;
+
+select doc_name, salpermon, salpermon*12+100*322-50 AS "Annual Sal" 
+from doctor;
+
+SELECT doc_name, chgperappt
+FROM doctor
+WHERE chgperappt in (40,50,60,65,70,75);
+
+
+SELECT doc_name, chgperappt
+FROM doctor
+WHERE chgperappt = 40
+or chgperappt = 65
+or chgperappt = 75;
+
+select doc_name, salpermon, annual_bonus 
+from doctor
+where annual_bonus is null;
+
+
+select doc_name, salpermon, annual_bonus 
+from doctor
+where doc_name like '_a%';

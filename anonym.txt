@@ -1,0 +1,24 @@
+--anonymous block
+declare
+
+  v_num1  number(5);
+  v_num2  number(3) := &v_num;
+  v_total v_num1%type;
+  v_name  doctor.doc_name%type;
+
+begin
+  --ex1 simple assignment
+  v_num1 := 10;
+  v_total := v_num1 * v_num2;
+
+  dbms_output.put_line('the total value '||v_total);
+
+  --ex2 select .. into
+  select doc_name
+  into   v_name
+  from   doctor
+  where  doc_id = &docid;
+
+  dbms_output.put_line('the doctor name '||v_name);
+end;
+/

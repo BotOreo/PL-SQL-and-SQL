@@ -1,0 +1,12 @@
+create or replace procedure calc (p_num IN OUT number) is
+  v_num1 number(7) := 23;
+  v_num2 number(7) := 2;
+
+begin
+
+  p_num := p_num * v_num2;
+
+  dbms_output.put_line('calculate successful');
+
+end;
+/

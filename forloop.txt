@@ -1,0 +1,16 @@
+DECLARE
+ 
+ 
+
+
+BEGIN
+
+  FOR  v_cnt in reverse 1..10 LOOP
+
+     dbms_output.put_line('the number is '||v_cnt);
+     
+  END LOOP;
+
+
+END;
+/

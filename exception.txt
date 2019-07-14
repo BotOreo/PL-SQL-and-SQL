@@ -1,0 +1,30 @@
+set serveroutput on
+set verify off
+
+DECLARE
+
+  v_name  varchar2(20);
+  e_error exception;
+  e_error2 exception;
+  pragma  exception_init(e_error,-02292);
+
+BEGIN
+  
+  raise e_error2;
+
+  
+
+
+
+EXCEPTION
+  WHEN e_error THEN
+     dbms_output.put_line('this doctor has some patients');
+  WHEN e_error2 THEN
+     dbms_output.put_line('just for fun');
+  WHEN TOO_MANY_ROWS THEN
+     dbms_output.put_line('there too manyy rows');
+  WHEN NO_DATA_FOUND THEN
+     dbms_output.put_line('0 rows');
+
+END;
+    /

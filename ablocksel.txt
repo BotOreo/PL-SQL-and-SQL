@@ -1,0 +1,15 @@
+declare
+  v_name doctor.doc_name%type;
+
+
+begin
+
+  select doc_name 
+  into   v_name
+  from   doctor
+  where  doc_id = &docid;
+
+  dbms_output.put_line('the doc name is:'||v_name);
+
+end;
+/

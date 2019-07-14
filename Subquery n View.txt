@@ -1,0 +1,70 @@
+--inline view 
+--subquery in from clause
+
+SELECT doc_id, doc_name “NAME”, s.area, s.area_num
+"DOCTORS IN THE SAME AREA"
+FROM doctor d, (SELECT area, COUNT(*) area_num
+FROM doctor
+GROUP BY area) s
+WHERE d.area = s.area
+ORDER BY s.area, doc_name;
+
+SELECT doc_name, d.area, TO_CHAR(salpermon, '$999,999')
+"SALARY", TO_CHAR(high, '$999,999') "HIGHEST",
+TO_CHAR(low, '$999,999') "LOWEST"
+FROM doctor d, (SELECT area, MAX (salpermon) high,
+MIN (salpermon) low
+FROM doctor
+WHERE area <> 'Director'
+GROUP BY area) S
+WHERE d.area = s.area
+ORDER BY s.area, doc_name;
+
+--view without check option
+create view salevu as 
+select * 
+from salesman 
+where city = 'Paris';
+
+SQL> select * from salevu;
+
+SALESMAN_ID NAME                           CITY
+---------- ------------------------------ ------------------------------
+COMMISSION
+---------
+      5002 Nail Knite                     Paris
+      .13
+
+      5006 Mc Lyon                        Paris
+      .14
+
+
+SQL> update salevu
+  2  set city = 'KL' where name like 'Mc%';
+
+select * from salevu;
+
+SALESMAN_ID NAME                           CITY
+----------- ------------------------------ ------------------------------
+COMMISSION
+----------
+       5002 Nail Knite                     Paris
+       .13
+
+
+--view with check option
+create view salevu as 
+select * 
+from salesman 
+where city = 'Paris'
+with check option;
+
+SQL> update salevu
+  2  set city = 'KL' where name like 'Na%';
+update salevu
+       *
+ERROR at line 1:
+ORA-01402: view WITH CHECK OPTION where-clause violation	
+
+
+

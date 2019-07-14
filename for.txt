@@ -1,0 +1,14 @@
+DECLARE
+
+  
+
+BEGIN
+
+  FOR cnt IN REVERSE 1..5 LOOP 
+     dbms_output.put_line ('the no is '||cnt);
+     
+  END LOOP;
+    
+
+END;
+/

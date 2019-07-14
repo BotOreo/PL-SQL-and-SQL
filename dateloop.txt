@@ -1,0 +1,8 @@
+BEGIN
+
+  FOR i in 1..5 LOOP
+   dbms_output.put_line (sysdate + i);
+  END LOOP;
+
+END;
+/

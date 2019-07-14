@@ -1,0 +1,23 @@
+accept ptid prompt 'Enter the patient ID: '
+set serveroutput on
+set verify off
+
+declare
+  v_lname patient.pt_lname%type;
+  v_fname patient.pt_lname%type;
+  v_ptname patient.pt_lname%type;
+  v_Dname doctor.doc_name%type;
+  v_docid doctor.doc_id%type;
+
+begin
+
+select pt_lname||' '||pt_fname, doc_id, doc_name
+into   V_ptname, v_docid, v_dname
+from   patient natural join doctor
+where  pt_id = &ptid;
+
+dbms_output.Put_line('Patient name: '||v_ptname);
+dbms_output.Put_line('He/she is the patient of Dr. '||v_dname||' ('||v_docid||')');
+
+end;
+/

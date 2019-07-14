@@ -1,0 +1,21 @@
+create or replace function printdoc1(p_id IN number) return number is
+  
+  v_name varchar2(50);
+  v_sal  doctor.salpermon%type;
+  p_num  number(20);
+
+begin
+
+  select doc_name, salpermon
+  into   v_name, v_sal
+  from   doctor
+  where  doc_id = p_id;
+
+  --dbms_output.put_line('doctor name is: '||v_name);
+  --dbms_output.put_line('doctor salary is: '||v_sal);
+
+  p_num := v_sal * 12;
+  return p_num;
+
+end;
+/

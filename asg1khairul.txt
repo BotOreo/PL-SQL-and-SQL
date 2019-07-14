@@ -1,0 +1,61 @@
+SQL> select * from doctor;
+
+    DOC_ID DOC_NAME  DATEHIRED  SALPERMON AREA                 SUPERVISOR_ID    
+---------- --------- --------- ---------- -------------------- -------------    
+CHGPERAPPT ANNUAL_BONUS                                                         
+---------- ------------                                                         
+       432 Harrison  05-DEC-94      12000 Pediatrics                     100    
+        75         4500                                                         
+                                                                                
+       509 Vester    09-JAN-00       8100 Pediatrics                     432    
+        40                                                                      
+                                                                                
+       389 Lewis     21-JAN-96      10000 Pediatrics                     432    
+        40         2250                                                         
+                                                                                
+
+    DOC_ID DOC_NAME  DATEHIRED  SALPERMON AREA                 SUPERVISOR_ID    
+---------- --------- --------- ---------- -------------------- -------------    
+CHGPERAPPT ANNUAL_BONUS                                                         
+---------- ------------                                                         
+       504 Cotner    16-JUN-98      11500 Neurology                      289    
+        85         7500                                                         
+                                                                                
+       235 Smith     22-JUN-98       4550 Family Practice                100    
+        25         2250                                                         
+                                                                                
+       356 James     01-AUG-98       7950 Neurology                      289    
+        80         6500                                                         
+                                                                                
+
+    DOC_ID DOC_NAME  DATEHIRED  SALPERMON AREA                 SUPERVISOR_ID    
+---------- --------- --------- ---------- -------------------- -------------    
+CHGPERAPPT ANNUAL_BONUS                                                         
+---------- ------------                                                         
+       558 James     02-MAY-95       9800 Orthopedics                    876    
+        85         7700                                                         
+                                                                                
+       876 Robertson 02-MAR-95      10500 Orthopedics                    100    
+        90         8900                                                         
+                                                                                
+       889 Thompson  18-MAR-97       6500 Rehab                          100    
+        65         3200                                                         
+                                                                                
+
+    DOC_ID DOC_NAME  DATEHIRED  SALPERMON AREA                 SUPERVISOR_ID    
+---------- --------- --------- ---------- -------------------- -------------    
+CHGPERAPPT ANNUAL_BONUS                                                         
+---------- ------------                                                         
+       239 Pronger   18-DEC-99       3500 Rehab                          889    
+        40                                                                      
+                                                                                
+       289 Borque    30-JUN-89      16500 Neurology                      100    
+        95         6500                                                         
+                                                                                
+       100 Stevenson 30-JUN-79      23500 Director                              
+                                                                                
+                                                                                
+
+12 rows selected.
+
+SQL> spool off

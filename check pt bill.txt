@@ -1,0 +1,4 @@
+select patient.pt_id, balance, pt_lname, pt_fname
+from patient, billing
+where patient.pt_id = billing.pt_id
+and pt_lname = 'Davis';

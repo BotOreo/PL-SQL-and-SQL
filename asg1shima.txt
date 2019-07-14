@@ -1,0 +1,17 @@
+SQL> create table customers
+  2  (name varchar2(20) constraint cust_name_nn not null,
+  3  email varchar2(30) constraint cust_email_pk primary key,
+  4  phone varchar2(10),
+  5  totalPurcharse number);
+
+Table created.
+
+SQL> desc customers
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ NAME                                      NOT NULL VARCHAR2(20)
+ EMAIL                                     NOT NULL VARCHAR2(30)
+ PHONE                                              VARCHAR2(10)
+ TOTALPURCHARSE                                     NUMBER
+
+SQL> spool off
