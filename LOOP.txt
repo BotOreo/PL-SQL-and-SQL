@@ -1,0 +1,126 @@
+------------while loop------------------
+DECLARE
+	cnt number:=1;
+
+
+BEGIN
+	WHILE cnt <=5 LOOP
+		dbms_output.put_line('Number is '||cnt);
+		cnt := cnt+1;
+	END LOOP;		
+
+END;
+/
+
+---------------- loop -----------------------
+
+DECLARE
+	cnt number:=1;
+
+
+BEGIN
+	LOOP
+		dbms_output.put_line('Number is '||cnt);
+		EXIT when cnt > 5;
+		cnt := cnt+1;
+		
+	END LOOP;		
+
+END;
+/
+
+-------FOR loop--------------------------
+
+DECLARE
+	cnt number:=1;
+
+
+BEGIN
+	FOR cnt IN 1 .. 5 LOOP
+		dbms_output.put_line('Number is '||cnt);
+	END LOOP;		
+
+END;
+/
+-------------FOR REVERSE-------------------
+DECLARE
+	cnt number:=1;
+
+
+BEGIN
+	FOR cnt IN REVERSE 1 .. 5 LOOP
+		dbms_output.put_line('Number is '||cnt);
+	END LOOP;		
+
+END;
+/
+
+----------- Lab Assignment WHILE-------------------------
+DECLARE
+	cnt number:=1;
+	tarikh date:=to_date('28-NOV-17','DD-MON-YY');
+
+
+BEGIN
+	WHILE cnt <=5 LOOP
+		dbms_output.put_line('In '||cnt||' day(s), the date will be '||to_char(tarikh));
+		tarikh:=tarikh+1;
+		cnt := cnt+1;
+	END LOOP;		
+
+END;
+/
+-------------Lab Assignment BASIC---------------------------------
+DECLARE
+	cnt number:=1;
+	tarikh date:=to_date('28-NOV-17','DD-MON-YY');
+
+
+BEGIN
+	LOOP
+		dbms_output.put_line('In '||cnt||' day(s), the date will be '||to_char(tarikh));
+		tarikh:=tarikh+1;
+		cnt := cnt+1;
+		EXIT when cnt > 5;
+	END LOOP;		
+
+END;
+/
+--------------Lab Assignment NESTED----------------
+
+DECLARE
+	EClass number:=1;
+	SQ number:=1;	
+
+
+BEGIN
+	WHILE EClass <=3 LOOP
+		dbms_output.put_line('Passengers in class E'||EClass||', your seats are: ');
+			FOR SQ IN 1 .. 2 LOOP
+			dbms_output.put_line('--------E'||EClass||'SQ'||SQ);
+			END LOOP;
+		EClass:=EClass+1;
+	END LOOP;		
+
+END;
+/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

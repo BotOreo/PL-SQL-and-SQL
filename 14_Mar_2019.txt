@@ -1,0 +1,611 @@
+SQL> SELECT DOC_NAME, AREA, CHGPERAPPT
+  2  FROM DOCTOR
+  3  WHERE (AREA,CHGPERAPPT)=(SELECT ARE,CHGPERAPPT
+  4  FROM DOCTOR WHERE DOC_NAME ='Lewis');
+WHERE (AREA,CHGPERAPPT)=(SELECT ARE,CHGPERAPPT
+                                *
+ERROR at line 3:
+ORA-00904: "ARE": invalid identifier 
+
+
+SQL> SELECT DOC_NAME, AREA, CHGPERAPPT
+  2  FROM DOCTOR
+  3  WHERE (AREA,CHGPERAPPT)=(SELECT AREA,CHGPERAPPT
+  4  FROM DOCTOR WHERE DOC_NAME ='Lewis');
+
+DOC_NAME  AREA                 CHGPERAPPT                                       
+--------- -------------------- ----------                                       
+Vester    Pediatrics                   40                                       
+Lewis     Pediatrics                   40                                       
+
+SQL> 
+SQL> SELECT PT_LNAME, PT_FNAME,NEXTAPPTDATE,DOC_ID
+  2  FROM PATIENT
+  3  WHERE NEXTAPPTDATE > (SELECT NEXTAPPTATE FROM PATIENT
+  4  WHERE PT_FNAME = 'Susan')
+  5  AND DOC_ID=(SELECT DOC_ID FROM PATIENT WHERE PT-FNAME='Susan');
+WHERE NEXTAPPTDATE > (SELECT NEXTAPPTATE FROM PATIENT
+                             *
+ERROR at line 3:
+ORA-00904: "NEXTAPPTATE": invalid identifier 
+
+
+SQL> 
+SQL> SELECT PT_LNAME, PT_FNAME,NEXTAPPTDATE,DOC_ID
+  2  FROM PATIENT
+  3  WHERE NEXTAPPTDATE > (SELECT NEXTAPPTDATE FROM PATIENT
+  4  WHERE PT_FNAME = 'Susan')
+  5  AND DOC_ID=(SELECT DOC_ID FROM PATIENT WHERE PT-FNAME='Susan');
+AND DOC_ID=(SELECT DOC_ID FROM PATIENT WHERE PT-FNAME='Susan')
+                                                *
+ERROR at line 5:
+ORA-00904: "FNAME": invalid identifier 
+
+
+SQL> 
+SQL> SELECT PT_LNAME, PT_FNAME, NEXTAPPTDATE, DOC_ID
+  2  FROM PATIENT
+  3  WHERE NEXTAPPTDATE > (SELECT NEXTAPPTDATE FROM PATIENT
+  4  WHERE PT_FNAME = 'Susan')
+  5  AND DOC_ID=(SELECT DOC_ID FROM PATIENT WHERE PT_FNAME='Susan');
+
+PT_LNAME        PT_FNAME        NEXTAPPTD     DOC_ID                            
+--------------- --------------- --------- ----------                            
+Westra          Lynn            02-FEB-04        235                            
+Baily           Ryan            06-JUN-05        235                            
+Crow            Lewis           01-JUL-05        235                            
+Roach           Becky           01-DEC-05        235                            
+
+SQL> 
+SQL> SELECT PT_LNAME, PT_FNAME, NEXTAPPTDATE, DOC_ID, DOC_NAME
+  2  FROM PATIENT
+  3  WHERE NEXTAPPTDATE > (SELECT NEXTAPPTDATE FROM PATIENT
+  4  WHERE PT_FNAME = 'Susan')
+  5  AND DOC_ID=(SELECT DOC_ID FROM PATIENT WHERE PT_FNAME='Susan');
+SELECT PT_LNAME, PT_FNAME, NEXTAPPTDATE, DOC_ID, DOC_NAME
+                                                 *
+ERROR at line 1:
+ORA-00904: "DOC_NAME": invalid identifier 
+
+
+SQL> 
+SQL> SELECT PT_LNAME, PT_FNAME, NEXTAPPTDATE, DOC_ID, DOC_NAME
+  2  FROM PATIENT, DOCTOR
+  3  WHERE NEXTAPPTDATE > (SELECT NEXTAPPTDATE FROM PATIENT
+  4  WHERE PT_FNAME = 'Susan')
+  5  AND DOC_ID=(SELECT DOC_ID FROM PATIENT WHERE PT_FNAME='Susan');
+AND DOC_ID=(SELECT DOC_ID FROM PATIENT WHERE PT_FNAME='Susan')
+    *
+ERROR at line 5:
+ORA-00918: column ambiguously defined 
+
+
+SQL> 
+SQL> SELECT PT_LNAME, PT_FNAME, NEXTAPPTDATE, P.DOC_ID, D.DOC_NAME
+  2  FROM PATIENT P, DOCTOR D
+  3  WHERE NEXTAPPTDATE > (SELECT NEXTAPPTDATE FROM PATIENT
+  4  WHERE PT_FNAME = 'Susan')
+  5  AND DOC_ID=(SELECT DOC_ID FROM PATIENT WHERE PT_FNAME='Susan');
+AND DOC_ID=(SELECT DOC_ID FROM PATIENT WHERE PT_FNAME='Susan')
+    *
+ERROR at line 5:
+ORA-00918: column ambiguously defined 
+
+
+SQL> 
+SQL> SELECT PT_LNAME, PT_FNAME, NEXTAPPTDATE, P.DOC_ID, D.DOC_NAME
+  2  FROM PATIENT P, DOCTOR D
+  3  WHERE P.NEXTAPPTDATE > (SELECT NEXTAPPTDATE FROM PATIENT
+  4  WHERE P.PT_FNAME = 'Susan')
+  5  AND D.DOC_ID=(SELECT P.DOC_ID FROM PATIENT WHERE PT_FNAME='Susan');
+WHERE P.NEXTAPPTDATE > (SELECT NEXTAPPTDATE FROM PATIENT
+                        *
+ERROR at line 3:
+ORA-01427: single-row subquery returns more than one row 
+
+
+SQL> 
+SQL> SELECT doc_name, d.area, TO_CHAR(salpermon, '$999,999')
+  2  "SALARY", TO_CHAR(high, '$999,999') "HIGHEST",
+  3  TO_CHAR(low, '$999,999') "LOWEST"
+  4  FROM doctor d,
+  5  WHERE d.area = s.area
+  6  ORDER BY doc_name;
+WHERE d.area = s.area
+*
+ERROR at line 5:
+ORA-00903: invalid table name 
+
+
+SQL> (SELECT area, MAX (salpermon) high,
+  2  MIN (salpermon) low
+  3  FROM doctor
+  4  WHERE area <> 'Director'
+  5  GROUP BY area) S
+  6  
+SQL> SELECT DOC_NAME, D.AREA, TO_CHAR(SALPERMON, '$999,999')
+  2  "SALARY", TO_CHAR(high, '$999,999') "HIGHEST",
+  3  TO_CHAR(low, '$999,999') "LOWEST"
+  4  FROM DOCTOR D,
+  5  (SELECT AREA, MAX (SALPERMON) high,
+  6  MIN (salpermon) low
+  7  FROM DOCTOR
+  8  WHERE AREA <> 'Director'
+  9  GROUP BY AREA) S
+ 10  WHERE D.AREA = S.AREA
+ 11  ORDER BY DOC_NAME;
+
+DOC_NAME  AREA                 SALARY    HIGHEST   LOWEST                       
+--------- -------------------- --------- --------- ---------                    
+Borque    Neurology              $16,500   $27,500    $7,950                    
+Cotner    Neurology              $11,500   $27,500    $7,950                    
+Denise    Neurology              $27,500   $27,500    $7,950                    
+Harrison  Pediatrics             $12,000   $12,000    $8,100                    
+James     Neurology               $7,950   $27,500    $7,950                    
+James     Orthopedics             $9,800   $10,500    $9,800                    
+Lewis     Pediatrics             $10,000   $12,000    $8,100                    
+Pronger   Rehab                   $3,500   $12,300    $3,500                    
+Robertson Orthopedics            $10,500   $10,500    $9,800                    
+Smith     Family Practice         $4,550    $4,550    $4,550                    
+Thompson  Rehab                   $6,500   $12,300    $3,500                    
+
+DOC_NAME  AREA                 SALARY    HIGHEST   LOWEST                       
+--------- -------------------- --------- --------- ---------                    
+Vester    Pediatrics              $8,100   $12,000    $8,100                    
+Zinnin    Rehab                  $12,300   $12,300    $3,500                    
+
+13 rows selected.
+
+SQL> 
+SQL> SELECT DOC_NAME, D.AREA, TO_CHAR(SALPERMON, '$999,999')
+  2  "SALARY", TO_CHAR(high, '$999,999') "HIGHEST",
+  3  TO_CHAR(LOW, '$999,999') "LOWEST"
+  4  FROM DOCTOR D,
+  5  (SELECT AREA, MAX (SALPERMON) HIGH,
+  6  MIN (SALPERMON) LOW
+  7  FROM DOCTOR
+  8  WHERE AREA <> 'Director'
+  9  GROUP BY AREA) S
+ 10  WHERE D.AREA = S.AREA
+ 11  ORDER BY DOC_NAME;
+
+DOC_NAME  AREA                 SALARY    HIGHEST   LOWEST                       
+--------- -------------------- --------- --------- ---------                    
+Borque    Neurology              $16,500   $27,500    $7,950                    
+Cotner    Neurology              $11,500   $27,500    $7,950                    
+Denise    Neurology              $27,500   $27,500    $7,950                    
+Harrison  Pediatrics             $12,000   $12,000    $8,100                    
+James     Neurology               $7,950   $27,500    $7,950                    
+James     Orthopedics             $9,800   $10,500    $9,800                    
+Lewis     Pediatrics             $10,000   $12,000    $8,100                    
+Pronger   Rehab                   $3,500   $12,300    $3,500                    
+Robertson Orthopedics            $10,500   $10,500    $9,800                    
+Smith     Family Practice         $4,550    $4,550    $4,550                    
+Thompson  Rehab                   $6,500   $12,300    $3,500                    
+
+DOC_NAME  AREA                 SALARY    HIGHEST   LOWEST                       
+--------- -------------------- --------- --------- ---------                    
+Vester    Pediatrics              $8,100   $12,000    $8,100                    
+Zinnin    Rehab                  $12,300   $12,300    $3,500                    
+
+13 rows selected.
+
+SQL> SELECT DOC_NAME, AREA, CHGPERAPPT
+  2  FROM DOCTOR
+  3  WHERE DOC_NAME<>'Lewis'
+  4  AND (AREA,CHGPERAPPT) IN
+  5  
+SQL> SELECT DOC_NAME, AREA, CHGPERAPPT
+  2  FROM DOCTOR
+  3  WHERE DOC_NAME<>'Lewis'
+  4  AND (AREA,CHGPERAPPT) IN
+  5  /
+AND (AREA,CHGPERAPPT) IN
+                       *
+ERROR at line 4:
+ORA-00920: invalid relational operator 
+
+
+SQL> 
+SQL> SELECT DOC_NAME, AREA, CHGPERAPPT
+  2  FROM DOCTOR
+  3  WHERE DOC_NAME<>'Lewis'
+  4  AND (AREA,CHGPERAPPT) IN
+  5  (SELECT AREA, CHGPERAPPT FROM DOCTOR
+  6  WHERE DOC_NAME='Lewis');
+
+DOC_NAME  AREA                 CHGPERAPPT                                       
+--------- -------------------- ----------                                       
+Vester    Pediatrics                   40                                       
+
+SQL> CREATE VIEW EMPVU AS SELECT * FROM EMP;
+
+View created.
+
+SQL> 
+SQL> EMPVU
+SP2-0042: unknown command "EMPVU" - rest of line ignored.
+SQL> DESC EMPVU
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPNO                                     NOT NULL NUMBER(4)
+ ENAME                                              VARCHAR2(10)
+ JOB                                                VARCHAR2(9)
+ MGR                                                NUMBER(4)
+ HIREDATE                                           DATE
+ SAL                                                NUMBER(7,2)
+ COMM                                               NUMBER(7,2)
+ DEPTNO                                             NUMBER(2)
+
+SQL> 
+SQL> CREATE VIEW EMPVU AS SELECT * FROM EMP;
+CREATE VIEW EMPVU AS SELECT * FROM EMP
+            *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+SQL> DESC EMPVU;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPNO                                     NOT NULL NUMBER(4)
+ ENAME                                              VARCHAR2(10)
+ JOB                                                VARCHAR2(9)
+ MGR                                                NUMBER(4)
+ HIREDATE                                           DATE
+ SAL                                                NUMBER(7,2)
+ COMM                                               NUMBER(7,2)
+ DEPTNO                                             NUMBER(2)
+
+SQL> DROP TABLE computer CASCADE CONSTRAINTS;
+DROP TABLE computer CASCADE CONSTRAINTS
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> DROP TABLE location CASCADE CONSTRAINTS;
+DROP TABLE location CASCADE CONSTRAINTS
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> DROP TABLE supplier CASCADE CONSTRAINTS;
+DROP TABLE supplier CASCADE CONSTRAINTS
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> 
+SQL> CREATE TABLE supplier
+  2  (SuppID NUMBER(3),
+  3  SName VARCHAR2(15),
+  4  SAddress VARCHAR2(20),
+  5  SPhone VARCHAR2(12),
+  6  CONSTRAINT supplier_suppID_PK PRIMARY KEY (suppID));
+
+Table created.
+
+SQL> 
+SQL> CREATE TABLE location
+  2  (LocID NUMBER(3),
+  3  Bldg_code CHAR(4),
+  4  RoomNo NUMBER(3),
+  5  CONSTRAINT location_locid_PK PRIMARY KEY (LocID));
+
+Table created.
+
+SQL> 
+SQL> CREATE TABLE computer
+  2  (CompID NUMBER(5),
+  3  SNumber VARCHAR2(15),
+  4  Make VARCHAR2(20),
+  5  SuppID NUMBER(3),
+  6  LocID NUMBER(3),
+  7  Value NUMBER(6,2),
+  8  Date_purchased DATE,
+  9  CONSTRAINT computer_compID_PK PRIMARY KEY (compID),
+ 10  CONSTRAINT computer_suppID_FK FOREIGN KEY (suppID) REFERENCES supplier,
+ 11  CONSTRAINT computer_locID_FK FOREIGN KEY (locID) REFERENCES location);
+
+Table created.
+
+SQL> 
+SQL> INSERT INTO supplier VALUES (122, 'Compaq Sdn.Bhd', '10 Jalan Duta', '03-989898');
+
+1 row created.
+
+SQL> INSERT INTO supplier VALUES (123, 'ASUS Sdn.Bhd', '12 Jalan Duta', '03-232323');
+
+1 row created.
+
+SQL> INSERT INTO supplier VALUES (124, 'IBM Sdn.Bhd', '15 Jalan Duta', '03-565656');
+
+1 row created.
+
+SQL> INSERT INTO supplier VALUES (125, 'Apple Sdn.Bhd', '18 Jalan Duta', '03-785676');
+
+1 row created.
+
+SQL> 
+SQL> INSERT INTO location VALUES (222, 'LAW', 343);
+
+1 row created.
+
+SQL> INSERT INTO location VALUES (333, 'IRK', 343);
+
+1 row created.
+
+SQL> INSERT INTO location VALUES (444, 'ICT', 343);
+
+1 row created.
+
+SQL> 
+SQL> INSERT INTO computer VALUES (13321, 'XDX12345', 'Compaq', 122, 222, 2300.50, TO_DATE('12-JAN-2008', 'DD-MON-YYYY'));
+
+1 row created.
+
+SQL> INSERT INTO computer VALUES (13322, 'XDX12344', 'ASUS PC', 123, 222, 3000.80, TO_DATE('17-JAN-2008', 'DD-MON-YYYY'));
+
+1 row created.
+
+SQL> INSERT INTO computer VALUES (13323, 'XDX12343', 'IBM', 124, 333, 2800.50, TO_DATE('12-DEC-2008', 'DD-MON-YYYY'));
+
+1 row created.
+
+SQL> INSERT INTO computer VALUES (13324, 'XDX12342', 'Apple', 125, 444, 5300.50, TO_DATE('12-JUN-2009', 'DD-MON-YYYY'));
+
+1 row created.
+
+SQL> INSERT INTO computer VALUES (13325, 'XDX12341', 'Apple', 125, 444, 6300.50, TO_DATE('12-JUN-2009', 'DD-MON-YYYY'));
+
+1 row created.
+
+SQL> INSERT INTO computer VALUES (13326, 'XDX12346', 'Apple', 125, 444, 6000.85, TO_DATE('12-JUN-2009', 'DD-MON-YYYY'));
+
+1 row created.
+
+SQL> 
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> 
+SQL> CREATE OR REPLACE VIEW EMPVU AS SELECT * FROM EMP;
+
+View created.
+
+SQL> DESC EMPVU;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPNO                                     NOT NULL NUMBER(4)
+ ENAME                                              VARCHAR2(10)
+ JOB                                                VARCHAR2(9)
+ MGR                                                NUMBER(4)
+ HIREDATE                                           DATE
+ SAL                                                NUMBER(7,2)
+ COMM                                               NUMBER(7,2)
+ DEPTNO                                             NUMBER(2)
+
+SQL> 
+SQL> CREATE OR REPLACE VIEW EMPVU AS SELECT(EMPID,NAME,SALARY) FROM EMP;
+CREATE OR REPLACE VIEW EMPVU AS SELECT(EMPID,NAME,SALARY) FROM EMP
+                                            *
+ERROR at line 1:
+ORA-00907: missing right parenthesis 
+
+
+SQL> DESC EMPVU;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPNO                                     NOT NULL NUMBER(4)
+ ENAME                                              VARCHAR2(10)
+ JOB                                                VARCHAR2(9)
+ MGR                                                NUMBER(4)
+ HIREDATE                                           DATE
+ SAL                                                NUMBER(7,2)
+ COMM                                               NUMBER(7,2)
+ DEPTNO                                             NUMBER(2)
+
+SQL> CREATE OR REPLACE VIEW EMPVU AS SELECT(EMPID,NAME,SALARY) FROM EMP;
+CREATE OR REPLACE VIEW EMPVU AS SELECT(EMPID,NAME,SALARY) FROM EMP
+                                            *
+ERROR at line 1:
+ORA-00907: missing right parenthesis 
+
+
+SQL> C
+SP2-0025: Invalid change string.
+SQL> CREATE OR REPLACE VIEW EMPVU (EMPID,NAME,SALARY)
+  2  AS SELECT FROM EMP;
+AS SELECT FROM EMP
+          *
+ERROR at line 2:
+ORA-00936: missing expression 
+
+
+SQL> 
+SQL> CREATE OR REPLACE VIEW EMPVU (EMPID,NAME,SALARY,DEPTNAME)
+  2  AS SELECT (EMPNO,ENAME,SAL,DNAME FROM EMP NATURAL JOIN DEPT);
+AS SELECT (EMPNO,ENAME,SAL,DNAME FROM EMP NATURAL JOIN DEPT)
+                *
+ERROR at line 2:
+ORA-00907: missing right parenthesis 
+
+
+SQL> CREATE OR REPLACE VIEW EMPVU
+  2  (EMPID,NAME,SALARY,DEPTNAME) AS
+  3  SELECT (EMPNO, ENAME,SAL,DNAME FROM EMP NATURAL JOIN DEPT);
+SELECT (EMPNO, ENAME,SAL,DNAME FROM EMP NATURAL JOIN DEPT)
+             *
+ERROR at line 3:
+ORA-00907: missing right parenthesis 
+
+
+SQL> CREATE VIEW PTBILL_VU AS SELECT PT_ID, PT-FNAME, PT_LNAME, BALANCE, CITY
+  2  FROM PATIENT NATURAL JOIN BILLING WHERE CITY='Anna';
+CREATE VIEW PTBILL_VU AS SELECT PT_ID, PT-FNAME, PT_LNAME, BALANCE, CITY
+                                          *
+ERROR at line 1:
+ORA-00904: "FNAME": invalid identifier 
+
+
+SQL> 
+SQL> CREATE VIEW PTBILL_VU AS SELECT PT_ID, PT_FNAME, PT_LNAME, BALANCE, CITY
+  2  FROM PATIENT NATURAL JOIN BILLING WHERE CITY='Anna';
+
+View created.
+
+SQL> desc ptbill_vu
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ PT_ID                                     NOT NULL NUMBER(3)
+ PT_FNAME                                           VARCHAR2(15)
+ PT_LNAME                                           VARCHAR2(15)
+ BALANCE                                            NUMBER(9)
+ CITY                                               VARCHAR2(11)
+
+SQL> select * from ptbill_vu
+  2  /
+
+     PT_ID PT_FNAME        PT_LNAME           BALANCE CITY                      
+---------- --------------- --------------- ---------- -----------               
+       331 Brian           Anderson               300 Anna                      
+       103 Jennifer        Poole                 4500 Anna                      
+       966 Allen           Mcginnis             98700 Anna                      
+       439 Chasity         Wright                 500 Anna                      
+       163 Becky           Roach                    0 Anna                      
+
+SQL> SELECT * FORM empvu
+  2  /
+SELECT * FORM empvu
+         *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> SELECT * From empvu
+  2  /
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM      
+---------- ---------- --------- ---------- --------- ---------- ----------      
+    DEPTNO                                                                      
+----------                                                                      
+      7839 KING       PRESIDENT            17-NOV-81       5000                 
+        10                                                                      
+                                                                                
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                 
+        30                                                                      
+                                                                                
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                 
+        10                                                                      
+                                                                                
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM      
+---------- ---------- --------- ---------- --------- ---------- ----------      
+    DEPTNO                                                                      
+----------                                                                      
+      7566 JONES      MANAGER         7839 02-APR-81       2975                 
+        20                                                                      
+                                                                                
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                 
+        20                                                                      
+                                                                                
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                 
+        20                                                                      
+                                                                                
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM      
+---------- ---------- --------- ---------- --------- ---------- ----------      
+    DEPTNO                                                                      
+----------                                                                      
+      7369 SMITH      CLERK           7902 17-DEC-80        800                 
+        20                                                                      
+                                                                                
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300      
+        30                                                                      
+                                                                                
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500      
+        30                                                                      
+                                                                                
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM      
+---------- ---------- --------- ---------- --------- ---------- ----------      
+    DEPTNO                                                                      
+----------                                                                      
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400      
+        30                                                                      
+                                                                                
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0      
+        30                                                                      
+                                                                                
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                 
+        20                                                                      
+                                                                                
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM      
+---------- ---------- --------- ---------- --------- ---------- ----------      
+    DEPTNO                                                                      
+----------                                                                      
+      7900 JAMES      CLERK           7698 03-DEC-81        950                 
+        30                                                                      
+                                                                                
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                 
+        10                                                                      
+                                                                                
+
+14 rows selected.
+
+SQL> CREATE VIEW PTBILL_VU AS SELECT PT_ID, PT_FNAME, PT_LNAME, BALANCE, CITY
+  2  FROM PATIENT NATURAL JOIN BILLING WHERE CITY='Anna'
+  3  WITH CHECK OPTION;
+CREATE VIEW PTBILL_VU AS SELECT PT_ID, PT_FNAME, PT_LNAME, BALANCE, CITY
+            *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object 
+
+
+SQL> CREATE OR REPLACE VIEW PTBILL_VU AS SELECT PT_ID, PT_FNAME, PT_LNAME, BALANCE, CITY
+  2  FROM PATIENT NATURAL JOIN BILLING WHERE CITY='Anna'
+  3  WITH CHECK OPTION;
+
+View created.
+
+SQL> CREATE OR REPLACE VIEW PTBILL_VU AS SELECT PT_ID, PT_FNAME, PT_LNAME, BALANCE, CITY
+  2  FROM PATIENT NATURAL JOIN BILLING WHERE CITY='Anna';
+
+View created.
+
+SQL> WITH CHECK OPTION;
+WITH CHECK OPTION
+     *
+ERROR at line 1:
+ORA-00903: invalid table name 
+
+
+SQL> 
+SQL> UPDATE PTBILL_VU
+  2  SET CITY='KL'
+  3  WHERE PT_FNAME = 'Becky';
+
+1 row updated.
+
+SQL> SELECT * FROM PTBILL_VU
+  2  /
+
+     PT_ID PT_FNAME        PT_LNAME           BALANCE CITY                      
+---------- --------------- --------------- ---------- -----------               
+       331 Brian           Anderson               300 Anna                      
+       103 Jennifer        Poole                 4500 Anna                      
+       966 Allen           Mcginnis             98700 Anna                      
+       439 Chasity         Wright                 500 Anna                      
+
+SQL> CREATE OR REPLACE VIEW EMPVU
+  2  (EMPID,NAME,SALARY,DEPTNAME) AS
+  3  (SELECT EMPNO, ENAME,SAL,DNAME FROM EMP NATURAL JOIN DEPT);
+
+View created.
+
+SQL> exit

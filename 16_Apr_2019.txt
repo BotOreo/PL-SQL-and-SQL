@@ -1,0 +1,14 @@
+set serveroutput on
+set verify off
+BEGIN
+	DELETE from patient
+	WHERE doc_id=&docid;
+		
+	IF SQL%FOUND THEN	
+		dbms_output.put_line(SQL%ROWCOUNT||' rows are deleted.');
+	ELSE
+		dbms_output.put_line('No matching records. '||SQL%ROWCOUNT||' rows deleted.');
+	END IF;
+	END;
+/
+	

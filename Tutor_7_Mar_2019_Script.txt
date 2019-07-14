@@ -1,0 +1,31 @@
+DROP TABLE physicians CASCADE CONSTRAINT;
+DROP TABLE departments CASCADE CONSTRAINT;
+
+[CREATE TABLE ]-------------------------------------------------------
+
+CREATE TABLE physicians (
+employee_id NUMBER(3),
+name VARCHAR2(30) NOT NULL,
+position VARCHAR2(20) NOT NULL,
+ssn VARCHAR2(20) NOT NULL,
+CONSTRAINTS EMPLOYEE_ID_PHYSICIANS_PK PRIMARY KEY (EMPLOYEE_ID));
+
+CREATE TABLE DEPARTMENTS (
+department_id NUMBER(3),
+dep_name VARCHAR2(30) NOT NULL,
+head VARCHAR2(30) NOT NULL,
+employee_id NUMBER(3),
+CONSTRAINTS DEPARMENT_ID_departments_PK PRIMARY KEY (department_id),
+CONSTRAINTS employee_id_departments_FK FOREIGN KEY (employee_id) REFERENCES physicians);
+
+[ VIEW CONSTRAINT ]>======================
+
+SELECT CONSTRAINT_NAME, CONSTRAINT_TYPE
+FROM user_constraints
+WHERE table_name = 'DEPARTMENTS';
+
+[ CHANGE TABLE ]>=============================
+
+ALTER TABLE departments
+DROP CONSTRAINT employee_id_departments_FK;
+

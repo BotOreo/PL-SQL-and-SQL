@@ -1,0 +1,13 @@
+set serveroutput on
+set verify off
+create or replace procedure insertdoc
+(p_docid number, p_name varchar2, p_sal number) is
+
+begin
+	insert into doctor(doc_id, doc_name, salpermon)
+	values (p_docid, p_name, p_sal);
+	
+	dbms_output.put_line('Insert successful.');
+
+end;
+/

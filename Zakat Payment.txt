@@ -1,0 +1,45 @@
+SET SERVEROUTPUT ON;
+SET VERIFY OFF;
+
+CREATE OR REPLACE FUNCTION calczakat_sf(salary IN NUMBER) RETURN NUMBER IS
+   v_zakatdue NUMBER;
+   v_zakatrate NUMBER := 0.025;
+
+BEGIN
+   IF salary > 5000 THEN
+      v_zakatdue := salary * v_zakatrate;
+   ELSE
+      v_zakatdue := 0;
+   END IF;
+
+   RETURN (v_zakatdue);
+END calczakat_sf;
+/
+
+SET SERVEROUTPUT OFF;
+
+------------------------------------------------------------------------------
+
+SET SERVEROUTPUT ON;
+SET VERIFY OFF;
+ACCEPT docid PROMPT 'Enter the doctor ID: ';
+
+DECLARE
+   v_zakatdue NUMBER;
+   v_salary NUMBER;
+   v_name VARCHAR2(30);
+
+BEGIN
+   SELECT doc_name, salpermon
+   INTO v_name, v_salary
+   FROM doctor
+   WHERE doc_id = &docid;
+
+   v_zakatdue := calczakat_sf(v_salary);
+
+   DBMS_OUTPUT.PUT_LINE('The salary for Dr. ' || v_name || ' is RM ' || v_salary);
+   DBMS_OUTPUT.PUT_LINE('The amount zakat is RM ' || v_zakatdue);
+END;
+/
+
+SET SERVEROUTPUT OFF;

@@ -1,0 +1,40 @@
+------------Question 1-----------------------
+set serveroutput on
+BEGIN
+
+dbms_output.put_line('My name is : Muhamad Arif Lutfi bin Aziz');
+dbms_output.put_line('Matric no : 1315791');
+
+
+END;
+/
+----------Question 2------------------------
+set serveroutput on
+declare
+
+v_num NUMBER :=v_num;
+v_result NUMBER;
+
+begin
+v_result:=POWER(v_num,2);
+
+dbms_output.put_line('The value of v_result is: '||v_result);
+
+end;
+/
+
+----------Question 3------------------------
+set serveroutput on
+declare
+
+v_day VARCHAR(20);
+
+begin
+v_day:=to_char(sysdate,'DAY');
+
+dbms_output.put_line('Today is : '||v_day);
+
+end;
+/
+
+

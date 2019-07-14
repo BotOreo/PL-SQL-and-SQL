@@ -1,0 +1,30 @@
+SELECT DOC_ID FROM DOCTOR WHERE DOC_ID=509;
+
+INSERT INTO Patient (PT_ID,PT_LNAME,PT_FNAME,PTDOB,DOC_ID)
+values(538,'Bond','James',sysdate,509);
+------------------------------------------------------------
+
+CREATE TABLE DOCTOR2
+(DOC_ID                                            NUMBER(3),
+DOC_NAME                                           VARCHAR2(9),
+DATEHIRED                                          DATE,
+SALPERMON                                          NUMBER(12),
+AREA                                               VARCHAR2(20),
+SUPERVISOR_ID                                      NUMBER(3),
+CHGPERAPPT                                         NUMBER(3),
+ANNUAL_BONUS                                       NUMBER(5),
+CONSTRAINT DOCTOR2_DOC_ID_PK PRIMARY KEY (DOC_ID));
+
+INSERT INTO DOCTOR2
+SELECT * FROM DOCTOR;
+
+DELETE DOCTOR2;
+-------------------------------------------------------------
+UPDATE MOVIE
+SET TITLE = 'Beautiful World'
+WHERE TITLE='Beautiful Life';
+
+------------------------------------------------------------
+UPDATE BILLING
+SET PT_INS = 'BCS'
+WHERE PT_INS='Military'

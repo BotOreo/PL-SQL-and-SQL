@@ -1,0 +1,306 @@
+SQL> DROP TABLE physicians CASCADE CONSTRAINT;
+DROP TABLE physicians CASCADE CONSTRAINT
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> DROP TABLE departments CASCADE CONSTRAINT;
+DROP TABLE departments CASCADE CONSTRAINT
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> CREATE TABLE physicians (
+  2  employee_id NUMBER(3) PRIMARY KEY,
+  3  name VARCHAR2(30) NOT NULL,
+  4  position VARCHAR2(20) NOT NULL,
+  5  ssn VARCHAR2(20) NOT NULL);
+
+Table created.
+
+SQL> CREATE TABLE departments (
+  2  department_id NUMBER(3) PRIMARY KEY,
+  3  dep_name VARCHAR2(30) NOT NULL,
+  4  head VARCHAR2(30) NOT NULL,
+  5  employee_id NUMBER(3),
+  6  CONSTRAINTS employee_id_departments_FK FOREIGN KEY (employee_id) REFERENCES physicians);
+
+Table created.
+
+SQL> Constraint
+SP2-0042: unknown command "Constraint" - rest of line ignored.
+SQL> wd
+SP2-0042: unknown command "wd" - rest of line ignored.
+SQL> SELECT CONSTRAINT_NAME, CONSTRAINT_TYPE
+  2  FROM user_constraints
+  3  WHERE table_name IN ('DEPARTMENTS');
+
+CONSTRAINT_NAME                C                                                
+------------------------------ -                                                
+SYS_C004324                    C                                                
+SYS_C004325                    C                                                
+SYS_C004326                    P                                                
+EMPLOYEE_ID_DEPARTMENTS_FK     R                                                
+
+SQL> ALTER TABLE departments
+  2  DROP CONSTRAINT employee_id_departments_FK;
+
+Table altered.
+
+SQL> SELECT * FROM TAB;
+
+TNAME                          TABTYPE  CLUSTERID                               
+------------------------------ ------- ----------                               
+ACTOR                          TABLE                                            
+PRICE                          TABLE                                            
+VIDEOS                         TABLE                                            
+RENTS                          TABLE                                            
+PERFORMS                       TABLE                                            
+DEPT                           TABLE                                            
+EMP                            TABLE                                            
+DOCTOR2                        TABLE                                            
+SALESMAN                       TABLE                                            
+CUSTOMERS                      TABLE                                            
+ORDERS                         TABLE                                            
+
+TNAME                          TABTYPE  CLUSTERID                               
+------------------------------ ------- ----------                               
+PHYSICIANS                     TABLE                                            
+DEPARTMENTS                    TABLE                                            
+VEHICLE                        TABLE                                            
+DOCTOR                         TABLE                                            
+BILLING                        TABLE                                            
+PATIENT                        TABLE                                            
+CUSTOMER                       TABLE                                            
+MOVIE                          TABLE                                            
+RENTAL                         TABLE                                            
+BRANCH                         TABLE                                            
+
+21 rows selected.
+
+SQL> desc customers
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ CUSTOMER_ID                               NOT NULL NUMBER
+ CUST_NAME                                          VARCHAR2(30)
+ CITY                                               VARCHAR2(30)
+ GRADE                                              NUMBER
+ SALESMAN_ID                                        NUMBER
+
+SQL> desc salesman
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SALESMAN_ID                               NOT NULL NUMBER
+ NAME                                               VARCHAR2(30)
+ CITY                                               VARCHAR2(30)
+ COMMISSION                                         NUMBER
+
+SQL> desc orders
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ORD_NO                                    NOT NULL NUMBER
+ PURCH_AMT                                          NUMBER
+ ORD_DATE                                           DATE
+ CUSTOMER_ID                                        NUMBER
+ SALESMAN_ID                                        NUMBER
+
+SQL> SELECT * FROM ORDERS
+  2  /
+
+no rows selected
+
+SQL> INSERT INTO ORDERS
+  2  VALUES (70001, 150.5, '05-OCT-2012', 3005, 5002);
+
+1 row created.
+
+SQL> 
+SQL> INSERT INTO ORDERS
+  2  VALUES (70009, 270.65, '10-SEP-2012', 3001, 5005);
+
+1 row created.
+
+SQL> 
+SQL> 
+SQL> INSERT INTO ORDERS
+  2  VALUES (70002, 65.26, '05-OCT-2012', 3002, 5001);
+
+1 row created.
+
+SQL> 
+SQL> 
+SQL> INSERT INTO ORDERS
+  2  VALUES (70004,110.5, '17-AUG-2012',3009,5003);
+
+1 row created.
+
+SQL> 
+SQL> 
+SQL> INSERT INTO ORDERS
+  2  VALUES (70007,948.5, '10-SEP-2012',3005,5002);
+
+1 row created.
+
+SQL> 
+SQL> 
+SQL> INSERT INTO ORDERS
+  2  VALUES (70005,2400.6, '27-JUL-2012',3007,5001);
+
+1 row created.
+
+SQL> 
+SQL> 
+SQL> INSERT INTO ORDERS
+  2  VALUES (70008,5760, '10-SEP-2012',3002,5001);
+
+1 row created.
+
+SQL> 
+SQL> 
+SQL> INSERT INTO ORDERS
+  2  VALUES (70010,1983.43, '10-OCT-2012',3004,5006);
+
+1 row created.
+
+SQL> 
+SQL> 
+SQL> INSERT INTO ORDERS
+  2  VALUES (70003,2480.4, '10-OCT-2012',3009,5003);
+
+1 row created.
+
+SQL> 
+SQL> 
+SQL> INSERT INTO ORDERS
+  2  VALUES (70012,250.45,'27-JUN-2012',3008,5002);
+
+1 row created.
+
+SQL> 
+SQL> 
+SQL> INSERT INTO ORDERS
+  2  VALUES (70011,75.29, '17-AUG-2012',3003,5007);
+
+1 row created.
+
+SQL> 
+SQL> 
+SQL> INSERT INTO ORDERS
+  2  VALUES (70013,3045.6,'25-APR-2012',3002,5001);
+
+1 row created.
+
+SQL> commit
+  2  /
+
+Commit complete.
+
+SQL> SELECT * FROM ORDERS;
+
+    ORD_NO  PURCH_AMT ORD_DATE  CUSTOMER_ID SALESMAN_ID                         
+---------- ---------- --------- ----------- -----------                         
+     70001      150.5 05-OCT-12        3005        5002                         
+     70009     270.65 10-SEP-12        3001        5005                         
+     70002      65.26 05-OCT-12        3002        5001                         
+     70004      110.5 17-AUG-12        3009        5003                         
+     70007      948.5 10-SEP-12        3005        5002                         
+     70005     2400.6 27-JUL-12        3007        5001                         
+     70008       5760 10-SEP-12        3002        5001                         
+     70010    1983.43 10-OCT-12        3004        5006                         
+     70003     2480.4 10-OCT-12        3009        5003                         
+     70012     250.45 27-JUN-12        3008        5002                         
+     70011      75.29 17-AUG-12        3003        5007                         
+
+    ORD_NO  PURCH_AMT ORD_DATE  CUSTOMER_ID SALESMAN_ID                         
+---------- ---------- --------- ----------- -----------                         
+     70013     3045.6 25-APR-12        3002        5001                         
+
+12 rows selected.
+
+SQL> 
+SQL> SELECT O.ORD_NO,O.PURCH_AMT,C.CUST_NAME,C.CITY
+  2  FROM ORDERS O JOIN CUSTOMERS C
+  3  ON C.CUSTOMER_ID=O.CUSTOMER_ID
+  4  WHERE PURCH_AMT BETWEEN 500 AND 2000;
+
+    ORD_NO  PURCH_AMT CUST_NAME                                                 
+---------- ---------- ------------------------------                            
+CITY                                                                            
+------------------------------                                                  
+     70007      948.5 Graham Zusi                                               
+California                                                                      
+                                                                                
+     70010    1983.43 Fabian Johns                                              
+Paris                                                                           
+                                                                                
+
+SQL> set linesize 40
+SQL> set pagesize 40
+SQL> 
+SQL> SELECT O.ORD_NO,O.PURCH_AMT,C.CUST_NAME,C.CITY
+  2  FROM ORDERS O JOIN CUSTOMERS C
+  3  ON C.CUSTOMER_ID=O.CUSTOMER_ID
+  4  WHERE PURCH_AMT BETWEEN 500 AND 2000;
+
+    ORD_NO  PURCH_AMT                   
+---------- ----------                   
+CUST_NAME                               
+------------------------------          
+CITY                                    
+------------------------------          
+     70007      948.5                   
+Graham Zusi                             
+California                              
+                                        
+     70010    1983.43                   
+Fabian Johns                            
+Paris                                   
+                                        
+
+SQL> set linesize 400
+SQL> 
+SQL> SELECT O.ORD_NO,O.PURCH_AMT,C.CUST_NAME,C.CITY
+  2  FROM ORDERS O JOIN CUSTOMERS C
+  3  ON C.CUSTOMER_ID=O.CUSTOMER_ID
+  4  WHERE PURCH_AMT BETWEEN 500 AND 2000;
+
+    ORD_NO  PURCH_AMT CUST_NAME                      CITY                                                                                                                                                                                                                                                                                                                                                       
+---------- ---------- ------------------------------ ------------------------------                                                                                                                                                                                                                                                                                                                             
+     70007      948.5 Graham Zusi                    California                                                                                                                                                                                                                                                                                                                                                 
+     70010    1983.43 Fabian Johns                   Paris                                                                                                                                                                                                                                                                                                                                                      
+
+SQL> SELECT C.CUST_NAME,S.NAME
+  2  FROM CUSTOMERS C LEFT JOIN SALESMAN S
+  3  /
+FROM CUSTOMERS C LEFT JOIN SALESMAN S
+                                    *
+ERROR at line 2:
+ORA-00905: missing keyword 
+
+
+SQL> 
+SQL> SELECT C.CUST_NAME,S.NAME
+  2  FROM CUSTOMERS C LEFT JOIN SALESMAN S
+  3  ON C.SALESMAN_ID=S.SALESMAN_ID
+  4  /
+
+CUST_NAME                      NAME                                                                                                                                                                                                                                                                                                                                                                             
+------------------------------ ------------------------------                                                                                                                                                                                                                                                                                                                                                   
+Brad Davis                     James Hoog                                                                                                                                                                                                                                                                                                                                                                       
+Nick Rimando                   James Hoog                                                                                                                                                                                                                                                                                                                                                                       
+Julian Green                   Nail Knite                                                                                                                                                                                                                                                                                                                                                                       
+Graham Zusi                    Nail Knite                                                                                                                                                                                                                                                                                                                                                                       
+Brad Guzan                     Pit Alex                                                                                                                                                                                                                                                                                                                                                                         
+Fabian Johns                   Mc Lyon                                                                                                                                                                                                                                                                                                                                                                          
+Geoff Camero                   Lauson Hen                                                                                                                                                                                                                                                                                                                                                                       
+Jozy Altidor                   Paul Adam                                                                                                                                                                                                                                                                                                                                                                        
+
+8 rows selected.
+
+SQL> SELECT C.CUST_NAME AS "CUSTOMER",S.NAME AS "SALESMAN"
+  2  FROM CUSTOMERS C LEFT JOIN SALESMAN S
+  3  ON C.SALESMAN_ID=S.SALESMAN_ID
+  4  
+SQL> 

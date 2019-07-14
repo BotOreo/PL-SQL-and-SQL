@@ -1,0 +1,623 @@
+SQL> conn
+Enter user-name: Oreo
+Connected.
+SQL> SELECT sysdate from dual;
+
+SYSDATE                                                                         
+---------                                                                       
+28-FEB-19                                                                       
+
+SQL> SELECT sysdate from dual;
+
+SYSDATE                                                                         
+---------                                                                       
+28-FEB-19                                                                       
+
+SQL> SELECT sysdate+10/24 from dual;
+
+SYSDATE+1                                                                       
+---------                                                                       
+01-MAR-19                                                                       
+
+SQL> SELECT sysdate from dual;
+
+SYSDATE                                                                         
+---------                                                                       
+28-FEB-19                                                                       
+
+SQL> SELECT sysdate+10/24 from dual;
+
+SYSDATE+1                                                                       
+---------                                                                       
+01-MAR-19                                                                       
+
+SQL> SELECT sysdate+3/24 from dual;
+
+SYSDATE+3                                                                       
+---------                                                                       
+28-FEB-19                                                                       
+
+SQL> 
+SQL> SELECT to_char(sysdate+3/24,'DD MM YY hh:mi' from dual;
+SELECT to_char(sysdate+3/24,'DD MM YY hh:mi' from dual
+                                             *
+ERROR at line 1:
+ORA-00907: missing right parenthesis 
+
+
+SQL> 
+SQL> SELECT to_char(sysdate+3/24,'DD MM YY hh:mi') from dual;
+
+TO_CHAR(SYSDAT                                                                  
+--------------                                                                  
+28 02 19 05:20                                                                  
+
+SQL> 
+SQL> SELECT LASTAPPTDATE, NEXTAPPTDATE, NEXTAPPTDATE-LASTAPPDATE
+  2  FROM PATIENT
+  3  /
+SELECT LASTAPPTDATE, NEXTAPPTDATE, NEXTAPPTDATE-LASTAPPDATE
+                                                *
+ERROR at line 1:
+ORA-00904: "LASTAPPDATE": invalid identifier 
+
+
+SQL> 
+SQL> SELECT LASTAPPTDATE, NEXTAPPTDATE, NEXTAPPTDATE-LASTAPPTDATE
+  2  FROM PATIENT;
+
+LASTAPPTD NEXTAPPTD NEXTAPPTDATE-LASTAPPTDATE                                   
+--------- --------- -------------------------                                   
+01-JUN-03 01-JUL-03                        30                                   
+01-JUN-03 01-JUL-03                        30                                   
+20-JUN-03 20-JUL-03                        30                                   
+15-MAY-03 15-NOV-03                       184                                   
+01-MAR-03 01-OCT-03                       214                                   
+01-JUN-03 01-JUL-03                        30                                   
+01-JAN-03 01-NOV-03                       304                                   
+12-DEC-02 12-DEC-03                       365                                   
+02-FEB-03 02-FEB-04                       365                                   
+01-JUN-03 01-DEC-03                       183                                   
+06-JUN-03 06-JUN-05                       731                                   
+
+LASTAPPTD NEXTAPPTD NEXTAPPTDATE-LASTAPPTDATE                                   
+--------- --------- -------------------------                                   
+01-MAR-02 01-JUL-05                      1218                                   
+01-JAN-02 02-DEC-05                      1431                                   
+01-JAN-02 01-DEC-05                      1430                                   
+10-NOV-02 21-JUL-03                       253                                   
+19-JUN-03 29-JUL-03                        40                                   
+22-MAY-03 21-JUL-03                        60                                   
+22-MAY-03 21-JUL-03                        60                                   
+                                                                                
+15-JUN-03                                                                       
+15-JUN-03                                                                       
+15-JUN-03                                                                       
+
+22 rows selected.
+
+SQL> 
+SQL> SELECT LASTAPPTDATE, NEXTAPPTDATE, MONTHS_BETWEEN(NEXTAPPTDATE-LASTAPPTDATE)
+  2  FROM PATIENT;
+SELECT LASTAPPTDATE, NEXTAPPTDATE, MONTHS_BETWEEN(NEXTAPPTDATE-LASTAPPTDATE)
+                                   *
+ERROR at line 1:
+ORA-00909: invalid number of arguments 
+
+
+SQL> SELECT LASTAPPTDATE, NEXTAPPTDATE, months_netween(NEXTAPPTDATE-LASTAPPTDATE)
+  2  FROM PATIENT;
+SELECT LASTAPPTDATE, NEXTAPPTDATE, months_netween(NEXTAPPTDATE-LASTAPPTDATE)
+                                   *
+ERROR at line 1:
+ORA-00904: "MONTHS_NETWEEN": invalid identifier 
+
+
+SQL> 
+SQL> SELECT LASTAPPTDATE, NEXTAPPTDATE, months_between(NEXTAPPTDATE-LASTAPPTDATE)
+  2  FROM PATIENT;
+SELECT LASTAPPTDATE, NEXTAPPTDATE, months_between(NEXTAPPTDATE-LASTAPPTDATE)
+                                   *
+ERROR at line 1:
+ORA-00909: invalid number of arguments 
+
+
+SQL> 
+SQL> 
+SQL> SELECT LASTAPPTDATE, NEXTAPPTDATE, to_char(months_between(NEXTAPPTDATE-LASTAPPTDATE))
+  2  FROM PATIENT;
+SELECT LASTAPPTDATE, NEXTAPPTDATE, to_char(months_between(NEXTAPPTDATE-LASTAPPTDATE))
+                                           *
+ERROR at line 1:
+ORA-00909: invalid number of arguments 
+
+
+SQL> 
+SQL> SELECT LASTAPPTDATE, NEXTAPPTDATE, months_between(NEXTAPPTDATE,LASTAPPTDATE)
+  2  FROM PATIENT;
+
+LASTAPPTD NEXTAPPTD MONTHS_BETWEEN(NEXTAPPTDATE,LASTAPPTDATE)                   
+--------- --------- -----------------------------------------                   
+01-JUN-03 01-JUL-03                                         1                   
+01-JUN-03 01-JUL-03                                         1                   
+20-JUN-03 20-JUL-03                                         1                   
+15-MAY-03 15-NOV-03                                         6                   
+01-MAR-03 01-OCT-03                                         7                   
+01-JUN-03 01-JUL-03                                         1                   
+01-JAN-03 01-NOV-03                                        10                   
+12-DEC-02 12-DEC-03                                        12                   
+02-FEB-03 02-FEB-04                                        12                   
+01-JUN-03 01-DEC-03                                         6                   
+06-JUN-03 06-JUN-05                                        24                   
+
+LASTAPPTD NEXTAPPTD MONTHS_BETWEEN(NEXTAPPTDATE,LASTAPPTDATE)                   
+--------- --------- -----------------------------------------                   
+01-MAR-02 01-JUL-05                                        40                   
+01-JAN-02 02-DEC-05                                47.0322581                   
+01-JAN-02 01-DEC-05                                        47                   
+10-NOV-02 21-JUL-03                                8.35483871                   
+19-JUN-03 29-JUL-03                                1.32258065                   
+22-MAY-03 21-JUL-03                                1.96774194                   
+22-MAY-03 21-JUL-03                                1.96774194                   
+                                                                                
+15-JUN-03                                                                       
+15-JUN-03                                                                       
+15-JUN-03                                                                       
+
+22 rows selected.
+
+SQL> 
+SQL> SELECT LAST_DAY('01-JUL-19') from dual;
+
+LAST_DAY(                                                                       
+---------                                                                       
+31-JUL-19                                                                       
+
+SQL> 
+SQL> 
+SQL> SELECT to_char(sysdate, 'HH24:MI:SS') AS ORIGINAL,
+  2  to_char(((sysdate) +5/(24*60)), 'HH24:MI:SS') AS RESULT
+  3  FROM DUAL;
+
+ORIGINAL RESULT                                                                 
+-------- --------                                                               
+14:38:05 14:43:05                                                               
+
+SQL> 
+SQL> SELECT round(sysdate,'Month') from dual;
+
+ROUND(SYS                                                                       
+---------                                                                       
+01-MAR-19                                                                       
+
+SQL> 
+SQL> SELECT round(sysdate,'day') from dual;
+
+ROUND(SYS                                                                       
+---------                                                                       
+03-MAR-19                                                                       
+
+SQL> SELECT round(sysdate,'Year') from dual;
+
+ROUND(SYS                                                                       
+---------                                                                       
+01-JAN-19                                                                       
+
+SQL> SELECT round(sysdate,'week') from dual;
+SELECT round(sysdate,'week') from dual
+                     *
+ERROR at line 1:
+ORA-01898: too many precision specifiers 
+
+
+SQL> 
+SQL> SELECT round(to_date('24-JUL-19','DD-MM-YY') from dual;
+SELECT round(to_date('24-JUL-19','DD-MM-YY') from dual
+                                             *
+ERROR at line 1:
+ORA-00907: missing right parenthesis 
+
+
+SQL> 
+SQL> SELECT round(to_date('24-JUL-19','DD-MM-YY'))from dual;
+
+ROUND(TO_                                                                       
+---------                                                                       
+24-JUL-19                                                                       
+
+SQL> 
+SQL> SELECT round(to_date('24-JUL-19','DD-MM-YY'),'month')from dual;
+
+ROUND(TO_                                                                       
+---------                                                                       
+01-AUG-19                                                                       
+
+SQL> 
+SQL> SELECT round(to_date('26-JUL-19','DD-MM-YY'),'day')from dual;
+
+ROUND(TO_                                                                       
+---------                                                                       
+28-JUL-19                                                                       
+
+SQL> 
+SQL> SELECT round(to_date('26-FEB-19','DD-MM-YY'),'day')from dual;
+
+ROUND(TO_                                                                       
+---------                                                                       
+24-FEB-19                                                                       
+
+SQL> 
+SQL> SELECT SALPERMON, to_char(SALPERMON,'9999999.99')
+  2  FROM doctor;
+
+ SALPERMON TO_CHAR(SAL                                                          
+---------- -----------                                                          
+     12000    12000.00                                                          
+      8100     8100.00                                                          
+     10000    10000.00                                                          
+     11500    11500.00                                                          
+      4550     4550.00                                                          
+      7950     7950.00                                                          
+      9800     9800.00                                                          
+     10500    10500.00                                                          
+      6500     6500.00                                                          
+      3500     3500.00                                                          
+     16500    16500.00                                                          
+
+ SALPERMON TO_CHAR(SAL                                                          
+---------- -----------                                                          
+     23500    23500.00                                                          
+
+12 rows selected.
+
+SQL> 
+SQL> SELECT SALPERMON, to_char(SALPERMON,'999,9999.99')
+  2  FROM doctor;
+
+ SALPERMON TO_CHAR(SALP                                                         
+---------- ------------                                                         
+     12000    1,2000.00                                                         
+      8100      8100.00                                                         
+     10000    1,0000.00                                                         
+     11500    1,1500.00                                                         
+      4550      4550.00                                                         
+      7950      7950.00                                                         
+      9800      9800.00                                                         
+     10500    1,0500.00                                                         
+      6500      6500.00                                                         
+      3500      3500.00                                                         
+     16500    1,6500.00                                                         
+
+ SALPERMON TO_CHAR(SALP                                                         
+---------- ------------                                                         
+     23500    2,3500.00                                                         
+
+12 rows selected.
+
+SQL> 
+SQL> SELECT SALPERMON, to_char(SALPERMON,'99999.99.99')
+  2  FROM doctor;
+SELECT SALPERMON, to_char(SALPERMON,'99999.99.99')
+                                    *
+ERROR at line 1:
+ORA-01481: invalid number format model 
+
+
+SQL> 
+SQL> SELECT SALPERMON, to_char(SALPERMON,'99999,99.99')
+  2  FROM doctor;
+
+ SALPERMON TO_CHAR(SALP                                                         
+---------- ------------                                                         
+     12000    120,00.00                                                         
+      8100     81,00.00                                                         
+     10000    100,00.00                                                         
+     11500    115,00.00                                                         
+      4550     45,50.00                                                         
+      7950     79,50.00                                                         
+      9800     98,00.00                                                         
+     10500    105,00.00                                                         
+      6500     65,00.00                                                         
+      3500     35,00.00                                                         
+     16500    165,00.00                                                         
+
+ SALPERMON TO_CHAR(SALP                                                         
+---------- ------------                                                         
+     23500    235,00.00                                                         
+
+12 rows selected.
+
+SQL> 
+SQL> SELECT SALPERMON, to_char(SALPERMON,'9,999999.99')
+  2  FROM doctor;
+
+ SALPERMON TO_CHAR(SALP                                                         
+---------- ------------                                                         
+     12000     12000.00                                                         
+      8100      8100.00                                                         
+     10000     10000.00                                                         
+     11500     11500.00                                                         
+      4550      4550.00                                                         
+      7950      7950.00                                                         
+      9800      9800.00                                                         
+     10500     10500.00                                                         
+      6500      6500.00                                                         
+      3500      3500.00                                                         
+     16500     16500.00                                                         
+
+ SALPERMON TO_CHAR(SALP                                                         
+---------- ------------                                                         
+     23500     23500.00                                                         
+
+12 rows selected.
+
+SQL> 
+SQL> SELECT DOC_NAME, ANNUAL_BONUS
+  2  FROM DOCTOR;
+
+DOC_NAME  ANNUAL_BONUS                                                          
+--------- ------------                                                          
+Harrison          4500                                                          
+Vester                                                                          
+Lewis             2250                                                          
+Cotner            7500                                                          
+Smith             2250                                                          
+James             6500                                                          
+James             7700                                                          
+Robertson         8900                                                          
+Thompson          3200                                                          
+Pronger                                                                         
+Borque            6500                                                          
+
+DOC_NAME  ANNUAL_BONUS                                                          
+--------- ------------                                                          
+Stevenson                                                                       
+
+12 rows selected.
+
+SQL> 
+SQL> SELECT DOC_NAME, NLV2(ANNUAL_BONUS)
+  2  FROM DOCTOR;
+SELECT DOC_NAME, NLV2(ANNUAL_BONUS)
+                 *
+ERROR at line 1:
+ORA-00904: "NLV2": invalid identifier 
+
+
+SQL> 
+SQL> SELECT DOC_NAME, nvl2(ANNUAL_BONUS)
+  2  FROM DOCTOR;
+SELECT DOC_NAME, nvl2(ANNUAL_BONUS)
+                 *
+ERROR at line 1:
+ORA-00909: invalid number of arguments 
+
+
+SQL> 
+SQL> SELECT DOC_NAME, nvl2(ANNUAL_BONUS,0,1)
+  2  FROM DOCTOR;
+
+DOC_NAME  NVL2(ANNUAL_BONUS,0,1)                                                
+--------- ----------------------                                                
+Harrison                       0                                                
+Vester                         1                                                
+Lewis                          0                                                
+Cotner                         0                                                
+Smith                          0                                                
+James                          0                                                
+James                          0                                                
+Robertson                      0                                                
+Thompson                       0                                                
+Pronger                        1                                                
+Borque                         0                                                
+
+DOC_NAME  NVL2(ANNUAL_BONUS,0,1)                                                
+--------- ----------------------                                                
+Stevenson                      1                                                
+
+12 rows selected.
+
+SQL> SELECT * FROM DOCTOR;
+
+    DOC_ID DOC_NAME  DATEHIRED  SALPERMON AREA                 SUPERVISOR_ID    
+---------- --------- --------- ---------- -------------------- -------------    
+CHGPERAPPT ANNUAL_BONUS                                                         
+---------- ------------                                                         
+       432 Harrison  05-DEC-94      12000 Pediatrics                     100    
+        75         4500                                                         
+                                                                                
+       509 Vester    09-JAN-00       8100 Pediatrics                     432    
+        40                                                                      
+                                                                                
+       389 Lewis     21-JAN-96      10000 Pediatrics                     432    
+        40         2250                                                         
+                                                                                
+
+    DOC_ID DOC_NAME  DATEHIRED  SALPERMON AREA                 SUPERVISOR_ID    
+---------- --------- --------- ---------- -------------------- -------------    
+CHGPERAPPT ANNUAL_BONUS                                                         
+---------- ------------                                                         
+       504 Cotner    16-JUN-98      11500 Neurology                      289    
+        85         7500                                                         
+                                                                                
+       235 Smith     22-JUN-98       4550 Family Practice                100    
+        25         2250                                                         
+                                                                                
+       356 James     01-AUG-98       7950 Neurology                      289    
+        80         6500                                                         
+                                                                                
+
+    DOC_ID DOC_NAME  DATEHIRED  SALPERMON AREA                 SUPERVISOR_ID    
+---------- --------- --------- ---------- -------------------- -------------    
+CHGPERAPPT ANNUAL_BONUS                                                         
+---------- ------------                                                         
+       558 James     02-MAY-95       9800 Orthopedics                    876    
+        85         7700                                                         
+                                                                                
+       876 Robertson 02-MAR-95      10500 Orthopedics                    100    
+        90         8900                                                         
+                                                                                
+       889 Thompson  18-MAR-97       6500 Rehab                          100    
+        65         3200                                                         
+                                                                                
+
+    DOC_ID DOC_NAME  DATEHIRED  SALPERMON AREA                 SUPERVISOR_ID    
+---------- --------- --------- ---------- -------------------- -------------    
+CHGPERAPPT ANNUAL_BONUS                                                         
+---------- ------------                                                         
+       239 Pronger   18-DEC-99       3500 Rehab                          889    
+        40                                                                      
+                                                                                
+       289 Borque    30-JUN-89      16500 Neurology                      100    
+        95         6500                                                         
+                                                                                
+       100 Stevenson 30-JUN-79      23500 Director                              
+                                                                                
+                                                                                
+
+12 rows selected.
+
+SQL> SELECT DATEHIRED, sysdate, (DATEHIRED-sysdate)
+  2  FROM DOCTOR;
+
+DATEHIRED SYSDATE   (DATEHIRED-SYSDATE)                                         
+--------- --------- -------------------                                         
+05-DEC-94 28-FEB-19          -8851.6269                                         
+09-JAN-00 28-FEB-19          -6990.6269                                         
+21-JAN-96 28-FEB-19          -8439.6269                                         
+16-JUN-98 28-FEB-19          -7562.6269                                         
+22-JUN-98 28-FEB-19          -7556.6269                                         
+01-AUG-98 28-FEB-19          -7516.6269                                         
+02-MAY-95 28-FEB-19          -8703.6269                                         
+02-MAR-95 28-FEB-19          -8764.6269                                         
+18-MAR-97 28-FEB-19          -8017.6269                                         
+18-DEC-99 28-FEB-19          -7012.6269                                         
+30-JUN-89 28-FEB-19          -10835.627                                         
+
+DATEHIRED SYSDATE   (DATEHIRED-SYSDATE)                                         
+--------- --------- -------------------                                         
+30-JUN-79 28-FEB-19          -14488.627                                         
+
+12 rows selected.
+
+SQL> 
+SQL> SELECT DATEHIRED, sysdate, (sysdate-DATEHIRED)
+  2  FROM DOCTOR;
+
+DATEHIRED SYSDATE   (SYSDATE-DATEHIRED)                                         
+--------- --------- -------------------                                         
+05-DEC-94 28-FEB-19          8851.62716                                         
+09-JAN-00 28-FEB-19          6990.62716                                         
+21-JAN-96 28-FEB-19          8439.62716                                         
+16-JUN-98 28-FEB-19          7562.62716                                         
+22-JUN-98 28-FEB-19          7556.62716                                         
+01-AUG-98 28-FEB-19          7516.62716                                         
+02-MAY-95 28-FEB-19          8703.62716                                         
+02-MAR-95 28-FEB-19          8764.62716                                         
+18-MAR-97 28-FEB-19          8017.62716                                         
+18-DEC-99 28-FEB-19          7012.62716                                         
+30-JUN-89 28-FEB-19          10835.6272                                         
+
+DATEHIRED SYSDATE   (SYSDATE-DATEHIRED)                                         
+--------- --------- -------------------                                         
+30-JUN-79 28-FEB-19          14488.6272                                         
+
+12 rows selected.
+
+SQL> 
+SQL> SELECT DATEHIRED, sysdate, (sysdate-DATEHIRED)/365
+  2  FROM DOCTOR;
+
+DATEHIRED SYSDATE   (SYSDATE-DATEHIRED)/365                                     
+--------- --------- -----------------------                                     
+05-DEC-94 28-FEB-19              24.2510344                                     
+09-JAN-00 28-FEB-19              19.1524042                                     
+21-JAN-96 28-FEB-19              23.1222673                                     
+16-JUN-98 28-FEB-19              20.7195275                                     
+22-JUN-98 28-FEB-19              20.7030892                                     
+01-AUG-98 28-FEB-19              20.5935001                                     
+02-MAY-95 28-FEB-19              23.8455549                                     
+02-MAR-95 28-FEB-19              24.0126782                                     
+18-MAR-97 28-FEB-19              21.9661029                                     
+18-DEC-99 28-FEB-19              19.2126782                                     
+30-JUN-89 28-FEB-19              29.6866508                                     
+
+DATEHIRED SYSDATE   (SYSDATE-DATEHIRED)/365                                     
+--------- --------- -----------------------                                     
+30-JUN-79 28-FEB-19                39.69487                                     
+
+12 rows selected.
+
+SQL> 
+SQL> SELECT DATEHIRED, sysdate, round((sysdate-DATEHIRED)/365)
+  2  FROM DOCTOR;
+
+DATEHIRED SYSDATE   ROUND((SYSDATE-DATEHIRED)/365)                              
+--------- --------- ------------------------------                              
+05-DEC-94 28-FEB-19                             24                              
+09-JAN-00 28-FEB-19                             19                              
+21-JAN-96 28-FEB-19                             23                              
+16-JUN-98 28-FEB-19                             21                              
+22-JUN-98 28-FEB-19                             21                              
+01-AUG-98 28-FEB-19                             21                              
+02-MAY-95 28-FEB-19                             24                              
+02-MAR-95 28-FEB-19                             24                              
+18-MAR-97 28-FEB-19                             22                              
+18-DEC-99 28-FEB-19                             19                              
+30-JUN-89 28-FEB-19                             30                              
+
+DATEHIRED SYSDATE   ROUND((SYSDATE-DATEHIRED)/365)                              
+--------- --------- ------------------------------                              
+30-JUN-79 28-FEB-19                             40                              
+
+12 rows selected.
+
+SQL> 
+SQL> SELECT DATEHIRED, sysdate, MONTHS_BETWEEN(sysdate,DATEHIRED) AS "Months in Service"
+  2  FROM DOCTOR;
+
+DATEHIRED SYSDATE   Months in Service                                           
+--------- --------- -----------------                                           
+05-DEC-94 28-FEB-19         290.76231                                           
+09-JAN-00 28-FEB-19        229.633278                                           
+21-JAN-96 28-FEB-19        277.246181                                           
+16-JUN-98 28-FEB-19        248.407471                                           
+22-JUN-98 28-FEB-19        248.213923                                           
+01-AUG-98 28-FEB-19        246.891342                                           
+02-MAY-95 28-FEB-19        285.859084                                           
+02-MAR-95 28-FEB-19        287.859084                                           
+18-MAR-97 28-FEB-19        263.342955                                           
+18-DEC-99 28-FEB-19        230.342955                                           
+30-JUN-89 28-FEB-19               356                                           
+
+DATEHIRED SYSDATE   Months in Service                                           
+--------- --------- -----------------                                           
+30-JUN-79 28-FEB-19               476                                           
+
+12 rows selected.
+
+SQL> 
+SQL> SELECT DATEHIRED, sysdate, round(MONTHS_BETWEEN(sysdate,DATEHIRED)) AS "Months in Service"
+  2  FROM DOCTOR;
+
+DATEHIRED SYSDATE   Months in Service                                           
+--------- --------- -----------------                                           
+05-DEC-94 28-FEB-19               291                                           
+09-JAN-00 28-FEB-19               230                                           
+21-JAN-96 28-FEB-19               277                                           
+16-JUN-98 28-FEB-19               248                                           
+22-JUN-98 28-FEB-19               248                                           
+01-AUG-98 28-FEB-19               247                                           
+02-MAY-95 28-FEB-19               286                                           
+02-MAR-95 28-FEB-19               288                                           
+18-MAR-97 28-FEB-19               263                                           
+18-DEC-99 28-FEB-19               230                                           
+30-JUN-89 28-FEB-19               356                                           
+
+DATEHIRED SYSDATE   Months in Service                                           
+--------- --------- -----------------                                           
+30-JUN-79 28-FEB-19               476                                           
+
+12 rows selected.
+
+SQL> spool off;

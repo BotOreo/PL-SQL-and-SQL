@@ -1,0 +1,1108 @@
+SQL> SELECT * FROM TAB;
+
+TNAME                          TABTYPE  CLUSTERID                               
+------------------------------ ------- ----------                               
+ACTOR                          TABLE                                            
+PRICE                          TABLE                                            
+VIDEOS                         TABLE                                            
+RENTS                          TABLE                                            
+PERFORMS                       TABLE                                            
+BIN$t/onYEnWT9OW6L0lqtD7fA==$0 TABLE                                            
+DOCTOR2                        TABLE                                            
+VEHICLE                        TABLE                                            
+DOCTOR                         TABLE                                            
+BILLING                        TABLE                                            
+PATIENT                        TABLE                                            
+
+TNAME                          TABTYPE  CLUSTERID                               
+------------------------------ ------- ----------                               
+CUSTOMER                       TABLE                                            
+MOVIE                          TABLE                                            
+RENTAL                         TABLE                                            
+BRANCH                         TABLE                                            
+
+15 rows selected.
+
+SQL> PURGE TABLESPACE USERS USER OREO;
+
+Tablespace purged.
+
+SQL> SELECT * FROM TAB;
+
+TNAME                          TABTYPE  CLUSTERID                               
+------------------------------ ------- ----------                               
+ACTOR                          TABLE                                            
+PRICE                          TABLE                                            
+VIDEOS                         TABLE                                            
+RENTS                          TABLE                                            
+PERFORMS                       TABLE                                            
+DOCTOR2                        TABLE                                            
+VEHICLE                        TABLE                                            
+DOCTOR                         TABLE                                            
+BILLING                        TABLE                                            
+PATIENT                        TABLE                                            
+CUSTOMER                       TABLE                                            
+
+TNAME                          TABTYPE  CLUSTERID                               
+------------------------------ ------- ----------                               
+MOVIE                          TABLE                                            
+RENTAL                         TABLE                                            
+BRANCH                         TABLE                                            
+
+14 rows selected.
+
+SQL> drop table emp;
+drop table emp
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> drop table dept;
+drop table dept
+           *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> 
+SQL> create table dept(
+  2    deptno     number(2,0),
+  3    dname      varchar2(14),
+  4    loc        varchar2(13),
+  5    constraint pk_dept primary key (deptno)
+  6  );
+
+Table created.
+
+SQL> 
+SQL> create table emp(
+  2    empno    number(4,0),
+  3    ename    varchar2(10),
+  4    job      varchar2(9),
+  5    mgr      number(4,0),
+  6    hiredate date,
+  7    sal      number(7,2),
+  8    comm     number(7,2),
+  9    deptno   number(2,0),
+ 10    constraint pk_emp primary key (empno),
+ 11    constraint fk_deptno foreign key (deptno) references dept (deptno)
+ 12  );
+
+Table created.
+
+SQL> 
+SQL> 
+SQL> --insert for dept
+SQL> insert into DEPT (DEPTNO, DNAME, LOC)
+  2  values(10, 'ACCOUNTING', 'NEW YORK');
+
+1 row created.
+
+SQL> insert into dept
+  2  values(20, 'RESEARCH', 'DALLAS');
+
+1 row created.
+
+SQL> insert into dept
+  2  values(30, 'SALES', 'CHICAGO');
+
+1 row created.
+
+SQL> insert into dept
+  2  values(40, 'OPERATIONS', 'BOSTON');
+
+1 row created.
+
+SQL> 
+SQL> 
+SQL> --insert for emp
+SQL> insert into emp
+  2  values(
+  3   7839, 'KING', 'PRESIDENT', null,
+  4   to_date('17-11-1981','dd-mm-yyyy'),
+  5   5000, null, 10
+  6  );
+
+1 row created.
+
+SQL> insert into emp
+  2  values(
+  3   7698, 'BLAKE', 'MANAGER', 7839,
+  4   to_date('1-5-1981','dd-mm-yyyy'),
+  5   2850, null, 30
+  6  );
+
+1 row created.
+
+SQL> insert into emp
+  2  values(
+  3   7782, 'CLARK', 'MANAGER', 7839,
+  4   to_date('9-6-1981','dd-mm-yyyy'),
+  5   2450, null, 10
+  6  );
+
+1 row created.
+
+SQL> insert into emp
+  2  values(
+  3   7566, 'JONES', 'MANAGER', 7839,
+  4   to_date('2-4-1981','dd-mm-yyyy'),
+  5   2975, null, 20
+  6  );
+
+1 row created.
+
+SQL> insert into emp
+  2  values(
+  3   7788, 'SCOTT', 'ANALYST', 7566,
+  4   to_date('13-JUL-87','dd-mm-rr') - 85,
+  5   3000, null, 20
+  6  );
+
+1 row created.
+
+SQL> insert into emp
+  2  values(
+  3   7902, 'FORD', 'ANALYST', 7566,
+  4   to_date('3-12-1981','dd-mm-yyyy'),
+  5   3000, null, 20
+  6  );
+
+1 row created.
+
+SQL> insert into emp
+  2  values(
+  3   7369, 'SMITH', 'CLERK', 7902,
+  4   to_date('17-12-1980','dd-mm-yyyy'),
+  5   800, null, 20
+  6  );
+
+1 row created.
+
+SQL> insert into emp
+  2  values(
+  3   7499, 'ALLEN', 'SALESMAN', 7698,
+  4   to_date('20-2-1981','dd-mm-yyyy'),
+  5   1600, 300, 30
+  6  );
+
+1 row created.
+
+SQL> insert into emp
+  2  values(
+  3   7521, 'WARD', 'SALESMAN', 7698,
+  4   to_date('22-2-1981','dd-mm-yyyy'),
+  5   1250, 500, 30
+  6  );
+
+1 row created.
+
+SQL> insert into emp
+  2  values(
+  3   7654, 'MARTIN', 'SALESMAN', 7698,
+  4   to_date('28-9-1981','dd-mm-yyyy'),
+  5   1250, 1400, 30
+  6  );
+
+1 row created.
+
+SQL> insert into emp
+  2  values(
+  3   7844, 'TURNER', 'SALESMAN', 7698,
+  4   to_date('8-9-1981','dd-mm-yyyy'),
+  5   1500, 0, 30
+  6  );
+
+1 row created.
+
+SQL> insert into emp
+  2  values(
+  3   7876, 'ADAMS', 'CLERK', 7788,
+  4   to_date('13-JUL-87', 'dd-mm-rr') - 51,
+  5   1100, null, 20
+  6  );
+
+1 row created.
+
+SQL> insert into emp
+  2  values(
+  3   7900, 'JAMES', 'CLERK', 7698,
+  4   to_date('3-12-1981','dd-mm-yyyy'),
+  5   950, null, 30
+  6  );
+
+1 row created.
+
+SQL> insert into emp
+  2  values(
+  3   7934, 'MILLER', 'CLERK', 7782,
+  4   to_date('23-1-1982','dd-mm-yyyy'),
+  5   1300, null, 10
+  6  );
+
+1 row created.
+
+SQL> select ename, dname, job, empno, hiredate, loc
+  2  from emp, dept
+  3  where emp.deptno = dept.deptno
+  4  order by ename;
+
+ENAME      DNAME          JOB            EMPNO HIREDATE  LOC                    
+---------- -------------- --------- ---------- --------- -------------          
+ADAMS      RESEARCH       CLERK           7876 23-MAY-87 DALLAS                 
+ALLEN      SALES          SALESMAN        7499 20-FEB-81 CHICAGO                
+BLAKE      SALES          MANAGER         7698 01-MAY-81 CHICAGO                
+CLARK      ACCOUNTING     MANAGER         7782 09-JUN-81 NEW YORK               
+FORD       RESEARCH       ANALYST         7902 03-DEC-81 DALLAS                 
+JAMES      SALES          CLERK           7900 03-DEC-81 CHICAGO                
+JONES      RESEARCH       MANAGER         7566 02-APR-81 DALLAS                 
+KING       ACCOUNTING     PRESIDENT       7839 17-NOV-81 NEW YORK               
+MARTIN     SALES          SALESMAN        7654 28-SEP-81 CHICAGO                
+MILLER     ACCOUNTING     CLERK           7934 23-JAN-82 NEW YORK               
+SCOTT      RESEARCH       ANALYST         7788 19-APR-87 DALLAS                 
+
+ENAME      DNAME          JOB            EMPNO HIREDATE  LOC                    
+---------- -------------- --------- ---------- --------- -------------          
+SMITH      RESEARCH       CLERK           7369 17-DEC-80 DALLAS                 
+TURNER     SALES          SALESMAN        7844 08-SEP-81 CHICAGO                
+WARD       SALES          SALESMAN        7521 22-FEB-81 CHICAGO                
+
+14 rows selected.
+
+SQL> 
+SQL> desc emp
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPNO                                     NOT NULL NUMBER(4)
+ ENAME                                              VARCHAR2(10)
+ JOB                                                VARCHAR2(9)
+ MGR                                                NUMBER(4)
+ HIREDATE                                           DATE
+ SAL                                                NUMBER(7,2)
+ COMM                                               NUMBER(7,2)
+ DEPTNO                                             NUMBER(2)
+
+SQL> select * from emp;
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM      
+---------- ---------- --------- ---------- --------- ---------- ----------      
+    DEPTNO                                                                      
+----------                                                                      
+      7839 KING       PRESIDENT            17-NOV-81       5000                 
+        10                                                                      
+                                                                                
+      7698 BLAKE      MANAGER         7839 01-MAY-81       2850                 
+        30                                                                      
+                                                                                
+      7782 CLARK      MANAGER         7839 09-JUN-81       2450                 
+        10                                                                      
+                                                                                
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM      
+---------- ---------- --------- ---------- --------- ---------- ----------      
+    DEPTNO                                                                      
+----------                                                                      
+      7566 JONES      MANAGER         7839 02-APR-81       2975                 
+        20                                                                      
+                                                                                
+      7788 SCOTT      ANALYST         7566 19-APR-87       3000                 
+        20                                                                      
+                                                                                
+      7902 FORD       ANALYST         7566 03-DEC-81       3000                 
+        20                                                                      
+                                                                                
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM      
+---------- ---------- --------- ---------- --------- ---------- ----------      
+    DEPTNO                                                                      
+----------                                                                      
+      7369 SMITH      CLERK           7902 17-DEC-80        800                 
+        20                                                                      
+                                                                                
+      7499 ALLEN      SALESMAN        7698 20-FEB-81       1600        300      
+        30                                                                      
+                                                                                
+      7521 WARD       SALESMAN        7698 22-FEB-81       1250        500      
+        30                                                                      
+                                                                                
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM      
+---------- ---------- --------- ---------- --------- ---------- ----------      
+    DEPTNO                                                                      
+----------                                                                      
+      7654 MARTIN     SALESMAN        7698 28-SEP-81       1250       1400      
+        30                                                                      
+                                                                                
+      7844 TURNER     SALESMAN        7698 08-SEP-81       1500          0      
+        30                                                                      
+                                                                                
+      7876 ADAMS      CLERK           7788 23-MAY-87       1100                 
+        20                                                                      
+                                                                                
+
+     EMPNO ENAME      JOB              MGR HIREDATE         SAL       COMM      
+---------- ---------- --------- ---------- --------- ---------- ----------      
+    DEPTNO                                                                      
+----------                                                                      
+      7900 JAMES      CLERK           7698 03-DEC-81        950                 
+        30                                                                      
+                                                                                
+      7934 MILLER     CLERK           7782 23-JAN-82       1300                 
+        10                                                                      
+                                                                                
+
+14 rows selected.
+
+SQL> desc dept
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DEPTNO                                    NOT NULL NUMBER(2)
+ DNAME                                              VARCHAR2(14)
+ LOC                                                VARCHAR2(13)
+
+SQL> ELECT ENAME,JOB,DNAME
+SP2-0734: unknown command beginning "ELECT ENAM..." - rest of line ignored.
+SQL> FROM EMP CROSS JOIN DEPT;
+SP2-0734: unknown command beginning "FROM EMP C..." - rest of line ignored.
+SQL> SELECT ENAME,JOB,DNAME
+  2  FROM EMP CROSS JOIN DEPT;
+
+ENAME      JOB       DNAME                                                      
+---------- --------- --------------                                             
+KING       PRESIDENT ACCOUNTING                                                 
+BLAKE      MANAGER   ACCOUNTING                                                 
+CLARK      MANAGER   ACCOUNTING                                                 
+JONES      MANAGER   ACCOUNTING                                                 
+SCOTT      ANALYST   ACCOUNTING                                                 
+FORD       ANALYST   ACCOUNTING                                                 
+SMITH      CLERK     ACCOUNTING                                                 
+ALLEN      SALESMAN  ACCOUNTING                                                 
+WARD       SALESMAN  ACCOUNTING                                                 
+MARTIN     SALESMAN  ACCOUNTING                                                 
+TURNER     SALESMAN  ACCOUNTING                                                 
+
+ENAME      JOB       DNAME                                                      
+---------- --------- --------------                                             
+ADAMS      CLERK     ACCOUNTING                                                 
+JAMES      CLERK     ACCOUNTING                                                 
+MILLER     CLERK     ACCOUNTING                                                 
+KING       PRESIDENT RESEARCH                                                   
+BLAKE      MANAGER   RESEARCH                                                   
+CLARK      MANAGER   RESEARCH                                                   
+JONES      MANAGER   RESEARCH                                                   
+SCOTT      ANALYST   RESEARCH                                                   
+FORD       ANALYST   RESEARCH                                                   
+SMITH      CLERK     RESEARCH                                                   
+ALLEN      SALESMAN  RESEARCH                                                   
+
+ENAME      JOB       DNAME                                                      
+---------- --------- --------------                                             
+WARD       SALESMAN  RESEARCH                                                   
+MARTIN     SALESMAN  RESEARCH                                                   
+TURNER     SALESMAN  RESEARCH                                                   
+ADAMS      CLERK     RESEARCH                                                   
+JAMES      CLERK     RESEARCH                                                   
+MILLER     CLERK     RESEARCH                                                   
+KING       PRESIDENT SALES                                                      
+BLAKE      MANAGER   SALES                                                      
+CLARK      MANAGER   SALES                                                      
+JONES      MANAGER   SALES                                                      
+SCOTT      ANALYST   SALES                                                      
+
+ENAME      JOB       DNAME                                                      
+---------- --------- --------------                                             
+FORD       ANALYST   SALES                                                      
+SMITH      CLERK     SALES                                                      
+ALLEN      SALESMAN  SALES                                                      
+WARD       SALESMAN  SALES                                                      
+MARTIN     SALESMAN  SALES                                                      
+TURNER     SALESMAN  SALES                                                      
+ADAMS      CLERK     SALES                                                      
+JAMES      CLERK     SALES                                                      
+MILLER     CLERK     SALES                                                      
+KING       PRESIDENT OPERATIONS                                                 
+BLAKE      MANAGER   OPERATIONS                                                 
+
+ENAME      JOB       DNAME                                                      
+---------- --------- --------------                                             
+CLARK      MANAGER   OPERATIONS                                                 
+JONES      MANAGER   OPERATIONS                                                 
+SCOTT      ANALYST   OPERATIONS                                                 
+FORD       ANALYST   OPERATIONS                                                 
+SMITH      CLERK     OPERATIONS                                                 
+ALLEN      SALESMAN  OPERATIONS                                                 
+WARD       SALESMAN  OPERATIONS                                                 
+MARTIN     SALESMAN  OPERATIONS                                                 
+TURNER     SALESMAN  OPERATIONS                                                 
+ADAMS      CLERK     OPERATIONS                                                 
+JAMES      CLERK     OPERATIONS                                                 
+
+ENAME      JOB       DNAME                                                      
+---------- --------- --------------                                             
+MILLER     CLERK     OPERATIONS                                                 
+
+56 rows selected.
+
+SQL> SELECT ENAME, JOB, DNAME
+  2  FROM EMP, DEPT;
+
+ENAME      JOB       DNAME                                                      
+---------- --------- --------------                                             
+KING       PRESIDENT ACCOUNTING                                                 
+BLAKE      MANAGER   ACCOUNTING                                                 
+CLARK      MANAGER   ACCOUNTING                                                 
+JONES      MANAGER   ACCOUNTING                                                 
+SCOTT      ANALYST   ACCOUNTING                                                 
+FORD       ANALYST   ACCOUNTING                                                 
+SMITH      CLERK     ACCOUNTING                                                 
+ALLEN      SALESMAN  ACCOUNTING                                                 
+WARD       SALESMAN  ACCOUNTING                                                 
+MARTIN     SALESMAN  ACCOUNTING                                                 
+TURNER     SALESMAN  ACCOUNTING                                                 
+
+ENAME      JOB       DNAME                                                      
+---------- --------- --------------                                             
+ADAMS      CLERK     ACCOUNTING                                                 
+JAMES      CLERK     ACCOUNTING                                                 
+MILLER     CLERK     ACCOUNTING                                                 
+KING       PRESIDENT RESEARCH                                                   
+BLAKE      MANAGER   RESEARCH                                                   
+CLARK      MANAGER   RESEARCH                                                   
+JONES      MANAGER   RESEARCH                                                   
+SCOTT      ANALYST   RESEARCH                                                   
+FORD       ANALYST   RESEARCH                                                   
+SMITH      CLERK     RESEARCH                                                   
+ALLEN      SALESMAN  RESEARCH                                                   
+
+ENAME      JOB       DNAME                                                      
+---------- --------- --------------                                             
+WARD       SALESMAN  RESEARCH                                                   
+MARTIN     SALESMAN  RESEARCH                                                   
+TURNER     SALESMAN  RESEARCH                                                   
+ADAMS      CLERK     RESEARCH                                                   
+JAMES      CLERK     RESEARCH                                                   
+MILLER     CLERK     RESEARCH                                                   
+KING       PRESIDENT SALES                                                      
+BLAKE      MANAGER   SALES                                                      
+CLARK      MANAGER   SALES                                                      
+JONES      MANAGER   SALES                                                      
+SCOTT      ANALYST   SALES                                                      
+
+ENAME      JOB       DNAME                                                      
+---------- --------- --------------                                             
+FORD       ANALYST   SALES                                                      
+SMITH      CLERK     SALES                                                      
+ALLEN      SALESMAN  SALES                                                      
+WARD       SALESMAN  SALES                                                      
+MARTIN     SALESMAN  SALES                                                      
+TURNER     SALESMAN  SALES                                                      
+ADAMS      CLERK     SALES                                                      
+JAMES      CLERK     SALES                                                      
+MILLER     CLERK     SALES                                                      
+KING       PRESIDENT OPERATIONS                                                 
+BLAKE      MANAGER   OPERATIONS                                                 
+
+ENAME      JOB       DNAME                                                      
+---------- --------- --------------                                             
+CLARK      MANAGER   OPERATIONS                                                 
+JONES      MANAGER   OPERATIONS                                                 
+SCOTT      ANALYST   OPERATIONS                                                 
+FORD       ANALYST   OPERATIONS                                                 
+SMITH      CLERK     OPERATIONS                                                 
+ALLEN      SALESMAN  OPERATIONS                                                 
+WARD       SALESMAN  OPERATIONS                                                 
+MARTIN     SALESMAN  OPERATIONS                                                 
+TURNER     SALESMAN  OPERATIONS                                                 
+ADAMS      CLERK     OPERATIONS                                                 
+JAMES      CLERK     OPERATIONS                                                 
+
+ENAME      JOB       DNAME                                                      
+---------- --------- --------------                                             
+MILLER     CLERK     OPERATIONS                                                 
+
+56 rows selected.
+
+SQL> SELECT EMPNO,ENAME,DEPTNO,DNAME
+  2  FROM EMP JOIN DEPT
+  3  USING(DEPTNO);
+
+     EMPNO ENAME          DEPTNO DNAME                                          
+---------- ---------- ---------- --------------                                 
+      7839 KING               10 ACCOUNTING                                     
+      7698 BLAKE              30 SALES                                          
+      7782 CLARK              10 ACCOUNTING                                     
+      7566 JONES              20 RESEARCH                                       
+      7788 SCOTT              20 RESEARCH                                       
+      7902 FORD               20 RESEARCH                                       
+      7369 SMITH              20 RESEARCH                                       
+      7499 ALLEN              30 SALES                                          
+      7521 WARD               30 SALES                                          
+      7654 MARTIN             30 SALES                                          
+      7844 TURNER             30 SALES                                          
+
+     EMPNO ENAME          DEPTNO DNAME                                          
+---------- ---------- ---------- --------------                                 
+      7876 ADAMS              20 RESEARCH                                       
+      7900 JAMES              30 SALES                                          
+      7934 MILLER             10 ACCOUNTING                                     
+
+14 rows selected.
+
+SQL> SELECT EMPNO,ENAME,DEPTNO,DNAME
+  2  FROM EMP JOIN DEPT
+  3  ON DEMP.DEPTNO=DEPT.DEPTNO;
+ON DEMP.DEPTNO=DEPT.DEPTNO
+   *
+ERROR at line 3:
+ORA-00904: "DEMP"."DEPTNO": invalid identifier 
+
+
+SQL> SELECT EMPNO,ENAME,DEPTNO,DNAME
+  2  FROM EMP JOIN DEPT
+  3  ON EMP.DEPTNO=DEPT.DEPTNO;
+SELECT EMPNO,ENAME,DEPTNO,DNAME
+                   *
+ERROR at line 1:
+ORA-00918: column ambiguously defined 
+
+
+SQL> SELECT EMPNO,ENAME,EMP.DEPTNO,DNAME
+  2  FROM EMP JOIN DEPT
+  3  ON EMP.DEPTNO=DEPT.DEPTNO;
+
+     EMPNO ENAME          DEPTNO DNAME                                          
+---------- ---------- ---------- --------------                                 
+      7839 KING               10 ACCOUNTING                                     
+      7698 BLAKE              30 SALES                                          
+      7782 CLARK              10 ACCOUNTING                                     
+      7566 JONES              20 RESEARCH                                       
+      7788 SCOTT              20 RESEARCH                                       
+      7902 FORD               20 RESEARCH                                       
+      7369 SMITH              20 RESEARCH                                       
+      7499 ALLEN              30 SALES                                          
+      7521 WARD               30 SALES                                          
+      7654 MARTIN             30 SALES                                          
+      7844 TURNER             30 SALES                                          
+
+     EMPNO ENAME          DEPTNO DNAME                                          
+---------- ---------- ---------- --------------                                 
+      7876 ADAMS              20 RESEARCH                                       
+      7900 JAMES              30 SALES                                          
+      7934 MILLER             10 ACCOUNTING                                     
+
+14 rows selected.
+
+SQL> 
+SQL> SELECT PT_LNAME, D.DOC_ID, DOC_NAME
+  2  FROM DOCTOR D JOIN PATIENT P
+  3  ON P.DOC_ID=D.DOC_ID
+  4  /
+
+PT_LNAME            DOC_ID DOC_NAME                                             
+--------------- ---------- ---------                                            
+James                  432 Harrison                                             
+Anderson               235 Smith                                                
+James                  235 Smith                                                
+Smith                  509 Vester                                               
+Porter                 235 Smith                                                
+Saillez                235 Smith                                                
+Rogers                 504 Cotner                                               
+Walters                504 Cotner                                               
+Westra                 235 Smith                                                
+Poole                  389 Lewis                                                
+Baily                  235 Smith                                                
+
+PT_LNAME            DOC_ID DOC_NAME                                             
+--------------- ---------- ---------                                            
+Crow                   235 Smith                                                
+Cochran                356 James                                                
+Roach                  235 Smith                                                
+Jackson                235 Smith                                                
+Kowalczyk              558 James                                                
+Davis                  509 Vester                                               
+Jones                  509 Vester                                               
+Wright                 235 Smith                                                
+Vanderchuck            504 Cotner                                               
+Mcginnis               504 Cotner                                               
+Sakic                  504 Cotner                                               
+
+PT_LNAME            DOC_ID DOC_NAME                                             
+--------------- ---------- ---------                                            
+Bond                   509 Vester                                               
+
+23 rows selected.
+
+SQL> l
+  1  SELECT PT_LNAME, D.DOC_ID, DOC_NAME
+  2  FROM DOCTOR D JOIN PATIENT P
+  3* ON P.DOC_ID=D.DOC_ID
+SQL> 4 ORDER BY 2
+SQL> /
+
+PT_LNAME            DOC_ID DOC_NAME                                             
+--------------- ---------- ---------                                            
+Anderson               235 Smith                                                
+Wright                 235 Smith                                                
+Jackson                235 Smith                                                
+Roach                  235 Smith                                                
+Crow                   235 Smith                                                
+Baily                  235 Smith                                                
+Westra                 235 Smith                                                
+Saillez                235 Smith                                                
+Porter                 235 Smith                                                
+James                  235 Smith                                                
+Cochran                356 James                                                
+
+PT_LNAME            DOC_ID DOC_NAME                                             
+--------------- ---------- ---------                                            
+Poole                  389 Lewis                                                
+James                  432 Harrison                                             
+Sakic                  504 Cotner                                               
+Rogers                 504 Cotner                                               
+Vanderchuck            504 Cotner                                               
+Mcginnis               504 Cotner                                               
+Walters                504 Cotner                                               
+Bond                   509 Vester                                               
+Jones                  509 Vester                                               
+Smith                  509 Vester                                               
+Davis                  509 Vester                                               
+
+PT_LNAME            DOC_ID DOC_NAME                                             
+--------------- ---------- ---------                                            
+Kowalczyk              558 James                                                
+
+23 rows selected.
+
+SQL> set linesize 200
+SQL> set pagesize 200
+SQL> l
+  1  SELECT PT_LNAME, D.DOC_ID, DOC_NAME
+  2  FROM DOCTOR D JOIN PATIENT P
+  3  ON P.DOC_ID=D.DOC_ID
+  4* ORDER BY 2
+SQL> /
+
+PT_LNAME            DOC_ID DOC_NAME                                                                                                                                                                     
+--------------- ---------- ---------                                                                                                                                                                    
+Anderson               235 Smith                                                                                                                                                                        
+Wright                 235 Smith                                                                                                                                                                        
+Jackson                235 Smith                                                                                                                                                                        
+Roach                  235 Smith                                                                                                                                                                        
+Crow                   235 Smith                                                                                                                                                                        
+Baily                  235 Smith                                                                                                                                                                        
+Westra                 235 Smith                                                                                                                                                                        
+Saillez                235 Smith                                                                                                                                                                        
+Porter                 235 Smith                                                                                                                                                                        
+James                  235 Smith                                                                                                                                                                        
+Cochran                356 James                                                                                                                                                                        
+Poole                  389 Lewis                                                                                                                                                                        
+James                  432 Harrison                                                                                                                                                                     
+Sakic                  504 Cotner                                                                                                                                                                       
+Rogers                 504 Cotner                                                                                                                                                                       
+Vanderchuck            504 Cotner                                                                                                                                                                       
+Mcginnis               504 Cotner                                                                                                                                                                       
+Walters                504 Cotner                                                                                                                                                                       
+Bond                   509 Vester                                                                                                                                                                       
+Jones                  509 Vester                                                                                                                                                                       
+Smith                  509 Vester                                                                                                                                                                       
+Davis                  509 Vester                                                                                                                                                                       
+Kowalczyk              558 James                                                                                                                                                                        
+
+23 rows selected.
+
+SQL> SELECT EMPNO,ENAME,E.DEPTNO,DNAME
+  2  FROM EMP E JOIN DEPT D
+  3  WHERE E.DEPTNO BETWEEN 10 AND 20;
+WHERE E.DEPTNO BETWEEN 10 AND 20
+*
+ERROR at line 3:
+ORA-00905: missing keyword 
+
+
+SQL> SELECT EMPNO,ENAME,E.DEPTNO,DNAME
+  2  FROM EMP E FROM DEPT D
+  3  WHERE E.DEPTNO BETWEEN 10 AND 20;
+FROM EMP E FROM DEPT D
+           *
+ERROR at line 2:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> SELECT EMPNO,ENAME,E.DEPTNO,DNAME
+  2  FROM EMP E, DEPT D
+  3  WHERE E.DEPTNO BETWEEN 10 AND 20;
+
+     EMPNO ENAME          DEPTNO DNAME                                                                                                                                                                  
+---------- ---------- ---------- --------------                                                                                                                                                         
+      7839 KING               10 ACCOUNTING                                                                                                                                                             
+      7782 CLARK              10 ACCOUNTING                                                                                                                                                             
+      7566 JONES              20 ACCOUNTING                                                                                                                                                             
+      7788 SCOTT              20 ACCOUNTING                                                                                                                                                             
+      7902 FORD               20 ACCOUNTING                                                                                                                                                             
+      7369 SMITH              20 ACCOUNTING                                                                                                                                                             
+      7876 ADAMS              20 ACCOUNTING                                                                                                                                                             
+      7934 MILLER             10 ACCOUNTING                                                                                                                                                             
+      7839 KING               10 RESEARCH                                                                                                                                                               
+      7782 CLARK              10 RESEARCH                                                                                                                                                               
+      7566 JONES              20 RESEARCH                                                                                                                                                               
+      7788 SCOTT              20 RESEARCH                                                                                                                                                               
+      7902 FORD               20 RESEARCH                                                                                                                                                               
+      7369 SMITH              20 RESEARCH                                                                                                                                                               
+      7876 ADAMS              20 RESEARCH                                                                                                                                                               
+      7934 MILLER             10 RESEARCH                                                                                                                                                               
+      7839 KING               10 SALES                                                                                                                                                                  
+      7782 CLARK              10 SALES                                                                                                                                                                  
+      7566 JONES              20 SALES                                                                                                                                                                  
+      7788 SCOTT              20 SALES                                                                                                                                                                  
+      7902 FORD               20 SALES                                                                                                                                                                  
+      7369 SMITH              20 SALES                                                                                                                                                                  
+      7876 ADAMS              20 SALES                                                                                                                                                                  
+      7934 MILLER             10 SALES                                                                                                                                                                  
+      7839 KING               10 OPERATIONS                                                                                                                                                             
+      7782 CLARK              10 OPERATIONS                                                                                                                                                             
+      7566 JONES              20 OPERATIONS                                                                                                                                                             
+      7788 SCOTT              20 OPERATIONS                                                                                                                                                             
+      7902 FORD               20 OPERATIONS                                                                                                                                                             
+      7369 SMITH              20 OPERATIONS                                                                                                                                                             
+      7876 ADAMS              20 OPERATIONS                                                                                                                                                             
+      7934 MILLER             10 OPERATIONS                                                                                                                                                             
+
+32 rows selected.
+
+SQL> SELECT EMPNO,ENAME,E.DEPTNO,DNAME
+  2  FROM EMP E, DEPT D
+  3  WHERE E.DEPTNO=D.DEPTNO
+  4  AND E.DEPTNO BETWEEN 10 AND 20
+  5  
+SQL> l
+  1  SELECT EMPNO,ENAME,E.DEPTNO,DNAME
+  2  FROM EMP E, DEPT D
+  3  WHERE E.DEPTNO=D.DEPTNO
+  4* AND E.DEPTNO BETWEEN 10 AND 20
+SQL> /
+
+     EMPNO ENAME          DEPTNO DNAME                                                                                                                                                                  
+---------- ---------- ---------- --------------                                                                                                                                                         
+      7839 KING               10 ACCOUNTING                                                                                                                                                             
+      7782 CLARK              10 ACCOUNTING                                                                                                                                                             
+      7566 JONES              20 RESEARCH                                                                                                                                                               
+      7788 SCOTT              20 RESEARCH                                                                                                                                                               
+      7902 FORD               20 RESEARCH                                                                                                                                                               
+      7369 SMITH              20 RESEARCH                                                                                                                                                               
+      7876 ADAMS              20 RESEARCH                                                                                                                                                               
+      7934 MILLER             10 ACCOUNTING                                                                                                                                                             
+
+8 rows selected.
+
+SQL> SELECT EMPNO,ENAME,E.DEPTNO,DNAME
+  2  FROM EMP E, DEPT D
+  3  WHERE E.DEPTNO BETWEEN 10 AND 20;
+
+     EMPNO ENAME          DEPTNO DNAME                                                                                                                                                                  
+---------- ---------- ---------- --------------                                                                                                                                                         
+      7839 KING               10 ACCOUNTING                                                                                                                                                             
+      7782 CLARK              10 ACCOUNTING                                                                                                                                                             
+      7566 JONES              20 ACCOUNTING                                                                                                                                                             
+      7788 SCOTT              20 ACCOUNTING                                                                                                                                                             
+      7902 FORD               20 ACCOUNTING                                                                                                                                                             
+      7369 SMITH              20 ACCOUNTING                                                                                                                                                             
+      7876 ADAMS              20 ACCOUNTING                                                                                                                                                             
+      7934 MILLER             10 ACCOUNTING                                                                                                                                                             
+      7839 KING               10 RESEARCH                                                                                                                                                               
+      7782 CLARK              10 RESEARCH                                                                                                                                                               
+      7566 JONES              20 RESEARCH                                                                                                                                                               
+      7788 SCOTT              20 RESEARCH                                                                                                                                                               
+      7902 FORD               20 RESEARCH                                                                                                                                                               
+      7369 SMITH              20 RESEARCH                                                                                                                                                               
+      7876 ADAMS              20 RESEARCH                                                                                                                                                               
+      7934 MILLER             10 RESEARCH                                                                                                                                                               
+      7839 KING               10 SALES                                                                                                                                                                  
+      7782 CLARK              10 SALES                                                                                                                                                                  
+      7566 JONES              20 SALES                                                                                                                                                                  
+      7788 SCOTT              20 SALES                                                                                                                                                                  
+      7902 FORD               20 SALES                                                                                                                                                                  
+      7369 SMITH              20 SALES                                                                                                                                                                  
+      7876 ADAMS              20 SALES                                                                                                                                                                  
+      7934 MILLER             10 SALES                                                                                                                                                                  
+      7839 KING               10 OPERATIONS                                                                                                                                                             
+      7782 CLARK              10 OPERATIONS                                                                                                                                                             
+      7566 JONES              20 OPERATIONS                                                                                                                                                             
+      7788 SCOTT              20 OPERATIONS                                                                                                                                                             
+      7902 FORD               20 OPERATIONS                                                                                                                                                             
+      7369 SMITH              20 OPERATIONS                                                                                                                                                             
+      7876 ADAMS              20 OPERATIONS                                                                                                                                                             
+      7934 MILLER             10 OPERATIONS                                                                                                                                                             
+
+32 rows selected.
+
+SQL> CREATE TABLE SALESMAN
+  2  (SALESMAN_ID NUMBER PRIMARY KEY,
+  3  NAME VARCHAR2(30),
+  4  CITY VARCHAR2(30),
+  5  COMMISSION NUMBER);
+
+Table created.
+
+SQL> 
+SQL> INSERT INTO SALESMAN
+  2  VALUES (5001,'James Hoog', 'New York',0.15);
+
+1 row created.
+
+SQL> 
+SQL> INSERT INTO SALESMAN
+  2  VALUES (5002,'Nail Knite','Paris',0.13);
+
+1 row created.
+
+SQL> 
+SQL> INSERT INTO SALESMAN
+  2  VALUES (5005,'Pit Alex','London',0.11);
+
+1 row created.
+
+SQL> 
+SQL> INSERT INTO SALESMAN
+  2  VALUES (5006,'Mc Lyon','Paris',0.14);
+
+1 row created.
+
+SQL> 
+SQL> INSERT INTO SALESMAN
+  2  VALUES (5003,'Lauson Hen',NULL,0.12);
+
+1 row created.
+
+SQL> 
+SQL> INSERT INTO SALESMAN
+  2  VALUES (5007,'Paul Adam','Rome',0.13);
+
+1 row created.
+
+SQL> 
+SQL> 
+SQL> CREATE TABLE CUSTOMERS
+  2  (CUSTOMER_ID NUMBER PRIMARY KEY,
+  3  CUST_NAME VARCHAR2(30),
+  4  CITY VARCHAR2(30),
+  5  GRADE NUMBER,
+  6  SALESMAN_ID NUMBER REFERENCES SALESMAN(SALESMAN_ID));
+
+Table created.
+
+SQL> 
+SQL> INSERT INTO CUSTOMERS
+  2  VALUES (3002, 'Nick Rimando', 'New York',100,5001);
+
+1 row created.
+
+SQL> 
+SQL> INSERT INTO CUSTOMERS
+  2  VALUES (3005, 'Graham Zusi', 'California',200,5002);
+
+1 row created.
+
+SQL> 
+SQL> INSERT INTO CUSTOMERS
+  2  VALUES (3001, 'Brad Guzan', 'London',NULL,5005);
+
+1 row created.
+
+SQL> 
+SQL> INSERT INTO CUSTOMERS
+  2  VALUES (3004, 'Fabian Johns', 'Paris',300,5006);
+
+1 row created.
+
+SQL> 
+SQL> INSERT INTO CUSTOMERS
+  2  VALUES (3007, 'Brad Davis','New York',200,5001);
+
+1 row created.
+
+SQL> 
+SQL> INSERT INTO CUSTOMERS
+  2  VALUES (3009, 'Geoff Camero', 'Berlin',100,5003);
+
+1 row created.
+
+SQL> 
+SQL> INSERT INTO CUSTOMERS
+  2  VALUES (3008, 'Julian Green', 'London',300,5002);
+
+1 row created.
+
+SQL> 
+SQL> INSERT INTO CUSTOMERS
+  2  VALUES (3003, 'Jozy Altidor', 'Moscow',200,5007);
+
+1 row created.
+
+SQL> 
+SQL> 
+SQL> 
+SQL> 
+SQL> CREATE TABLE ORDERS
+  2  (ORD_NO NUMBER PRIMARY KEY,
+  3  PURCH_AMT NUMBER,
+  4  ORD_DATE DATE,
+  5  CUSTOMER_ID NUMBER REFERENCES CUSTOMERS(CUSTOMER_ID),
+  6  SALESMAN_ID NUMBER REFERENCES SALESMAN(SALESMAN_ID));
+
+Table created.
+
+SQL> 
+SQL> INSERT INTO ORDERS
+  2  VALUES (70001, 150.5, '05-OCT-2012', 3005, 5002);
+
+1 row created.
+
+SQL> 
+SQL> INSERT INTO ORDERS
+  2  VALUES (70009, 270.65, '10-SEP-2012', 3001, 5005);
+
+1 row created.
+
+SQL> 
+SQL> 
+SQL> INSERT INTO ORDERS
+  2  VALUES (70002, 65.26, '05-OCT-2012', 3002, 5001);
+
+1 row created.
+
+SQL> 
+SQL> 
+SQL> INSERT INTO ORDERS
+  2  VALUES (70004,110.5, '17-AUG-2012',3009,5003);
+
+1 row created.
+
+SQL> 
+SQL> 
+SQL> INSERT INTO ORDERS
+  2  VALUES (70007,948.5, '10-SEP-2012',3005,5002);
+
+1 row created.
+
+SQL> 
+SQL> 
+SQL> INSERT INTO ORDERS
+  2  VALUES (70005,2400.6, '27-JUL-2012',3007,5001);
+
+1 row created.
+
+SQL> 
+SQL> 
+SQL> INSERT INTO ORDERS
+  2  VALUES (70008,5760, '10-SEP-2012',3002,5001);
+
+1 row created.
+
+SQL> 
+SQL> 
+SQL> INSERT INTO ORDERS
+  2  VALUES (70010,1983.43, '10-OCT-2012',3004,5006);
+
+1 row created.
+
+SQL> 
+SQL> 
+SQL> INSERT INTO ORDERS
+  2  VALUES (70003,2480.4, '10-OCT-2012',3009,5003);
+
+1 row created.
+
+SQL> 
+SQL> 
+SQL> INSERT INTO ORDERS
+  2  VALUES (70012,250.45,'27-JUN-2012',3008,5002);
+
+1 row created.
+
+SQL> 
+SQL> 
+SQL> INSERT INTO ORDERS
+  2  VALUES (70011,75.29, '17-AUG-2012',3003,5007);
+
+1 row created.
+
+SQL> 
+SQL> 
+SQL> INSERT INTO ORDERS
+  2  VALUES (70013,3045.6,'25-APR-2012',3002,5001);
+
+1 row created.
+
+SQL> SELECT * TAB;
+SELECT * TAB
+         *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> SELECT * FROMTAB;
+SELECT * FROMTAB
+         *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> SELECT * FROM TAB;
+
+TNAME                          TABTYPE  CLUSTERID                                                                                                                                                       
+------------------------------ ------- ----------                                                                                                                                                       
+ACTOR                          TABLE                                                                                                                                                                    
+PRICE                          TABLE                                                                                                                                                                    
+VIDEOS                         TABLE                                                                                                                                                                    
+RENTS                          TABLE                                                                                                                                                                    
+PERFORMS                       TABLE                                                                                                                                                                    
+DEPT                           TABLE                                                                                                                                                                    
+EMP                            TABLE                                                                                                                                                                    
+DOCTOR2                        TABLE                                                                                                                                                                    
+SALESMAN                       TABLE                                                                                                                                                                    
+CUSTOMERS                      TABLE                                                                                                                                                                    
+ORDERS                         TABLE                                                                                                                                                                    
+VEHICLE                        TABLE                                                                                                                                                                    
+DOCTOR                         TABLE                                                                                                                                                                    
+BILLING                        TABLE                                                                                                                                                                    
+PATIENT                        TABLE                                                                                                                                                                    
+CUSTOMER                       TABLE                                                                                                                                                                    
+MOVIE                          TABLE                                                                                                                                                                    
+RENTAL                         TABLE                                                                                                                                                                    
+BRANCH                         TABLE                                                                                                                                                                    
+
+19 rows selected.
+
+SQL> SELECT WORKER.EMPNO,WORKER.ENAME,WORKER.MGR, BOSS.ENAME
+  2  FROM EMP WORKER JOIN EMP BOSS
+  3  WHERE WORKER.MGR = BOSS.EMPNO;
+WHERE WORKER.MGR = BOSS.EMPNO
+*
+ERROR at line 3:
+ORA-00905: missing keyword 
+
+
+SQL> SELECT WORKER.EMPNO,WORKER.ENAME,WORKER.MGR, BOSS.ENAME
+  2  FROM EMP WORKER JOIN EMP BOSS
+  3  ON WORKER.MGR = BOSS.EMPNO;
+
+     EMPNO ENAME             MGR ENAME                                                                                                                                                                  
+---------- ---------- ---------- ----------                                                                                                                                                             
+      7566 JONES            7839 KING                                                                                                                                                                   
+      7782 CLARK            7839 KING                                                                                                                                                                   
+      7698 BLAKE            7839 KING                                                                                                                                                                   
+      7900 JAMES            7698 BLAKE                                                                                                                                                                  
+      7844 TURNER           7698 BLAKE                                                                                                                                                                  
+      7654 MARTIN           7698 BLAKE                                                                                                                                                                  
+      7521 WARD             7698 BLAKE                                                                                                                                                                  
+      7499 ALLEN            7698 BLAKE                                                                                                                                                                  
+      7934 MILLER           7782 CLARK                                                                                                                                                                  
+      7902 FORD             7566 JONES                                                                                                                                                                  
+      7788 SCOTT            7566 JONES                                                                                                                                                                  
+      7876 ADAMS            7788 SCOTT                                                                                                                                                                  
+      7369 SMITH            7902 FORD                                                                                                                                                                   
+
+13 rows selected.
+
+SQL> spool off

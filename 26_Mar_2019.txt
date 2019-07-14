@@ -1,0 +1,322 @@
+SQL> DECLARE
+  2  v_num number(4);
+  3  v_sal doctor.salpermon%type;
+  4  v_name varchar2(30);
+  5  
+  6  BEGIN
+  7  v_num := &v_num;
+  8  dbms_output.put_line('The number is '||v_num);
+  9  END;
+ 10  /
+Enter value for v_num: 11
+old   7: v_num := &v_num;
+new   7: v_num := 11;
+
+PL/SQL procedure successfully completed.
+
+SQL> set verify off
+SQL> 
+SQL> accept vnum prompt 'Enter the number, jackass! ->'
+Enter the number, jackass! ->DECLARE 
+SQL> v_num number(4);
+SP2-0734: unknown command beginning "v_num numb..." - rest of line ignored.
+SQL> v_sal doctor.salpermon%type;
+SP2-0734: unknown command beginning "v_sal doct..." - rest of line ignored.
+SQL> v_name varchar2(30);
+SP2-0734: unknown command beginning "v_name var..." - rest of line ignored.
+SQL> 
+SQL> BEGIN
+  2  v_num := &v_num;
+  3  dbms_output.put_line('The number is '||v_num);
+  4  END;
+  5  /
+Enter value for v_num: aa
+v_num := aa;
+*
+ERROR at line 2:
+ORA-06550: line 2, column 1: 
+PLS-00201: identifier 'V_NUM' must be declared 
+ORA-06550: line 2, column 1: 
+PL/SQL: Statement ignored 
+ORA-06550: line 3, column 40: 
+PLS-00201: identifier 'V_NUM' must be declared 
+ORA-06550: line 3, column 1: 
+PL/SQL: Statement ignored 
+
+
+SQL> set serveroutput on
+SQL> set verify off
+SQL> 
+SQL> accept vnum prompt 'Enter the number, jackass! ->'
+Enter the number, jackass! ->
+SQL> DECLARE
+  2  v_num number(4);
+  3  v_sal doctor.salpermon%type;
+  4  v_name varchar2(30);
+  5  
+  6  BEGIN
+  7  v_num := &v_num;
+  8  dbms_output.put_line('The number is '||v_num);
+  9  END;
+ 10  /
+Enter value for v_num: 
+v_num := ;
+         *
+ERROR at line 7:
+ORA-06550: line 7, column 10: 
+PLS-00103: Encountered the symbol ";" when expecting one of the following: 
+( - + case mod new not null <an identifier> 
+<a double-quoted delimited-identifier> <a bind variable> avg 
+count current exists max min prior sql stddev sum variance 
+execute forall merge time timestamp interval date 
+<a string literal with character set specification> 
+<a number> <a single-quoted SQL string> pipe 
+<an alternatively-quoted string literal with character set specification> 
+<an alternatively-quoted S 
+
+
+SQL> set serveroutput on
+SQL> set verify off
+SQL> 
+SQL> accept vnum prompt 'Enter the number here ->'
+Enter the number here ->DECLARE 
+SQL> v_num number(4);
+SP2-0734: unknown command beginning "v_num numb..." - rest of line ignored.
+SQL> v_sal doctor.salpermon%type;
+SP2-0734: unknown command beginning "v_sal doct..." - rest of line ignored.
+SQL> v_name varchar2(30);
+SP2-0734: unknown command beginning "v_name var..." - rest of line ignored.
+SQL> 
+SQL> BEGIN
+  2  v_num := &v_num;
+  3  dbms_output.put_line('The number is '||v_num);
+  4  END;
+  5  /
+Enter value for v_num: 
+v_num := ;
+         *
+ERROR at line 2:
+ORA-06550: line 2, column 10: 
+PLS-00103: Encountered the symbol ";" when expecting one of the following: 
+( - + case mod new not null <an identifier> 
+<a double-quoted delimited-identifier> <a bind variable> avg 
+count current exists max min prior sql stddev sum variance 
+execute forall merge time timestamp interval date 
+<a string literal with character set specification> 
+<a number> <a single-quoted SQL string> pipe 
+<an alternatively-quoted string literal with character set specification> 
+<an alternatively-quoted S 
+
+
+SQL> 
+SQL> DECLARE
+  2  v_num number(4);
+  3  v_sal doctor.salpermon%type;
+  4  v_name varchar2(30);
+  5  accept vnum prompt 'Enter the number here ->'
+  6  
+  7  BEGIN
+  8  v_num := &v_num;
+  9  dbms_output.put_line('The number is '||v_num);
+ 10  END;
+ 11  /
+Enter value for v_num: a
+accept vnum prompt 'Enter the number here ->'
+            *
+ERROR at line 5:
+ORA-06550: line 5, column 13: 
+PLS-00103: Encountered the symbol "PROMPT" when expecting one of the following: 
+:= . ( @ % ; not null range default character 
+
+
+SQL> set serveroutput on
+SQL> set verify off
+SQL> 
+SQL> accept vnum prompt 'Enter the number here ->'
+Enter the number here ->a
+SQL> set serveroutput on
+SQL> set verify off
+SQL> 
+SQL> accept vnum prompt 'Enter the number here ->'
+Enter the number here ->1
+SQL> set serveroutput on
+SQL> set verify off
+SQL> 
+SQL> DECLARE
+  2  v_num number(4);
+  3  v_sal doctor.salpermon%type;
+  4  v_name varchar2(30);
+  5  
+  6  BEGIN
+  7  v_num := &v_num;
+  8  accept vnum prompt 'Enter the number here ->'
+  9  dbms_output.put_line('The number is '||v_num);
+ 10  END;
+ 11  /
+Enter value for v_num: 
+v_num := ;
+         *
+ERROR at line 7:
+ORA-06550: line 7, column 10: 
+PLS-00103: Encountered the symbol ";" when expecting one of the following: 
+( - + case mod new not null <an identifier> 
+<a double-quoted delimited-identifier> <a bind variable> avg 
+count current exists max min prior sql stddev sum variance 
+execute forall merge time timestamp interval date 
+<a string literal with character set specification> 
+<a number> <a single-quoted SQL string> pipe 
+<an alternatively-quoted string literal with character set specification> 
+<an alternatively-quoted S 
+
+
+SQL> set serveroutput on
+SQL> set verify off
+SQL> accept vnum prompt 'Enter the number here ->' DECLARE
+SP2-0003: Ill-formed ACCEPT command starting as DECLARE
+SQL> v_num number(4);
+SP2-0734: unknown command beginning "v_num numb..." - rest of line ignored.
+SQL> v_sal doctor.salpermon%type;
+SP2-0734: unknown command beginning "v_sal doct..." - rest of line ignored.
+SQL> v_name varchar2(30);
+SP2-0734: unknown command beginning "v_name var..." - rest of line ignored.
+SQL> 
+SQL> @"C:\Users\muham\Documents\INFO 2103_DB PRGMG CLASS\PL_SQL_1.sql"
+Enter the number here ->12
+where doc_id =$vdocid;
+              *
+ERROR at line 10:
+ORA-06550: line 10, column 15: 
+PLS-00181: unsupported preprocessor directive '$VDOCID' 
+
+
+SQL> "C:\Users\muham\Documents\INFO 2103_DB PRGMG CLASS\PL_SQL_1.sql"
+SP2-0734: unknown command beginning ""C:\Users\..." - rest of line ignored.
+SQL> @"C:\Users\muham\Documents\INFO 2103_DB PRGMG CLASS\PL_SQL_1.sql"
+Enter the number here ->34
+Enter value for vdocid: 100
+from docto
+     *
+ERROR at line 9:
+ORA-06550: line 9, column 6: 
+PL/SQL: ORA-00942: table or view does not exist 
+ORA-06550: line 7, column 1: 
+PL/SQL: SQL Statement ignored 
+
+
+SQL> @"C:\Users\muham\Documents\INFO 2103_DB PRGMG CLASS\PL_SQL_1.sql"
+Enter the number here ->12
+Enter value for vdocid: 100
+DECLARE
+*
+ERROR at line 1:
+ORA-06502: PL/SQL: numeric or value error: number precision too large 
+ORA-06512: at line 12 
+
+
+SQL> @"C:\Users\muham\Documents\INFO 2103_DB PRGMG CLASS\PL_SQL_1.sql"
+Enter the number here ->34
+Enter value for vdocid: 100
+The doctor name is : Stevenson                                                  
+The number is 799000                                                            
+
+PL/SQL procedure successfully completed.
+
+SQL> @"C:\Users\muham\Documents\INFO 2103_DB PRGMG CLASS\PL_SQL_2.sql"
+Enter the number here ->22
+Enter value for vdocid: 432
+	dbms.output.put_line('There is no such doctor : ');
+	*
+ERROR at line 19:
+ORA-06550: line 19, column 2: 
+PLS-00201: identifier 'DBMS.OUTPUT' must be declared 
+ORA-06550: line 19, column 2: 
+PL/SQL: Statement ignored 
+
+
+SQL> @"C:\Users\muham\Documents\INFO 2103_DB PRGMG CLASS\PL_SQL_2.sql"
+Enter the number here ->12
+Enter value for vdocid: 5432
+There is no such doctor :                                                       
+
+PL/SQL procedure successfully completed.
+
+SQL> set serveroutput on
+SQL> set verify off
+SQL> accept vnum prompt 'Enter the number here, doofus : '
+Enter the number here, doofus : 
+SQL> DECLARE
+  2  v_num doctor.salpermon%type;
+  3  v_sal doctor.salpermon%type;
+  4  v_name doctor.doc_name%type;
+  5  
+  6  BEGIN
+  7  SELECT DOC_NAME,SALPERMON
+  8  INTO v_name, v_sal
+  9  from doctor
+ 10  where doc_id =&vdocid;
+ 11  
+ 12  v_num :=v_sal * &vnum;
+ 13  
+ 14  dbms_output.put_line('The doctor name is : '||v_name);
+ 15  dbms_output.put_line('The salary now is : '||to_char(v_num,'fm$99,999,999,999.00'));
+ 16  
+ 17  EXCEPTION
+ 18  when no_data_found then
+ 19  dbms_output.put_line('There is no such doctor !');
+ 20  
+ 21  END;
+ 22  /
+Enter value for vdocid: 12
+v_num :=v_sal * ;
+                *
+ERROR at line 12:
+ORA-06550: line 12, column 17: 
+PLS-00103: Encountered the symbol ";" when expecting one of the following: 
+( - + case mod new null <an identifier> 
+<a double-quoted delimited-identifier> <a bind variable> avg 
+count current max min prior sql stddev sum variance execute 
+forall merge time timestamp interval date 
+<a string literal with character set specification> 
+<a number> <a single-quoted SQL string> pipe 
+<an alternatively-quoted string literal with character set specification> 
+<an alternatively-quoted SQL string> 
+
+
+SQL> @"C:\Users\muham\Documents\INFO 2103_DB PRGMG CLASS\PL_SQL_3.sql"
+Enter the number here, doofus : 12
+Enter value for vdocid: 34
+There is no such doctor !                                                       
+
+PL/SQL procedure successfully completed.
+
+SQL> @"C:\Users\muham\Documents\INFO 2103_DB PRGMG CLASS\PL_SQL_3.sql"
+Enter the number here, doofus : 1.6
+Enter value for vdocid: 100
+The doctor name is : Stevenson                                                  
+The salary now is : $37,600.00                                                  
+
+PL/SQL procedure successfully completed.
+
+SQL> @"C:\Users\muham\Documents\INFO 2103_DB PRGMG CLASS\PL_SQL_4.sql"
+Enter the patient ID: 100
+INTO v_name,vdocid
+            *
+ERROR at line 8:
+ORA-06550: line 8, column 13: 
+PLS-00201: identifier 'VDOCID' must be declared 
+ORA-06550: line 8, column 20: 
+PL/SQL: ORA-00904: : invalid identifier 
+ORA-06550: line 7, column 1: 
+PL/SQL: SQL Statement ignored 
+
+
+SQL> @"C:\Users\muham\Documents\INFO 2103_DB PRGMG CLASS\PL_SQL_4.sql"
+Enter the patient ID: 108
+DECLARE
+*
+ERROR at line 1:
+ORA-01422: exact fetch returns more than requested number of rows 
+ORA-06512: at line 7 
+
+
+SQL> spool off

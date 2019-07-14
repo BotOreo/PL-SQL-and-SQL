@@ -1,0 +1,90 @@
+SELECT sysdate from dual;
+SELECT sysdate+10/24 from dual;
+
+----------------Untuk jam------------------------------
+SELECT sysdate+3/24 from dual;
+SELECT to_char(sysdate+3/24,'DD MM YY hh:mi') from dual;
+
+SELECT LASTAPPTDATE, NEXTAPPTDATE, NEXTAPPTDATE-LASTAPPTDATE
+FROM PATIENT;
+
+
+SELECT LASTAPPTDATE, NEXTAPPTDATE, NEXTAPPTDATE-LASTAPPTDATE
+FROM PATIENT;
+
+---------------Untuk bulan--------------------------
+SELECT LASTAPPTDATE, NEXTAPPTDATE, months_between(NEXTAPPTDATE,LASTAPPTDATE)
+FROM PATIENT;
+
+SELECT LAST_DAY('01-JUL-19') from dual;
+
+-----------------Untuk minit--------------
+SELECT to_char(sysdate, 'HH24:MI:SS') AS ORIGINAL,
+to_char(((sysdate) +5/(24*60)), 'HH24:MI:SS') AS RESULT
+FROM DUAL;
+
+-------------- rounding off the year months------------
+SELECT round(sysdate,'Month') from dual;
+
+---------------rounding off the year---------------
+SELECT round(sysdate,'Year') from dual;
+
+SELECT round(to_date('24-JUL-19','DD-MM-YY'),'month')from dual;
+
+SELECT round(to_date('26-FEB-19','DD-MM-YY'),'day')from dual;
+
+
+SELECT round(sysdate,'day') from dual;
+
+----------
+SELECT SALPERMON, to_char(SALPERMON,'9,999999.99')
+FROM doctor;
+
+SELECT DOC_NAME, ANNUAL_BONUS
+FROM DOCTOR;
+
+----------filling/checking missing values---------------
+
+SELECT DOC_NAME, nvl2(ANNUAL_BONUS,0,1)
+FROM DOCTOR;
+-----------Today's exercise----------------------------
+
+SELECT DATEHIRED, sysdate, round((sysdate-DATEHIRED)/365) AS Year
+FROM DOCTOR;
+
+SELECT DATEHIRED, sysdate, round(MONTHS_BETWEEN(sysdate,DATEHIRED)) AS "Months in Service"
+FROM DOCTOR;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

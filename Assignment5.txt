@@ -1,0 +1,30 @@
+Name: Mahamat Nour Ali Mai 
+Matric NO: 1510455
+				Assignment 5
+
+SQL> select a.sname, a.suppid, b.value
+  2  from supplier a, computer b
+  3  where a.suppid = b.suppid AND b.value > ALL (select value from computer where make ='IBM');
+
+SNAME               SUPPID      VALUE                                           
+--------------- ---------- ----------                                           
+ASUS Sdn.Bhd           123     3000.8                                           
+Apple Sdn.Bhd          125     5300.5                                           
+Apple Sdn.Bhd          125     6300.5                                           
+Apple Sdn.Bhd          125    6000.85                                           
+
+
+SQL> select a.suppid, a.sname, count(b.make)
+  2  from supplier a, computer b
+  3  where a.suppid = b.suppid
+  4  group by a.suppid, a.sname
+  5  ;
+
+    SUPPID SNAME           COUNT(B.MAKE)                                        
+---------- --------------- -------------                                        
+       124 IBM Sdn.Bhd                 1                                        
+       122 Compaq Sdn.Bhd              1                                        
+       125 Apple Sdn.Bhd               3                                        
+       123 ASUS Sdn.Bhd                1                                        
+
+SQL> spool off

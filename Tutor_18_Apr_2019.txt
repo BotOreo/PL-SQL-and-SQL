@@ -1,0 +1,40 @@
+------------------------
+set serveroutput on
+set verify off
+DECLARE
+	cnt number:=33;
+
+
+BEGIN
+	WHILE cnt <=57 LOOP
+		dbms_output.put_line('Value of a: '||cnt);
+		cnt := cnt+3;
+	END LOOP;		
+
+END;
+/
+------------------------
+set serveroutput on
+set verify off
+DECLARE
+	cnt number:=2;
+
+
+BEGIN
+	WHILE cnt <7 LOOP
+		IF cnt <6 THEN
+			dbms_output.put_line('RUN: '||cnt);
+		ELSIF cnt = 6 THEN
+			dbms_output.put_line('STOP: '||cnt);
+		END IF;
+		cnt := cnt+1;
+	END LOOP;
+
+	WHILE cnt >=2 LOOP
+		dbms_output.put_line('DOWN: '||cnt);
+		cnt :=cnt-1;
+	END LOOP;
+	
+
+END;
+/

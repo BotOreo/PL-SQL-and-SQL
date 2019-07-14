@@ -1,0 +1,626 @@
+SQL> @"C:\Users\muham\Documents\INFO 2103_DB PRGMG CLASS\LOOP.txt"
+Number is 1                                                                     
+Number is 2                                                                     
+Number is 3                                                                     
+Number is 4                                                                     
+Number is 5                                                                     
+
+PL/SQL procedure successfully completed.
+
+Number is 1                                                                     
+Number is 2                                                                     
+Number is 3                                                                     
+Number is 4                                                                     
+
+PL/SQL procedure successfully completed.
+
+Number is 1                                                                     
+Number is 2                                                                     
+Number is 3                                                                     
+Number is 4                                                                     
+Number is 5                                                                     
+
+PL/SQL procedure successfully completed.
+
+SQL> DECLARE
+  2  cnt number:=1;
+  3  
+  4  
+  5  BEGIN
+  6  LOOP
+  7  dbms_output.put_line('Number is '||cnt);
+  8  cnt := cnt+1;
+  9  EXIT when cnt >= 5;
+ 10  END LOOP;
+ 11  
+ 12  END;
+ 13  /
+Number is 1                                                                     
+Number is 2                                                                     
+Number is 3                                                                     
+Number is 4                                                                     
+
+PL/SQL procedure successfully completed.
+
+SQL> DECLARE
+  2  cnt number:=1;
+  3  
+  4  
+  5  BEGIN
+  6  FOR cnt IN 1 .. 5 LOOP
+  7  dbms_output.put_line('Number is '||cnt);
+  8  END LOOP;
+  9  
+ 10  END;
+ 11  /
+Number is 1                                                                     
+Number is 2                                                                     
+Number is 3                                                                     
+Number is 4                                                                     
+Number is 5                                                                     
+
+PL/SQL procedure successfully completed.
+
+SQL> DECLARE
+  2  cnt number:=1;
+  3  
+  4  
+  5  BEGIN
+  6  WHILE cnt <=5 LOOP
+  7  dbms_output.put_line('Number is '||cnt);
+  8  cnt := cnt+1;
+  9  END LOOP;
+ 10  
+ 11  END;
+ 12  /
+Number is 1                                                                     
+Number is 2                                                                     
+Number is 3                                                                     
+Number is 4                                                                     
+Number is 5                                                                     
+
+PL/SQL procedure successfully completed.
+
+SQL> DECLARE
+  2  cnt number:=1;
+  3  
+  4  
+  5  BEGIN
+  6  LOOP
+  7  dbms_output.put_line('Number is '||cnt);
+  8  cnt := cnt+1;
+  9  EXIT when cnt > 5;
+ 10  END LOOP;
+ 11  
+ 12  END;
+ 13  /
+Number is 1                                                                     
+Number is 2                                                                     
+Number is 3                                                                     
+Number is 4                                                                     
+Number is 5                                                                     
+
+PL/SQL procedure successfully completed.
+
+SQL> DECLARE
+  2  cnt number:=1;
+  3  
+  4  
+  5  BEGIN
+  6  LOOP
+  7  dbms_output.put_line('Number is '||cnt);
+  8  cnt := cnt+1;
+  9  EXIT when cnt > 5;
+ 10  END LOOP;
+ 11  
+ 12  END;
+ 13  /
+Number is 1                                                                     
+Number is 2                                                                     
+Number is 3                                                                     
+Number is 4                                                                     
+Number is 5                                                                     
+
+PL/SQL procedure successfully completed.
+
+SQL> 
+SQL> DECLARE
+  2  cnt number:=1;
+  3  
+  4  
+  5  BEGIN
+  6  LOOP
+  7  dbms_output.put_line('Number is '||cnt);
+  8  EXIT when cnt > 5;
+  9  cnt := cnt+1;
+ 10  
+ 11  END LOOP;
+ 12  
+ 13  END;
+ 14  /
+Number is 1                                                                     
+Number is 2                                                                     
+Number is 3                                                                     
+Number is 4                                                                     
+Number is 5                                                                     
+Number is 6                                                                     
+
+PL/SQL procedure successfully completed.
+
+SQL> DECLARE
+  2  cnt number:=1;
+  3  
+  4  
+  5  BEGIN
+  6  FOR cnt IN REVERSE 1 .. 5 LOOP
+  7  dbms_output.put_line('Number is '||cnt);
+  8  END LOOP;
+  9  
+ 10  END;
+ 11  /
+Number is 5                                                                     
+Number is 4                                                                     
+Number is 3                                                                     
+Number is 2                                                                     
+Number is 1                                                                     
+
+PL/SQL procedure successfully completed.
+
+SQL>  DECLARE
+  2  cnt number:=1;
+  3  tarikh date:=('28-NOV-18','DD-MON-YY');
+  4  
+  5  
+  6  BEGIN
+  7  WHILE cnt <=5 LOOP
+  8  dbms_output.put_line('In '||cnt||', the date will be '||to_char(tarikh));
+  9  cnt := cnt+1;
+ 10  END LOOP;
+ 11  
+ 12  END;
+ 13  /
+tarikh date:=('28-NOV-18','DD-MON-YY');
+             *
+ERROR at line 3:
+ORA-06550: line 3, column 14: 
+PLS-00320: the declaration of the type of this expression is incomplete or 
+malformed 
+ORA-06550: line 3, column 8: 
+PL/SQL: Item ignored 
+ORA-06550: line 8, column 65: 
+PLS-00320: the declaration of the type of this expression is incomplete or 
+malformed 
+ORA-06550: line 8, column 1: 
+PL/SQL: Statement ignored 
+
+
+SQL>  DECLARE
+  2  cnt number:=1;
+  3  tarikh date:=to_char('28-NOV-18','DD-MON-YY');
+  4  
+  5  
+  6  BEGIN
+  7  WHILE cnt <=5 LOOP
+  8  dbms_output.put_line('In '||cnt||', the date will be '||to_char(tarikh));
+  9  cnt := cnt+1;
+ 10  END LOOP;
+ 11  
+ 12  END;
+ 13  /
+ DECLARE
+*
+ERROR at line 1:
+ORA-06502: PL/SQL: numeric or value error: character to number conversion error 
+ORA-06512: at line 3 
+
+
+SQL>  DECLARE
+  2  cnt number:=1;
+  3  tarikh date:=to_date('28-NOV-18','DD-MON-YY');
+  4  
+  5  
+  6  BEGIN
+  7  WHILE cnt <=5 LOOP
+  8  dbms_output.put_line('In '||cnt||', the date will be '||to_char(tarikh));
+  9  cnt := cnt+1;
+ 10  END LOOP;
+ 11  
+ 12  END;
+ 13  /
+In 1, the date will be 28-NOV-18                                                
+In 2, the date will be 28-NOV-18                                                
+In 3, the date will be 28-NOV-18                                                
+In 4, the date will be 28-NOV-18                                                
+In 5, the date will be 28-NOV-18                                                
+
+PL/SQL procedure successfully completed.
+
+SQL> 
+SQL>  DECLARE
+  2  cnt number:=1;
+  3  tarikh date:=to_date('28-NOV-18','DD-MON-YY');
+  4  
+  5  
+  6  BEGIN
+  7  WHILE cnt <=5 LOOP
+  8  dbms_output.put_line('In '||cnt||' day(s), the date will be '||to_char(tarikh+1));
+  9  cnt := cnt+1;
+ 10  END LOOP;
+ 11  
+ 12  END;
+ 13  /
+In 1 day(s), the date will be 29-NOV-18                                         
+In 2 day(s), the date will be 29-NOV-18                                         
+In 3 day(s), the date will be 29-NOV-18                                         
+In 4 day(s), the date will be 29-NOV-18                                         
+In 5 day(s), the date will be 29-NOV-18                                         
+
+PL/SQL procedure successfully completed.
+
+SQL>  DECLARE
+  2  cnt number:=1;
+  3  tarikh date:=to_date('28-NOV-18','DD-MON-YY');
+  4  
+  5  
+  6  BEGIN
+  7  WHILE cnt <=5 LOOP
+  8  dbms_output.put_line('In '||cnt||' day(s), the date will be '||to_char(tarikh));
+  9  tarikh:=tarikh+1;
+ 10  cnt := cnt+1;
+ 11  END LOOP;
+ 12  
+ 13  END;
+ 14  /
+In 1 day(s), the date will be 28-NOV-18                                         
+In 2 day(s), the date will be 29-NOV-18                                         
+In 3 day(s), the date will be 30-NOV-18                                         
+In 4 day(s), the date will be 01-DEC-18                                         
+In 5 day(s), the date will be 02-DEC-18                                         
+
+PL/SQL procedure successfully completed.
+
+SQL> DECLARE
+  2  cnt number:=1;
+  3  tarikh date:=to_date('28-NOV-18','DD-MON-YY');
+  4  
+  5  
+  6  BEGIN
+  7  LOOP
+  8  dbms_output.put_line('In '||cnt||' day(s), the date will be '||to_char(tarikh));
+  9  tarikh:=tarikh+1;
+ 10  cnt := cnt+1;
+ 11  EXIT cnt > 5;
+ 12  END LOOP;
+ 13  
+ 14  END;
+ 15  /
+EXIT cnt > 5;
+         *
+ERROR at line 11:
+ORA-06550: line 11, column 10: 
+PLS-00103: Encountered the symbol ">" when expecting one of the following: 
+. ; when 
+The symbol "when was inserted before ">" to continue. 
+
+
+SQL> DECLARE
+  2  cnt number:=1;
+  3  tarikh date:=to_date('28-NOV-18','DD-MON-YY');
+  4  
+  5  
+  6  BEGIN
+  7  LOOP
+  8  dbms_output.put_line('In '||cnt||' day(s), the date will be '||to_char(tarikh));
+  9  tarikh:=tarikh+1;
+ 10  cnt := cnt+1;
+ 11  EXIT when cnt > 5;
+ 12  END LOOP;
+ 13  
+ 14  END;
+ 15  /
+In 1 day(s), the date will be 28-NOV-18                                         
+In 2 day(s), the date will be 29-NOV-18                                         
+In 3 day(s), the date will be 30-NOV-18                                         
+In 4 day(s), the date will be 01-DEC-18                                         
+In 5 day(s), the date will be 02-DEC-18                                         
+
+PL/SQL procedure successfully completed.
+
+SQL> DECLARE
+  2  cnt number:=1;
+  3  tarikh date:=to_date('28-NOV-17','DD-MON-YY');
+  4  
+  5  
+  6  BEGIN
+  7  WHILE cnt <=5 LOOP
+  8  dbms_output.put_line('In '||cnt||' day(s), the date will be '||to_char(tarikh));
+  9  tarikh:=tarikh+1;
+ 10  cnt := cnt+1;
+ 11  END LOOP;
+ 12  
+ 13  END;
+ 14  /
+In 1 day(s), the date will be 28-NOV-17                                         
+In 2 day(s), the date will be 29-NOV-17                                         
+In 3 day(s), the date will be 30-NOV-17                                         
+In 4 day(s), the date will be 01-DEC-17                                         
+In 5 day(s), the date will be 02-DEC-17                                         
+
+PL/SQL procedure successfully completed.
+
+SQL> -------------Lab Assignment BASIC---------------------------------
+SQL> DECLARE
+  2  cnt number:=1;
+  3  tarikh date:=to_date('28-NOV-17','DD-MON-YY');
+  4  
+  5  
+  6  BEGIN
+  7  LOOP
+  8  dbms_output.put_line('In '||cnt||' day(s), the date will be '||to_char(tarikh));
+  9  tarikh:=tarikh+1;
+ 10  cnt := cnt+1;
+ 11  EXIT when cnt > 5;
+ 12  END LOOP;
+ 13  
+ 14  END;
+ 15  /
+In 1 day(s), the date will be 28-NOV-17                                         
+In 2 day(s), the date will be 29-NOV-17                                         
+In 3 day(s), the date will be 30-NOV-17                                         
+In 4 day(s), the date will be 01-DEC-17                                         
+In 5 day(s), the date will be 02-DEC-17                                         
+
+PL/SQL procedure successfully completed.
+
+SQL> 
+SQL> cl scr
+
+SQL> 
+SQL> ----------- Lab Assignment WHILE-------------------------
+SQL> DECLARE
+  2  cnt number:=1;
+  3  tarikh date:=to_date('28-NOV-17','DD-MON-YY');
+  4  
+  5  
+  6  BEGIN
+  7  WHILE cnt <=5 LOOP
+  8  dbms_output.put_line('In '||cnt||' day(s), the date will be '||to_char(tarikh));
+  9  tarikh:=tarikh+1;
+ 10  cnt := cnt+1;
+ 11  END LOOP;
+ 12  
+ 13  END;
+ 14  /
+In 1 day(s), the date will be 28-NOV-17                                         
+In 2 day(s), the date will be 29-NOV-17                                         
+In 3 day(s), the date will be 30-NOV-17                                         
+In 4 day(s), the date will be 01-DEC-17                                         
+In 5 day(s), the date will be 02-DEC-17                                         
+
+PL/SQL procedure successfully completed.
+
+SQL> -------------Lab Assignment BASIC---------------------------------
+SQL> DECLARE
+  2  cnt number:=1;
+  3  tarikh date:=to_date('28-NOV-17','DD-MON-YY');
+  4  
+  5  
+  6  BEGIN
+  7  LOOP
+  8  dbms_output.put_line('In '||cnt||' day(s), the date will be '||to_char(tarikh));
+  9  tarikh:=tarikh+1;
+ 10  cnt := cnt+1;
+ 11  EXIT when cnt > 5;
+ 12  END LOOP;
+ 13  
+ 14  END;
+ 15  /
+In 1 day(s), the date will be 28-NOV-17                                         
+In 2 day(s), the date will be 29-NOV-17                                         
+In 3 day(s), the date will be 30-NOV-17                                         
+In 4 day(s), the date will be 01-DEC-17                                         
+In 5 day(s), the date will be 02-DEC-17                                         
+
+PL/SQL procedure successfully completed.
+
+SQL> 
+SQL> 
+SQL> DECLARE
+  2  EClass number:=1;
+  3  SQ number:=1;
+  4  
+  5  
+  6  BEGIN
+  7  WHILE EClass <=3 LOOP
+  8  dbms_output.put_line('Passengers in class E'||EClass||', your seats are: ');
+  9  FOR SQ 1 .. 2 LOOP
+ 10  dbms_output.put_line('E'||EClass||'SQ'||SQ);
+ 11  END LOOP;
+ 12  EClass:=EClass+1;
+ 13  END LOOP;
+ 14  
+ 15  END;
+ 16  /
+FOR SQ 1 .. 2 LOOP
+       *
+ERROR at line 9:
+ORA-06550: line 9, column 8: 
+PLS-00103: Encountered the symbol "1" when expecting one of the following: 
+in 
+The symbol "in" was substituted for "1" to continue. 
+
+
+SQL> DECLARE
+  2  EClass number:=1;
+  3  SQ number:=1;
+  4  
+  5  
+  6  BEGIN
+  7  WHILE EClass <=3 LOOP
+  8  dbms_output.put_line('Passengers in class E'||EClass||', your seats are: ');
+  9  FOR SQ IN 1 .. 2 LOOP
+ 10  dbms_output.put_line('E'||EClass||'SQ'||SQ);
+ 11  END LOOP;
+ 12  EClass:=EClass+1;
+ 13  END LOOP;
+ 14  
+ 15  END;
+ 16  /
+Passengers in class E1, your seats are:                                         
+E1SQ1                                                                           
+E1SQ2                                                                           
+Passengers in class E2, your seats are:                                         
+E2SQ1                                                                           
+E2SQ2                                                                           
+Passengers in class E3, your seats are:                                         
+E3SQ1                                                                           
+E3SQ2                                                                           
+
+PL/SQL procedure successfully completed.
+
+SQL> 
+SQL> cl scr
+
+SQL> DECLARE
+  2  EClass number:=1;
+  3  SQ number:=1;
+  4  
+  5  
+  6  BEGIN
+  7  WHILE EClass <=3 LOOP
+  8  dbms_output.put_line('Passengers in class E'||EClass||', your seats are: ');
+  9  FOR SQ IN 1 .. 2 LOOP
+ 10  dbms_output.put_line('--------E'||EClass||'SQ'||SQ);
+ 11  END LOOP;
+ 12  EClass:=EClass+1;
+ 13  END LOOP;
+ 14  
+ 15  END;
+ 16  /
+Passengers in class E1, your seats are:                                         
+--------E1SQ1                                                                   
+--------E1SQ2                                                                   
+Passengers in class E2, your seats are:                                         
+--------E2SQ1                                                                   
+--------E2SQ2                                                                   
+Passengers in class E3, your seats are:                                         
+--------E3SQ1                                                                   
+--------E3SQ2                                                                   
+
+PL/SQL procedure successfully completed.
+
+SQL> 
+SQL> 
+SQL> cl scr
+
+SQL> DECLARE
+  2  EClass number:=1;
+  3  SQ number:=1;
+  4  
+  5  
+  6  BEGIN
+  7  WHILE EClass <=3 LOOP
+  8  dbms_output.put_line('Passengers in class E'||EClass||', your seats are: ');
+  9  FOR SQ IN 1 .. 2 LOOP
+ 10  dbms_output.put_line('--------E'||EClass||'SQ'||SQ);
+ 11  END LOOP;
+ 12  EClass:=EClass+1;
+ 13  END LOOP;
+ 14  
+ 15  END;
+ 16  /
+Passengers in class E1, your seats are:                                         
+--------E1SQ1                                                                   
+--------E1SQ2                                                                   
+Passengers in class E2, your seats are:                                         
+--------E2SQ1                                                                   
+--------E2SQ2                                                                   
+Passengers in class E3, your seats are:                                         
+--------E3SQ1                                                                   
+--------E3SQ2                                                                   
+
+PL/SQL procedure successfully completed.
+
+SQL> 
+SQL> 
+SQL> cl scr
+
+SQL> 
+SQL> ----------- Lab Assignment WHILE-------------------------
+SQL> DECLARE
+  2  cnt number:=1;
+  3  tarikh date:=to_date('28-NOV-17','DD-MON-YY');
+  4  
+  5  
+  6  BEGIN
+  7  WHILE cnt <=5 LOOP
+  8  dbms_output.put_line('In '||cnt||' day(s), the date will be '||to_char(tarikh));
+  9  tarikh:=tarikh+1;
+ 10  cnt := cnt+1;
+ 11  END LOOP;
+ 12  
+ 13  END;
+ 14  /
+In 1 day(s), the date will be 28-NOV-17                                         
+In 2 day(s), the date will be 29-NOV-17                                         
+In 3 day(s), the date will be 30-NOV-17                                         
+In 4 day(s), the date will be 01-DEC-17                                         
+In 5 day(s), the date will be 02-DEC-17                                         
+
+PL/SQL procedure successfully completed.
+
+SQL> -------------Lab Assignment BASIC---------------------------------
+SQL> DECLARE
+  2  cnt number:=1;
+  3  tarikh date:=to_date('28-NOV-17','DD-MON-YY');
+  4  
+  5  
+  6  BEGIN
+  7  LOOP
+  8  dbms_output.put_line('In '||cnt||' day(s), the date will be '||to_char(tarikh));
+  9  tarikh:=tarikh+1;
+ 10  cnt := cnt+1;
+ 11  EXIT when cnt > 5;
+ 12  END LOOP;
+ 13  
+ 14  END;
+ 15  /
+In 1 day(s), the date will be 28-NOV-17                                         
+In 2 day(s), the date will be 29-NOV-17                                         
+In 3 day(s), the date will be 30-NOV-17                                         
+In 4 day(s), the date will be 01-DEC-17                                         
+In 5 day(s), the date will be 02-DEC-17                                         
+
+PL/SQL procedure successfully completed.
+
+SQL> --------------Lab Assignment NESTED----------------
+SQL> 
+SQL> DECLARE
+  2  EClass number:=1;
+  3  SQ number:=1;
+  4  
+  5  
+  6  BEGIN
+  7  WHILE EClass <=3 LOOP
+  8  dbms_output.put_line('Passengers in class E'||EClass||', your seats are: ');
+  9  FOR SQ IN 1 .. 2 LOOP
+ 10  dbms_output.put_line('--------E'||EClass||'SQ'||SQ);
+ 11  END LOOP;
+ 12  EClass:=EClass+1;
+ 13  END LOOP;
+ 14  
+ 15  END;
+ 16  /
+Passengers in class E1, your seats are:                                         
+--------E1SQ1                                                                   
+--------E1SQ2                                                                   
+Passengers in class E2, your seats are:                                         
+--------E2SQ1                                                                   
+--------E2SQ2                                                                   
+Passengers in class E3, your seats are:                                         
+--------E3SQ1                                                                   
+--------E3SQ2                                                                   
+
+PL/SQL procedure successfully completed.
+
+SQL> exit

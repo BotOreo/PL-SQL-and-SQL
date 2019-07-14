@@ -1,0 +1,40 @@
+set serveroutput on;
+set verify off;
+
+create or replace function calcZakat (p_sal IN number)
+return number is
+
+	zakatrate number :=0.025;
+	payzakat number;
+
+begin 
+	IF p_sal = 5000 THEN payzakat :=p_sal * zakatrate;
+	ELSE payzakat:=0;
+	END IF;
+
+RETURN (payzakat);
+
+end calcZakat;
+/
+--------------------------------------------------------
+set serveroutput on;
+set verify off;
+ACCEPT docid PROMPT 'Enter Doctor ID (Doc_ID) : ';
+
+declare 
+	amt number;
+	sal number;
+	name varchar2(30);
+begin
+	select doc_name salpermon
+	into name, sal
+	from doctor
+	where doc_id = &docid;
+
+	amt:=calczakat(sal);
+
+	dbms_output.put_line('The salary of Dr. '||name||' '||sal);
+	dbmas_output.putline('The amount of zakat to be paid is RM : '||amt);
+
+end;
+/

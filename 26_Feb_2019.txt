@@ -1,0 +1,126 @@
+SQL> select concat(concat(fname,' '),lname) from customer;
+
+CONCAT(CONCAT(FNAME,'                                                           
+---------------------                                                           
+Jessica Woolard                                                                 
+Ellen St. James                                                                 
+Janet Akers                                                                     
+Blaine Poston                                                                   
+John Ackers                                                                     
+Cheri Ralston                                                                   
+Leita Akers                                                                     
+Greg Macke                                                                      
+Loretta Salyers                                                                 
+Tisha Williams                                                                  
+
+10 rows selected.
+
+SQL> desc dual
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DUMMY                                              VARCHAR2(1)
+
+SQL> SELECT 1555*15
+  2  FROM DUAL
+  3  /
+
+   1555*15                                                                      
+----------                                                                      
+     23325                                                                      
+
+SQL> SELECT TO _CHAR(SYSDATE,'DAY DD MONTH YYYY')
+  2  FROM DUAL;
+SELECT TO _CHAR(SYSDATE,'DAY DD MONTH YYYY')
+       *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> SELECT TO _CHAR(SYSDATE,'Day dd Month yyyy')
+  2  from dual;
+SELECT TO _CHAR(SYSDATE,'Day dd Month yyyy')
+       *
+ERROR at line 1:
+ORA-00936: missing expression 
+
+
+SQL> select to_char(sysdate, 'Day dd Month yyyy')
+  2  from dual;
+
+TO_CHAR(SYSDATE,'DAYDDMONTH                                                     
+---------------------------                                                     
+Tuesday   26 February  2019                                                     
+
+SQL> select to_char(sysdate, 'Day dd mm yyyy')y'
+  2  select to_char(sysdate, 'Day dd mm yyyy')y'
+  3  
+SQL> select to_char(sysdate, 'Day dd mm yyyy')
+  2  from dual;
+
+TO_CHAR(SYSDATE,'DAY                                                            
+--------------------                                                            
+Tuesday   26 02 2019                                                            
+
+SQL> select to_char(sysdate, 'Day dd mmsp yyyy')
+  2  from dual;
+
+TO_CHAR(SYSDATE,'DAYDDMM                                                        
+------------------------                                                        
+Tuesday   26 two 2019                                                           
+
+SQL> select date_hired, to_char(datehired,'Day dd Month yyyy')
+  2  from doctor;
+select date_hired, to_char(datehired,'Day dd Month yyyy')
+       *
+ERROR at line 1:
+ORA-00904: "DATE_HIRED": invalid identifier 
+
+
+SQL> select datehired, to_char(datehired,'Day dd Month yyyy')
+  2  from doctor;
+
+DATEHIRED TO_CHAR(DATEHIRED,'DAYDDMON                                           
+--------- ---------------------------                                           
+05-DEC-94 Monday    05 December  1994                                           
+09-JAN-00 Sunday    09 January   2000                                           
+21-JAN-96 Sunday    21 January   1996                                           
+16-JUN-98 Tuesday   16 June      1998                                           
+22-JUN-98 Monday    22 June      1998                                           
+01-AUG-98 Saturday  01 August    1998                                           
+02-MAY-95 Tuesday   02 May       1995                                           
+02-MAR-95 Thursday  02 March     1995                                           
+18-MAR-97 Tuesday   18 March     1997                                           
+18-DEC-99 Saturday  18 December  1999                                           
+30-JUN-89 Friday    30 June      1989                                           
+
+DATEHIRED TO_CHAR(DATEHIRED,'DAYDDMON                                           
+--------- ---------------------------                                           
+30-JUN-79 Saturday  30 June      1979                                           
+
+12 rows selected.
+
+SQL> select round(1223.223, -1) from dual;
+
+ROUND(1223.223,-1)                                                              
+------------------                                                              
+              1220                                                              
+
+SQL> select round(1223.223, 1) from dual;
+
+ROUND(1223.223,1)                                                               
+-----------------                                                               
+           1223.2                                                               
+
+SQL> select round(1223.223, -3) from dual;
+
+ROUND(1223.223,-3)                                                              
+------------------                                                              
+              1000                                                              
+
+SQL> select round(1223.223, 3) from dual;
+
+ROUND(1223.223,3)                                                               
+-----------------                                                               
+         1223.223                                                               
+
+SQL> spool off;

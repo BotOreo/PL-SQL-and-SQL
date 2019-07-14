@@ -1,0 +1,44 @@
+> substitution variable in PL/SQL, &variable_name
+> Must have symbole '&'
+>INTO can only be in BEGIN, but not in DECLARE
+> a non-predefined exception handling : pragma EXCEPTION IN_IT
+
+set serveroutput on
+set verify off
+BEGIN
+	DELETE from patient
+	WHERE doc_id=&docid;
+		
+	IF SQL%FOUND THEN	
+		dbms_output.put_line(SQL%ROWCOUNT||' rows are deleted);
+	ELSE
+		dbms_output.put_line('No matching records. '||SQL%ROWCOUNT||' rows deleted.');
+	END IF;
+	END;
+	/
+
+-------------------Exercise -------------------------
+
+set serveroutput on
+set verify off
+ACCEPT charge PROMPT 'Enter the minimum charge per appointment : RM ';
+DECLARE 
+	docid doctor.doc_id%TYPE;
+	charge doctor.chgperappt%TYPE;
+	docname doctor.doc_name%TYPE;
+	value number(6,2);	
+BEGIN
+	SELECT doc_id, doc_name 
+	INTO docid, docname
+	FROM doctor
+	WHERE chgperappt < &charge;
+		
+	
+	IF SQL%FOUND THEN
+		dbms_output.put_line('Dr. '||docname||' ('||docid||') is charging RM '||chgperappt); 
+	charge:=charge+(charge*0.3);
+	dbms_output.put_line('Please increase the charge per appointment by 30% --> RM '||charge);
+	dbms_output.put_line('All charge per appointment met the minimum criteria.');
+	END IF;
+	END;
+	/

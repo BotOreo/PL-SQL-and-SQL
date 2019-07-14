@@ -1,0 +1,528 @@
+SQL> desc doctor
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DOC_ID                                    NOT NULL NUMBER(3)
+ DOC_NAME                                           VARCHAR2(9)
+ DATEHIRED                                          DATE
+ SALPERMON                                          NUMBER(12)
+ AREA                                               VARCHAR2(20)
+ SUPERVISOR_ID                                      NUMBER(3)
+ CHGPERAPPT                                         NUMBER(3)
+ ANNUAL_BONUS                                       NUMBER(5)
+
+SQL> select count(all area) from doctor;
+
+COUNT(ALLAREA)                                                                  
+--------------                                                                  
+            14                                                                  
+
+SQL> select area from doctor;
+
+AREA                                                                            
+--------------------                                                            
+Pediatrics                                                                      
+Pediatrics                                                                      
+Pediatrics                                                                      
+Neurology                                                                       
+Family Practice                                                                 
+Neurology                                                                       
+Orthopedics                                                                     
+Orthopedics                                                                     
+Rehab                                                                           
+Rehab                                                                           
+Neurology                                                                       
+
+AREA                                                                            
+--------------------                                                            
+Director                                                                        
+Rehab                                                                           
+Neurology                                                                       
+
+14 rows selected.
+
+SQL> 
+SQL> SELECT COUNT(DINSTINCT AREA) FROM DOCTOR;
+SELECT COUNT(DINSTINCT AREA) FROM DOCTOR
+                       *
+ERROR at line 1:
+ORA-00907: missing right parenthesis 
+
+
+SQL> SELECT COUNT(DISTINCT AREA) FROM DOCTOR;
+
+COUNT(DISTINCTAREA)                                                             
+-------------------                                                             
+                  6                                                             
+
+SQL> SELECT COUNT(SALPERMON), SUM(SALPERMON),
+  2  AVG(SALPERMON), MIN(SALPERMON), MAX(SALPERMON)
+  3  FROM DOCTOR;
+
+COUNT(SALPERMON) SUM(SALPERMON) AVG(SALPERMON) MIN(SALPERMON) MAX(SALPERMON)    
+---------------- -------------- -------------- -------------- --------------    
+              14         164200     11728.5714           3500          27500    
+
+SQL> 
+SQL> 
+SQL> SELECT AREA, SUM(SALPERMON)
+  2  FROM DOCTOR
+  3  GROUP BY AREA;
+
+AREA                 SUM(SALPERMON)                                             
+-------------------- --------------                                             
+Rehab                         22300                                             
+Neurology                     63450                                             
+Family Practice                4550                                             
+Pediatrics                    30100                                             
+Orthopedics                   20300                                             
+Director                      23500                                             
+
+6 rows selected.
+
+SQL> 
+SQL> SELECT AREA, DOC_NAME, SUM(SALPERMON)
+  2  FROM DOCTOR
+  3  GROUP BY AREA;
+SELECT AREA, DOC_NAME, SUM(SALPERMON)
+             *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression 
+
+
+SQL> 
+SQL> SELECT AREA, DOC_NAME, SUM(SALPERMON)
+  2  FROM DOCTOR
+  3  GROUP BY AREA, DOC_NAME;
+
+AREA                 DOC_NAME  SUM(SALPERMON)                                   
+-------------------- --------- --------------                                   
+Pediatrics           Lewis              10000                                   
+Neurology            James               7950                                   
+Rehab                Zinnin             12300                                   
+Director             Stevenson          23500                                   
+Family Practice      Smith               4550                                   
+Orthopedics          James               9800                                   
+Orthopedics          Robertson          10500                                   
+Neurology            Borque             16500                                   
+Pediatrics           Harrison           12000                                   
+Pediatrics           Vester              8100                                   
+Neurology            Cotner             11500                                   
+
+AREA                 DOC_NAME  SUM(SALPERMON)                                   
+-------------------- --------- --------------                                   
+Rehab                Thompson            6500                                   
+Rehab                Pronger             3500                                   
+Neurology            Denise             27500                                   
+
+14 rows selected.
+
+SQL> 
+SQL> sELECT * FROM DOCTOR;
+
+    DOC_ID DOC_NAME  DATEHIRED  SALPERMON AREA                 SUPERVISOR_ID    
+---------- --------- --------- ---------- -------------------- -------------    
+CHGPERAPPT ANNUAL_BONUS                                                         
+---------- ------------                                                         
+       432 Harrison  05-DEC-94      12000 Pediatrics                     100    
+        75         4500                                                         
+                                                                                
+       509 Vester    09-JAN-00       8100 Pediatrics                     432    
+        40                                                                      
+                                                                                
+       389 Lewis     21-JAN-96      10000 Pediatrics                     432    
+        40         2250                                                         
+                                                                                
+
+    DOC_ID DOC_NAME  DATEHIRED  SALPERMON AREA                 SUPERVISOR_ID    
+---------- --------- --------- ---------- -------------------- -------------    
+CHGPERAPPT ANNUAL_BONUS                                                         
+---------- ------------                                                         
+       504 Cotner    16-JUN-98      11500 Neurology                      289    
+        85         7500                                                         
+                                                                                
+       235 Smith     22-JUN-98       4550 Family Practice                100    
+        25         2250                                                         
+                                                                                
+       356 James     01-AUG-98       7950 Neurology                      289    
+        80         6500                                                         
+                                                                                
+
+    DOC_ID DOC_NAME  DATEHIRED  SALPERMON AREA                 SUPERVISOR_ID    
+---------- --------- --------- ---------- -------------------- -------------    
+CHGPERAPPT ANNUAL_BONUS                                                         
+---------- ------------                                                         
+       558 James     02-MAY-95       9800 Orthopedics                    876    
+        85         7700                                                         
+                                                                                
+       876 Robertson 02-MAR-95      10500 Orthopedics                    100    
+        90         8900                                                         
+                                                                                
+       889 Thompson  18-MAR-97       6500 Rehab                          100    
+        65         3200                                                         
+                                                                                
+
+    DOC_ID DOC_NAME  DATEHIRED  SALPERMON AREA                 SUPERVISOR_ID    
+---------- --------- --------- ---------- -------------------- -------------    
+CHGPERAPPT ANNUAL_BONUS                                                         
+---------- ------------                                                         
+       239 Pronger   18-DEC-99       3500 Rehab                          889    
+        40                                                                      
+                                                                                
+       289 Borque    30-JUN-89      16500 Neurology                      100    
+        95         6500                                                         
+                                                                                
+       100 Stevenson 30-JUN-79      23500 Director                              
+                                                                                
+                                                                                
+
+    DOC_ID DOC_NAME  DATEHIRED  SALPERMON AREA                 SUPERVISOR_ID    
+---------- --------- --------- ---------- -------------------- -------------    
+CHGPERAPPT ANNUAL_BONUS                                                         
+---------- ------------                                                         
+       912 Zinnin    05-MAR-19      12300 Rehab                          405    
+       550         4300                                                         
+                                                                                
+       613 Denise    05-MAR-19      27500 Neurology                      778    
+        45         3300                                                         
+                                                                                
+
+14 rows selected.
+
+SQL> SELECT AREA, DOC_NAME, MAX(SALPERMON)
+  2  FROM DOCTOR
+  3  GROUP BY AREA, DOC_NAME;
+
+AREA                 DOC_NAME  MAX(SALPERMON)                                   
+-------------------- --------- --------------                                   
+Pediatrics           Lewis              10000                                   
+Neurology            James               7950                                   
+Rehab                Zinnin             12300                                   
+Director             Stevenson          23500                                   
+Family Practice      Smith               4550                                   
+Orthopedics          James               9800                                   
+Orthopedics          Robertson          10500                                   
+Neurology            Borque             16500                                   
+Pediatrics           Harrison           12000                                   
+Pediatrics           Vester              8100                                   
+Neurology            Cotner             11500                                   
+
+AREA                 DOC_NAME  MAX(SALPERMON)                                   
+-------------------- --------- --------------                                   
+Rehab                Thompson            6500                                   
+Rehab                Pronger             3500                                   
+Neurology            Denise             27500                                   
+
+14 rows selected.
+
+SQL> 
+SQL> SELECT AREA, MAX(SALPERMON)
+  2  FROM DOCTOR
+  3  GROUP BY AREA;
+
+AREA                 MAX(SALPERMON)                                             
+-------------------- --------------                                             
+Rehab                         12300                                             
+Neurology                     27500                                             
+Family Practice                4550                                             
+Pediatrics                    12000                                             
+Orthopedics                   10500                                             
+Director                      23500                                             
+
+6 rows selected.
+
+SQL> 
+SQL> 
+SQL> SELECT AREA, SUM(SALPERMON)
+  2  FROM DOCTOR
+  3  GROUP BY AREA;
+
+AREA                 SUM(SALPERMON)                                             
+-------------------- --------------                                             
+Rehab                         22300                                             
+Neurology                     63450                                             
+Family Practice                4550                                             
+Pediatrics                    30100                                             
+Orthopedics                   20300                                             
+Director                      23500                                             
+
+6 rows selected.
+
+SQL> SELECT SALPERMON, AREA,DOC_NAME
+  2  FROM DOCTOR;
+
+ SALPERMON AREA                 DOC_NAME                                        
+---------- -------------------- ---------                                       
+     12000 Pediatrics           Harrison                                        
+      8100 Pediatrics           Vester                                          
+     10000 Pediatrics           Lewis                                           
+     11500 Neurology            Cotner                                          
+      4550 Family Practice      Smith                                           
+      7950 Neurology            James                                           
+      9800 Orthopedics          James                                           
+     10500 Orthopedics          Robertson                                       
+      6500 Rehab                Thompson                                        
+      3500 Rehab                Pronger                                         
+     16500 Neurology            Borque                                          
+
+ SALPERMON AREA                 DOC_NAME                                        
+---------- -------------------- ---------                                       
+     23500 Director             Stevenson                                       
+     12300 Rehab                Zinnin                                          
+     27500 Neurology            Denise                                          
+
+14 rows selected.
+
+SQL> 
+SQL> SELECT AREA, SUM(SALPERMON)
+  2  FROM DOCTOR
+  3  GROUP BY AREA
+  4  HAVING SUM(SALPERMON) > 15000;
+
+AREA                 SUM(SALPERMON)                                             
+-------------------- --------------                                             
+Rehab                         22300                                             
+Neurology                     63450                                             
+Pediatrics                    30100                                             
+Orthopedics                   20300                                             
+Director                      23500                                             
+
+SQL> SELECT AREA, SUM(SALPERMON)
+  2  FROM DOCTOR
+  3  GROUP BY AREA
+  4  HAVING SUM(SALPERMON) > 30000;
+
+AREA                 SUM(SALPERMON)                                             
+-------------------- --------------                                             
+Neurology                     63450                                             
+Pediatrics                    30100                                             
+
+SQL> 
+SQL> 
+SQL> SELECT AREA, SUM(SALPERMON)
+  2  FROM DOCTOR
+  3  GROUP BY AREA
+  4  HAVING SUM(SALPERMON) < 10000;
+
+AREA                 SUM(SALPERMON)                                             
+-------------------- --------------                                             
+Family Practice                4550                                             
+
+SQL> SELECT * FROM TAB;
+
+TNAME                          TABTYPE  CLUSTERID                               
+------------------------------ ------- ----------                               
+ACTOR                          TABLE                                            
+PRICE                          TABLE                                            
+VIDEOS                         TABLE                                            
+RENTS                          TABLE                                            
+PERFORMS                       TABLE                                            
+DEPT                           TABLE                                            
+EMP                            TABLE                                            
+DOCTOR2                        TABLE                                            
+SALESMAN                       TABLE                                            
+CUSTOMERS                      TABLE                                            
+ORDERS                         TABLE                                            
+
+TNAME                          TABTYPE  CLUSTERID                               
+------------------------------ ------- ----------                               
+DEPARTMENTS                    TABLE                                            
+PHYSICIANS                     TABLE                                            
+VEHICLE                        TABLE                                            
+DOCTOR                         TABLE                                            
+BILLING                        TABLE                                            
+PATIENT                        TABLE                                            
+CUSTOMER                       TABLE                                            
+MOVIE                          TABLE                                            
+RENTAL                         TABLE                                            
+BRANCH                         TABLE                                            
+
+21 rows selected.
+
+SQL> 
+SQL> SELECT DOC_NAME, SALPERMON) FROM DOCTOR
+  2  WHERE SALPERMON > (SELECT SALPERMON FROM DOCTOR
+  3  WHERE DOC_NAME -'Vester');
+SELECT DOC_NAME, SALPERMON) FROM DOCTOR
+                          *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> 
+SQL> SELECT DOC_NAME, SALPERMON FROM DOCTOR
+  2  WHERE SALPERMON > (SELECT SALPERMON FROM DOCTOR
+  3  WHERE DOC_NAME -'Vester');
+WHERE DOC_NAME -'Vester')
+                        *
+ERROR at line 3:
+ORA-00920: invalid relational operator 
+
+
+SQL> SELECT DOC_NAME, SALPERMON FROM DOCTOR
+  2  WHERE SALPERMON > (SELECT SALPERMON FROM DOCTOR
+  3  WHERE DOC_NAME='Vester');
+
+DOC_NAME   SALPERMON                                                            
+--------- ----------                                                            
+Harrison       12000                                                            
+Lewis          10000                                                            
+Cotner         11500                                                            
+James           9800                                                            
+Robertson      10500                                                            
+Borque         16500                                                            
+Stevenson      23500                                                            
+Zinnin         12300                                                            
+Denise         27500                                                            
+
+9 rows selected.
+
+SQL> SELECT DOC_NAME, SALPERMON FROM DOCTOR
+  2  WHERE SALPERMON >ALL (SELECT SALPERMON FROM DOCTOR
+  3  WHERE DOC_NAME='Vester');
+
+DOC_NAME   SALPERMON                                                            
+--------- ----------                                                            
+Harrison       12000                                                            
+Lewis          10000                                                            
+Cotner         11500                                                            
+James           9800                                                            
+Robertson      10500                                                            
+Borque         16500                                                            
+Stevenson      23500                                                            
+Zinnin         12300                                                            
+Denise         27500                                                            
+
+9 rows selected.
+
+SQL> SELECT DOC_NAME, SALPERMON FROM DOCTOR
+  2  WHERE SALPERMON >ALL (SELECT SALPERMON FROM DOCTOR
+  3  WHERE AREA='Neurology');
+
+no rows selected
+
+SQL> SELECT DOC_NAME, SALPERMON
+  2  FROM DOCTOR
+  3  WHERE AREA='Neurology'
+  4  
+SQL> SELECT DOC_NAME, SALPERMON
+  2  FROM DOCTOR
+  3  WHERE AREA='Neurology'
+  4  /
+
+DOC_NAME   SALPERMON                                                            
+--------- ----------                                                            
+Cotner         11500                                                            
+James           7950                                                            
+Borque         16500                                                            
+Denise         27500                                                            
+
+SQL> SELECT DOC_NAME, SALPERMON FROM DOCTOR
+  2  WHERE SALPERMON >ANY (SELECT SALPERMON FROM DOCTOR
+  3  WHERE AREA='Neurology');
+
+DOC_NAME   SALPERMON                                                            
+--------- ----------                                                            
+Denise         27500                                                            
+Stevenson      23500                                                            
+Borque         16500                                                            
+Zinnin         12300                                                            
+Harrison       12000                                                            
+Cotner         11500                                                            
+Robertson      10500                                                            
+Lewis          10000                                                            
+James           9800                                                            
+Vester          8100                                                            
+
+10 rows selected.
+
+SQL> SELECT DOC_NAME, SALPERMON FROM DOCTOR
+  2  WHERE SALPERMON >ALL (SELECT SALPERMON FROM DOCTOR
+  3  WHERE AREA='Neurology');
+
+no rows selected
+
+SQL> 
+SQL> SELECT DOC_NAME, SALPERMON FROM DOCTOR
+  2  WHERE SALPERMON <ANY (SELECT SALPERMON FROM DOCTOR
+  3  WHERE AREA='Neurology');
+
+DOC_NAME   SALPERMON                                                            
+--------- ----------                                                            
+Pronger         3500                                                            
+Smith           4550                                                            
+Thompson        6500                                                            
+James           7950                                                            
+Vester          8100                                                            
+James           9800                                                            
+Lewis          10000                                                            
+Robertson      10500                                                            
+Cotner         11500                                                            
+Harrison       12000                                                            
+Zinnin         12300                                                            
+
+DOC_NAME   SALPERMON                                                            
+--------- ----------                                                            
+Borque         16500                                                            
+Stevenson      23500                                                            
+
+13 rows selected.
+
+SQL> 
+SQL> SELECT DOC_NAME, SALPERMON FROM DOCTOR
+  2  WHERE SALPERMON <ALL (SELECT SALPERMON FROM DOCTOR
+  3  WHERE AREA='Neurology');
+
+DOC_NAME   SALPERMON                                                            
+--------- ----------                                                            
+Smith           4550                                                            
+Thompson        6500                                                            
+Pronger         3500                                                            
+
+SQL> FROM DOCTOR
+SP2-0734: unknown command beginning "FROM DOCTO..." - rest of line ignored.
+SQL> SELECT DOC_NAME, SALPERMON FROM DOCTOR
+  2  WHERE SALPERMON =ANY (SELECT SALPERMON FROM DOCTOR
+  3  WHERE AREA='Neurology');
+
+DOC_NAME   SALPERMON                                                            
+--------- ----------                                                            
+Cotner         11500                                                            
+James           7950                                                            
+Borque         16500                                                            
+Denise         27500                                                            
+
+SQL> 
+SQL> SELECT DOC_NAME, SALPERMON FROM DOCTOR
+  2  WHERE SALPERMON =ANY (SELECT SALPERMON FROM DOCTOR
+  3  WHERE AREA='Pediatrics');
+
+DOC_NAME   SALPERMON                                                            
+--------- ----------                                                            
+Harrison       12000                                                            
+Vester          8100                                                            
+Lewis          10000                                                            
+
+SQL> SELECT DOC_NAME, SALPERMON FROM DOCTOR
+  2  WHERE SALPERMON >ALL (SELECT SALPERMON FROM DOCTOR
+  3  WHERE AREA='Pediatrics');
+
+DOC_NAME   SALPERMON                                                            
+--------- ----------                                                            
+Borque         16500                                                            
+Stevenson      23500                                                            
+Zinnin         12300                                                            
+Denise         27500                                                            
+
+SQL> 
+SQL> SELECT DOC_NAME, SALPERMON FROM DOCTOR
+  2  WHERE SALPERMON <ALL (SELECT SALPERMON FROM DOCTOR
+  3  WHERE AREA='Pediatrics');
+
+DOC_NAME   SALPERMON                                                            
+--------- ----------                                                            
+Smith           4550                                                            
+James           7950                                                            
+Thompson        6500                                                            
+Pronger         3500                                                            
+
+SQL> spool off;

@@ -1,0 +1,92 @@
+SQL> SELECT S.NAME, C.CUST_NAME, C.CITY AS "CUSTOMER CITY", S.CITY AS "SALESMAN CITY"
+  2  FROM CUSTOMERS C JOIN SALESMAN S
+  3  ON S.SALESMAN_ID = C.SALESMAN_ID
+  4  AND C.CITY=S.CITY;
+
+NAME                           CUST_NAME                                        
+------------------------------ ------------------------------                   
+CUSTOMER CITY                  SALESMAN CITY                                    
+------------------------------ ------------------------------                   
+James Hoog                     Nick Rimando                                     
+New York                       New York                                         
+                                                                                
+Pit Alex                       Brad Guzan                                       
+London                         London                                           
+                                                                                
+Mc Lyon                        Fabian Johns                                     
+Paris                          Paris                                            
+                                                                                
+
+NAME                           CUST_NAME                                        
+------------------------------ ------------------------------                   
+CUSTOMER CITY                  SALESMAN CITY                                    
+------------------------------ ------------------------------                   
+James Hoog                     Brad Davis                                       
+New York                       New York                                         
+                                                                                
+
+SQL> SELECT O.ORD_NO,O.PURCH_AMT,C.CUST_NAME,C.CITY
+  2  FROM ORDERS O JOIN CUSTOMERS C
+  3  ON C.CUSTOMER_ID=O.CUSTOMER_ID
+  4  WHERE PURCH_AMT BETWEEN 500 AND 2000;
+
+    ORD_NO  PURCH_AMT CUST_NAME                                                 
+---------- ---------- ------------------------------                            
+CITY                                                                            
+------------------------------                                                  
+     70007      948.5 Graham Zusi                                               
+California                                                                      
+                                                                                
+     70010    1983.43 Fabian Johns                                              
+Paris                                                                           
+                                                                                
+
+SQL> 
+SQL> SELECT C.CUST_NAME AS "CUSTOMER",S.NAME AS "SALESMAN"
+  2  FROM CUSTOMERS C LEFT JOIN SALESMAN S
+  3  ON C.SALESMAN_ID=S.SALESMAN_ID;
+
+CUSTOMER                       SALESMAN                                         
+------------------------------ ------------------------------                   
+Brad Davis                     James Hoog                                       
+Nick Rimando                   James Hoog                                       
+Julian Green                   Nail Knite                                       
+Graham Zusi                    Nail Knite                                       
+Brad Guzan                     Pit Alex                                         
+Fabian Johns                   Mc Lyon                                          
+Geoff Camero                   Lauson Hen                                       
+Jozy Altidor                   Paul Adam                                        
+
+8 rows selected.
+
+SQL> 
+SQL> SELECT C.CUST_NAME,S.COMMISSION
+  2  FROM CUSTOMERS C LEFT JOIN SALESMAN S
+  3  ON C.SALESMAN_ID=S.SALESMAN_ID
+  4  WHERE S.COMMISSION >0.12;
+
+CUST_NAME                      COMMISSION                                       
+------------------------------ ----------                                       
+Nick Rimando                          .15                                       
+Graham Zusi                           .13                                       
+Fabian Johns                          .14                                       
+Brad Davis                            .15                                       
+Julian Green                          .13                                       
+Jozy Altidor                          .13                                       
+
+6 rows selected.
+
+SQL> 
+SQL> SELECT C.CUST_NAME,S.COMMISSION
+  2  FROM CUSTOMERS C LEFT JOIN SALESMAN S
+  3  ON C.SALESMAN_ID=S.SALESMAN_ID
+  4  WHERE C.CITY!=S.CITY
+  5  AND S.COMMISSION >0.12;
+
+CUST_NAME                      COMMISSION                                       
+------------------------------ ----------                                       
+Graham Zusi                           .13                                       
+Julian Green                          .13                                       
+Jozy Altidor                          .13                                       
+
+SQL> spool off;

@@ -1,0 +1,144 @@
+-------Question 1---------------------
+set serveroutput on
+set verify off
+create or replace function paymentPat
+(p_city IN varchar2)
+RETURN float
+IS 
+discount float;
+
+begin
+	IF p_city = 'Carbondale' THEN discount:=0.2;
+	ELSIF p_city = 'Anna' THEN discount :=0.1;	
+	ELSE discount :=0;
+	END IF;
+	RETURN (discount);
+END paymentPat;
+/
+
+-----------Anon block----------------------
+set serveroutput on
+ACCEPT pt_id PROMPT 'Enter the patient ID : '
+
+DECLARE
+	d_name doctor.doc_name%TYPE;
+	d_id doctor.doc_id%TYPE;
+	charge doctor.chgperappt%TYPE;
+	pat_id patient.pt_id%TYPE;
+	p_city billing.city%TYPE;
+	disc number(4,3);
+	amount number(4,2);
+
+
+	
+BEGIN
+
+pat_id:=&pt_id;
+
+SELECT doc_id INTO d_id
+FROM patient
+WHERE pt_id = pat_id;
+
+SELECT doc_name, chgperappt INTO d_name, charge
+FROM doctor
+WHERE d_id = doc_id;
+
+SELECT city INTO p_city
+FROM billing
+WHERE pt_id = pat_id;
+
+disc:=paymentPat(p_city);
+amount:= (charge-(charge*disc));
+
+dbms_output.put_line('He/She is the patient of Dr. '||d_name);
+dbms_output.put_line('Charge per appointment for Dr. '||d_name||' is RM '||charge);
+dbms_output.put_line('Please pay only : RM '||amount);
+
+
+END;
+/
+
+-----------Question 2-------------------------------------------
+set serveroutput on
+set verify off
+create or replace function x_Immu
+(pat_dob IN DATE)
+RETURN number
+IS 
+status_Immu number;
+
+begin
+	IF pat_dob < to_date('30-JUN-90','DD-Mon-YY') THEN status_Immu:=1;
+	ELSIF pat_dob > to_date('30-JUN-90','DD-Mon-YY') THEN status_Immu:=0;
+	END IF;
+	RETURN (status_Immu);
+END x_Immu;
+/
+----------Anon block-----------------
+set serveroutput on
+ACCEPT pt_id PROMPT 'Enter the patient ID : '
+
+DECLARE
+	pat_id patient.pt_id%TYPE;
+	pat_dob patient.ptdob%TYPE;
+	status number;
+	shots varchar2(100);
+
+	
+BEGIN
+
+pat_id:=&pt_id;
+
+SELECT ptdob INTO pat_dob
+FROM patient
+WHERE pt_id=pat_id;
+
+status:=x_Immu(pat_dob);
+
+	IF status=1 THEN shots:='REQUIRED';
+	ELSIF status=0 THEN shots:='NOT REQUIRED';
+	END IF;
+
+dbms_output.put_line('His/Her DOB : '||pat_dob);
+dbms_output.put_line('The status of X-immunization : '||shots);
+
+
+END;
+/
+----------------------Question 3------------------------------
+--------Anon block-----------------
+set serveroutput on
+ACCEPT pt_id PROMPT 'Enter the patient ID : '
+
+DECLARE
+	pat_id billing.pt_id%TYPE;
+	d_balance billing.balance%TYPE;
+	insurance billing.pt_ins%TYPE;
+	amount number(38,2);
+
+	
+BEGIN
+
+pat_id:=&pt_id;
+
+SELECT balance, pt_ins INTO d_balance, insurance
+FROM billing
+WHERE pt_id=pat_id;
+
+
+	IF d_balance > 100 THEN 
+		IF insurance = 'BCBS' THEN
+			amount:=d_balance-(d_balance*0.1);
+			dbms_output.put_line('Balance : '||amount);
+		ELSIF insurance = 'SIH' THEN
+			amount:=d_balance-(d_balance*0.2);
+			dbms_output.put_line('Balance : '||amount);
+		ELSE amount:=d_balance-(d_balance*0.05);
+		dbms_output.put_line('Balance : '||amount);
+		END IF;
+	ELSIF d_balance < 100 THEN dbms_output.put_line('Balance : '||d_balance);
+	END IF;
+
+
+END;
+/

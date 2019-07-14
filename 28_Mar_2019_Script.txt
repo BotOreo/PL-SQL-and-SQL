@@ -1,0 +1,90 @@
+set serveroutput on
+accept ptid prompt 'Enter the patient ID : '
+set verify off
+
+DECLARE
+v_lname patient.pt_lname%type;
+v_fname patient.pt_fname%type;
+v_docname doctor.doc_name%type;
+v_docid doctor.doc_id%type;
+ptid patient.pt_id%type;
+
+BEGIN
+
+SELECT pt_lname, pt_fname, doc_id, doc_name, pt_id
+INTO v_lname, v_fname, v_docid, v_docname, ptid
+FROM patient natural join doctor
+WHERE pt_id=&ptid;
+
+dbms_output.put_line('Patient name : '||v_fname||' '||v_lname);
+dbms_output.put_line('A patient of Dr. '||v_docname||' '||'('||v_docid||')');
+
+END;
+/
+
+-----------------PL/SQL----------------
+SET SERVEROUTPUT ON
+SET VERIFY OFF
+ACCEPT fname PROMPT 'Enter patient first name: ‘
+ACCEPT lname PROMPT 'Enter patient last name: ‘
+ACCEPT amt PROMPT 'Enter voucher value: '
+
+DECLARE
+
+v_pt_id patient.pt_id%TYPE;
+v_amt billing.balance%TYPE;
+
+BEGIN
+
+-- Find the patient ID
+SELECT pt_id
+INTO v_pt_id
+FROM patient
+WHERE pt_fname = '&fname‘ AND pt_lname = ‘&lname’;
+
+-- Credit the patient's account
+UPDATE billing
+SET balance = NVL(balance,0)- &amt
+WHERE pt_id = v_pt_id;
+DBMS_OUTPUT.PUT_LINE(' Table Updated. ');
+
+END;
+/
+SET VERIFY ON
+SET SERVEROUTPUT OFF
+
+--------------------------------------------------
+SET VERIFY ON
+SET SERVEROUTPUT OFF
+
+ACCEPT title PROMPT 'Movie title: '
+ACCEPT phone PROMPT 'Phone number: '
+DECLARE
+v_m_id movie.m_id%TYPE;
+v_fee movie.fee%TYPE;
+v_c_id customer.c_id%TYPE;
+
+BEGIN
+-- Determine customer ID.
+SELECT c_id
+INTO v_c_id
+FROM customer
+WHERE phone = '&phone';
+
+-- Determine movie ID and fee.
+
+SELECT m_id, fee
+INTO v_m_id, v_fee
+FROM movie
+WHERE title = '&title';
+
+-- Add new rental data
+INSERT INTO rental
+VALUES (v_c_id, v_m_id, SYSDATE, SYSDATE + 5);
+
+-- Update customer balance
+UPDATE customer
+SET curr_ball = nvl(curr_ball,0) + v_fee
+WHERE c_id = v_c_id;
+END;
+/

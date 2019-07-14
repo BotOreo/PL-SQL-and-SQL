@@ -1,0 +1,13 @@
+set serveroutput on
+declare
+
+v_num NUMBER :=&v_num;
+v_result NUMBER;
+
+begin
+v_result:=POWER(v_num,2);
+
+dbms_output.put_line('The value of v_result is: '||v_result);
+
+end;
+/

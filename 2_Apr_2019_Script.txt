@@ -1,0 +1,42 @@
+------------Notes-------------
+> PL/SQL can only fetch 1 row
+> Anonymous Block doesn't need declare
+> There are 3 parameter modes : IN (default), IN OUT, OUT 
+> START or @ to start a script
+> Anonymous block doesn't like SIZE
+------------PL/SQL------------
+set serveroutput on
+set verify off
+create or replace procedure printdoc
+(p_docid number) is
+
+	v_name doctor.doc_name%TYPE;
+
+
+begin
+	select doc_name
+	into v_name
+	from doctor
+	where doc_id = p_docid;
+	
+	dbms_output.put_line('The doc name is :'||v_name);
+
+end;
+/
+
+---------PL/SQL---------------------
+set serveroutput on
+set verify off
+create or replace procedure insertdoc
+(p_docid number, p_name vachar2, p_sal number) is
+
+begin
+	insert into doctor(doc_id, doc_name, salpermon)
+	values (p_docid, p_name,p_sal);
+	
+	dbms_output.put_line('Insert successful');
+
+end;
+/
+
+exec insertdoc(999,'Linda',19999);

@@ -1,0 +1,107 @@
+//--------Notes--------------//
+> Subquery cannot have ORDER BY clause
+> Subquery for WHERE clause can only reach up to 255
+> Exam started from chapter create TABLE until SEQ 3PM at MPH
+> Count, Max, Min = Group functions
+> Force/No force = Force create a view even without a table, No force is the opposite
+> Natural join takes the same column and row with the same name and combine them
+> DML (Insert, create)
+> Column defined by expressions = Aliases
+> JOIN can have many types
+
+//----------Scripts-------------//
+SELECT DOC_NAME, AREA, CHGPERAPPT
+FROM DOCTOR
+WHERE (AREA,CHGPERAPPT)=(SELECT AREA,CHGPERAPPT
+FROM DOCTOR WHERE DOC_NAME ='Lewis');
+
+SELECT DOC_NAME, AREA, CHGPERAPPT
+FROM DOCTOR
+WHERE (AREA,CHGPERAPPT)=(SELECT AREA,CHGPERAPPT
+FROM DOCTOR WHERE DOC_NAME ='Lewis');
+
+//-----<> and != means exclude or not equal--------//
+SELECT DOC_NAME, AREA, CHGPERAPPT
+FROM DOCTOR
+WHERE DOC_NAME<>'Lewis'
+AND (AREA,CHGPERAPPT) IN 
+(SELECT AREA, CHGPERAPPT FROM DOCTOR
+WHERE DOC_NAME='Lewis');
+
+SELECT PT_LNAME, PT_FNAME, NEXTAPPTDATE, DOC_ID, DOC_NAME
+FROM PATIENT
+WHERE NEXTAPPTDATE > (SELECT NEXTAPPTDATE FROM PATIENT
+WHERE PT_FNAME = 'Susan')
+AND DOC_ID=(SELECT DOC_ID FROM PATIENT WHERE PT_FNAME='Susan');
+
+SELECT DOC_NAME, D.AREA, TO_CHAR(SALPERMON, '$999,999')
+"SALARY", TO_CHAR(high, '$999,999') "HIGHEST",
+TO_CHAR(LOW, '$999,999') "LOWEST"
+FROM DOCTOR D,
+(SELECT AREA, MAX (SALPERMON) HIGH,
+MIN (SALPERMON) LOW
+FROM DOCTOR
+WHERE AREA <> 'Director'
+GROUP BY AREA) S
+WHERE D.AREA = S.AREA
+ORDER BY DOC_NAME;
+
+CREATE VIEW EMPVU AS SELECT * FROM EMP;
+DESC EMPVU;
+
+CREATE OR REPLACE VIEW EMPVU 
+(EMPID,NAME,SALARY,DEPTNAME) AS
+(SELECT EMPNO, ENAME,SAL,DNAME FROM EMP NATURAL JOIN DEPT);
+
+
+
+DESC EMPVU;
+
+CREATE OR REPLACE VIEW PTBILL_VU AS SELECT PT_ID, PT_FNAME, PT_LNAME, BALANCE, CITY
+FROM PATIENT NATURAL JOIN BILLING WHERE CITY='Anna';
+WITH CHECK OPTION;
+
+UPDATE PTBILL_VU
+SET CITY='KL'
+WHERE PT_FNAME = 'Becky';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,12 @@
+set serveroutput on
+declare
+
+v_day VARCHAR(20);
+
+begin
+v_day:=to_char(sysdate,'DAY');
+
+dbms_output.put_line('Today is : '||v_day);
+
+end;
+/

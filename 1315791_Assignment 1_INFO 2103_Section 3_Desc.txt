@@ -1,0 +1,49 @@
+SQL> desc customer
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ CUST_NAME                                          VARCHAR2(30)
+ CUST_EMAIL                                NOT NULL VARCHAR2(30)
+ PHONE_NO                                  NOT NULL VARCHAR2(12)
+ TOT_PURCHASE                              NOT NULL FLOAT(126)
+
+SQL> desc actor
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ A_ID                                      NOT NULL VARCHAR2(15)
+ ACT_NAME                                           VARCHAR2(30)
+ BIRTH_DATE                                NOT NULL DATE
+
+SQL> desc videos
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ V_ID                                      NOT NULL VARCHAR2(15)
+ NAME_VID                                           VARCHAR2(30)
+ YEAR                                               NUMBER
+ VID_COST                                  NOT NULL FLOAT(126)
+ VID_GENRE                                          VARCHAR2(15)
+
+SQL> desc rents
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ CUST_EMAIL                                         VARCHAR2(30)
+ V_ID                                               VARCHAR2(15)
+ PRICE_CODE                                NOT NULL VARCHAR2(15)
+ FEES                                      NOT NULL FLOAT(126)
+ LATE_FEES                                 NOT NULL FLOAT(126)
+ RENT_DATE                                 NOT NULL DATE
+ RENT_DUE                                           DATE
+ RETURN_DATE                               NOT NULL DATE
+
+SQL> desc performs
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ V_ID                                               VARCHAR2(15)
+ A_ID                                               VARCHAR2(15)
+
+SQL> desc price
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ PRICE_CODE                                NOT NULL VARCHAR2(15)
+ COST                                               FLOAT(126)
+
+SQL> spool off;

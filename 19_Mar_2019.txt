@@ -1,0 +1,545 @@
+SQL> select seql.nextval from dual;
+select seql.nextval from dual
+       *
+ERROR at line 1:
+ORA-02289: sequence does not exist 
+
+
+SQL> SELECT PT_FNAME COUNT(*)
+  2  FROM PATIENT P, DOCTOR D
+  3  WHERE P.DOC_ID=D.DOC_ID
+  4  GROUP BY D.DOC_NAME;
+SELECT PT_FNAME COUNT(*)
+                     *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> SELECT PT_FNAME COUNT(DOC_ID)
+  2  FROM PATIENT P, DOCTOR D
+  3  WHERE P.DOC_ID=D.DOC_ID
+  4  GROUP BY D.DOC_NAME;
+SELECT PT_FNAME COUNT(DOC_ID)
+                     *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected 
+
+
+SQL> SELECT COUNT(DOC_ID)
+  2  FROM PATIENT P, DOCTOR D
+  3  WHERE P.DOC_ID=D.DOC_ID
+  4  GROUP BY D.DOC_NAME;
+SELECT COUNT(DOC_ID)
+             *
+ERROR at line 1:
+ORA-00918: column ambiguously defined 
+
+
+SQL> SELECT COUNT(P.DOC_ID)
+  2  FROM PATIENT P, DOCTOR D
+  3  WHERE P.DOC_ID=D.DOC_ID
+  4  GROUP BY D.DOC_NAME;
+
+COUNT(P.DOC_ID)                                                                 
+---------------                                                                 
+              1                                                                 
+              1                                                                 
+              4                                                                 
+              5                                                                 
+             10                                                                 
+              2                                                                 
+
+6 rows selected.
+
+SQL> SELECT COUNT(P.DOC_ID), D.DOC_NAME
+  2  FROM PATIENT P, DOCTOR D
+  3  WHERE P.DOC_ID=D.DOC_ID
+  4  GROUP BY D.DOC_NAME;
+
+COUNT(P.DOC_ID) DOC_NAME                                                        
+--------------- ---------                                                       
+              1 Lewis                                                           
+              1 Harrison                                                        
+              4 Vester                                                          
+              5 Cotner                                                          
+             10 Smith                                                           
+              2 James                                                           
+
+6 rows selected.
+
+SQL> SELECT COUNT(P.DOC_ID) AS PATIENTS, D.DOC_NAME
+  2  FROM PATIENT P, DOCTOR D
+  3  WHERE P.DOC_ID=D.DOC_ID
+  4  GROUP BY D.DOC_NAME;
+
+  PATIENTS DOC_NAME                                                             
+---------- ---------                                                            
+         1 Lewis                                                                
+         1 Harrison                                                             
+         4 Vester                                                               
+         5 Cotner                                                               
+        10 Smith                                                                
+         2 James                                                                
+
+6 rows selected.
+
+SQL> SELECT * FROM PATIENT;
+
+     PT_ID PT_LNAME        PT_FNAME        PTDOB         DOC_ID NEXTAPPTD       
+---------- --------------- --------------- --------- ---------- ---------       
+LASTAPPTD                                                                       
+---------                                                                       
+       168 James           Paul            14-MAR-97        432 01-JUL-03       
+01-JUN-03                                                                       
+                                                                                
+       331 Anderson        Brian           06-MAR-48        235 01-JUL-03       
+01-JUN-03                                                                       
+                                                                                
+       313 James           Scott           01-MAR-33        235 20-JUL-03       
+20-JUN-03                                                                       
+                                                                                
+
+     PT_ID PT_LNAME        PT_FNAME        PTDOB         DOC_ID NEXTAPPTD       
+---------- --------------- --------------- --------- ---------- ---------       
+LASTAPPTD                                                                       
+---------                                                                       
+       816 Smith           Jason           12-DEC-99        509 15-NOV-03       
+15-MAY-03                                                                       
+                                                                                
+       314 Porter          Susan           14-NOV-67        235 01-OCT-03       
+01-MAR-03                                                                       
+                                                                                
+       315 Saillez         Debbie          09-SEP-55        235 01-JUL-03       
+01-JUN-03                                                                       
+                                                                                
+
+     PT_ID PT_LNAME        PT_FNAME        PTDOB         DOC_ID NEXTAPPTD       
+---------- --------------- --------------- --------- ---------- ---------       
+LASTAPPTD                                                                       
+---------                                                                       
+       719 Rogers          Anthony         07-DEC-41        504 01-NOV-03       
+01-JAN-03                                                                       
+                                                                                
+       264 Walters         Stephanie       01-JAN-45        504 12-DEC-03       
+12-DEC-02                                                                       
+                                                                                
+       267 Westra          Lynn            12-JUL-57        235 02-FEB-04       
+02-FEB-03                                                                       
+                                                                                
+
+     PT_ID PT_LNAME        PT_FNAME        PTDOB         DOC_ID NEXTAPPTD       
+---------- --------------- --------------- --------- ---------- ---------       
+LASTAPPTD                                                                       
+---------                                                                       
+       103 Poole           Jennifer        13-MAY-02        389 01-DEC-03       
+01-JUN-03                                                                       
+                                                                                
+       108 Baily           Ryan            25-DEC-77        235 06-JUN-05       
+06-JUN-03                                                                       
+                                                                                
+       943 Crow            Lewis           16-OCT-49        235 01-JUL-05       
+01-MAR-02                                                                       
+                                                                                
+
+     PT_ID PT_LNAME        PT_FNAME        PTDOB         DOC_ID NEXTAPPTD       
+---------- --------------- --------------- --------- ---------- ---------       
+LASTAPPTD                                                                       
+---------                                                                       
+       847 Cochran         John            03-MAR-48        356 02-DEC-05       
+01-JAN-02                                                                       
+                                                                                
+       163 Roach           Becky           08-SEP-75        235 01-DEC-05       
+01-JAN-02                                                                       
+                                                                                
+       504 Jackson         John            14-OCT-43        235 21-JUL-03       
+10-NOV-02                                                                       
+                                                                                
+
+     PT_ID PT_LNAME        PT_FNAME        PTDOB         DOC_ID NEXTAPPTD       
+---------- --------------- --------------- --------- ---------- ---------       
+LASTAPPTD                                                                       
+---------                                                                       
+       809 Kowalczyk       Paul            12-NOV-51        558 29-JUL-03       
+19-JUN-03                                                                       
+                                                                                
+       703 Davis           Linda           17-JUL-02        509 21-JUL-03       
+22-MAY-03                                                                       
+                                                                                
+       307 Jones           J.C.            17-JUL-02        509 21-JUL-03       
+22-MAY-03                                                                       
+                                                                                
+
+     PT_ID PT_LNAME        PT_FNAME        PTDOB         DOC_ID NEXTAPPTD       
+---------- --------------- --------------- --------- ---------- ---------       
+LASTAPPTD                                                                       
+---------                                                                       
+       439 Wright          Chasity         23-APR-73        235                 
+                                                                                
+                                                                                
+       696 Vanderchuck     Keith           08-AUG-68        504                 
+15-JUN-03                                                                       
+                                                                                
+       966 Mcginnis        Allen           03-MAY-59        504                 
+15-JUN-03                                                                       
+                                                                                
+
+     PT_ID PT_LNAME        PT_FNAME        PTDOB         DOC_ID NEXTAPPTD       
+---------- --------------- --------------- --------- ---------- ---------       
+LASTAPPTD                                                                       
+---------                                                                       
+       669 Sakic           Joe             16-SEP-76        504                 
+15-JUN-03                                                                       
+                                                                                
+       538 Bond            James           05-MAR-19        509                 
+                                                                                
+                                                                                
+
+23 rows selected.
+
+SQL> SELECT PT_NAME, DOC_ID FROM PATIENT;
+SELECT PT_NAME, DOC_ID FROM PATIENT
+       *
+ERROR at line 1:
+ORA-00904: "PT_NAME": invalid identifier 
+
+
+SQL> SELECT PT_FNAME, DOC_ID FROM PATIENT;
+
+PT_FNAME            DOC_ID                                                      
+--------------- ----------                                                      
+Paul                   432                                                      
+Brian                  235                                                      
+Scott                  235                                                      
+Jason                  509                                                      
+Susan                  235                                                      
+Debbie                 235                                                      
+Anthony                504                                                      
+Stephanie              504                                                      
+Lynn                   235                                                      
+Jennifer               389                                                      
+Ryan                   235                                                      
+
+PT_FNAME            DOC_ID                                                      
+--------------- ----------                                                      
+Lewis                  235                                                      
+John                   356                                                      
+Becky                  235                                                      
+John                   235                                                      
+Paul                   558                                                      
+Linda                  509                                                      
+J.C.                   509                                                      
+Chasity                235                                                      
+Keith                  504                                                      
+Allen                  504                                                      
+Joe                    504                                                      
+
+PT_FNAME            DOC_ID                                                      
+--------------- ----------                                                      
+James                  509                                                      
+
+23 rows selected.
+
+SQL> SELECT COUNT(P.DOC_ID) AS PATIENTS, D.DOC_NAME
+  2  FROM PATIENT P, DOCTOR D
+  3  WHERE P.DOC_ID=D.DOC_ID
+  4  GROUP BY PATIENTS AS DESC;
+GROUP BY PATIENTS AS DESC
+                  *
+ERROR at line 4:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> SELECT COUNT(P.DOC_ID) AS PATIENTS, D.DOC_NAME
+  2  FROM PATIENT P, DOCTOR D
+  3  WHERE P.DOC_ID=D.DOC_ID
+  4  GROUP BY PATIENTS;
+GROUP BY PATIENTS
+         *
+ERROR at line 4:
+ORA-00904: "PATIENTS": invalid identifier 
+
+
+SQL> SELECT * FROM DOCTOR;
+
+    DOC_ID DOC_NAME  DATEHIRED  SALPERMON AREA                 SUPERVISOR_ID    
+---------- --------- --------- ---------- -------------------- -------------    
+CHGPERAPPT ANNUAL_BONUS                                                         
+---------- ------------                                                         
+       432 Harrison  05-DEC-94      12000 Pediatrics                     100    
+        75         4500                                                         
+                                                                                
+       509 Vester    09-JAN-00       8100 Pediatrics                     432    
+        40                                                                      
+                                                                                
+       389 Lewis     21-JAN-96      10000 Pediatrics                     432    
+        40         2250                                                         
+                                                                                
+
+    DOC_ID DOC_NAME  DATEHIRED  SALPERMON AREA                 SUPERVISOR_ID    
+---------- --------- --------- ---------- -------------------- -------------    
+CHGPERAPPT ANNUAL_BONUS                                                         
+---------- ------------                                                         
+       504 Cotner    16-JUN-98      11500 Neurology                      289    
+        85         7500                                                         
+                                                                                
+       235 Smith     22-JUN-98       4550 Family Practice                100    
+        25         2250                                                         
+                                                                                
+       356 James     01-AUG-98       7950 Neurology                      289    
+        80         6500                                                         
+                                                                                
+
+    DOC_ID DOC_NAME  DATEHIRED  SALPERMON AREA                 SUPERVISOR_ID    
+---------- --------- --------- ---------- -------------------- -------------    
+CHGPERAPPT ANNUAL_BONUS                                                         
+---------- ------------                                                         
+       558 James     02-MAY-95       9800 Orthopedics                    876    
+        85         7700                                                         
+                                                                                
+       876 Robertson 02-MAR-95      10500 Orthopedics                    100    
+        90         8900                                                         
+                                                                                
+       889 Thompson  18-MAR-97       6500 Rehab                          100    
+        65         3200                                                         
+                                                                                
+
+    DOC_ID DOC_NAME  DATEHIRED  SALPERMON AREA                 SUPERVISOR_ID    
+---------- --------- --------- ---------- -------------------- -------------    
+CHGPERAPPT ANNUAL_BONUS                                                         
+---------- ------------                                                         
+       239 Pronger   18-DEC-99       3500 Rehab                          889    
+        40                                                                      
+                                                                                
+       289 Borque    30-JUN-89      16500 Neurology                      100    
+        95         6500                                                         
+                                                                                
+       100 Stevenson 30-JUN-79      23500 Director                              
+                                                                                
+                                                                                
+
+    DOC_ID DOC_NAME  DATEHIRED  SALPERMON AREA                 SUPERVISOR_ID    
+---------- --------- --------- ---------- -------------------- -------------    
+CHGPERAPPT ANNUAL_BONUS                                                         
+---------- ------------                                                         
+       912 Zinnin    05-MAR-19      12300 Rehab                          405    
+       550         4300                                                         
+                                                                                
+       613 Denise    05-MAR-19      27500 Neurology                      778    
+        45         3300                                                         
+                                                                                
+
+14 rows selected.
+
+SQL> SELECT COUNT(P.DOC_ID) AS PATIENTS, D.DOC_NAME
+  2  FROM PATIENT P, DOCTOR D
+  3  WHERE P.DOC_ID=D.DOC_ID
+  4  GROUP BY P.DOC_ID;
+SELECT COUNT(P.DOC_ID) AS PATIENTS, D.DOC_NAME
+                                    *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression 
+
+
+SQL> SELECT COUNT(P.DOC_ID) AS PATIENTS, D.DOC_NAME
+  2  FROM PATIENT P, DOCTOR D
+  3  WHERE P.DOC_ID=D.DOC_ID
+  4  GROUP BY D.DOC_ID;
+SELECT COUNT(P.DOC_ID) AS PATIENTS, D.DOC_NAME
+                                    *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression 
+
+
+SQL> SELECT COUNT(P.DOC_ID) AS PATIENTS, D.DOC_NAME, P.DOC_ID
+  2  FROM PATIENT P, DOCTOR D
+  3  WHERE P.DOC_ID=D.DOC_ID
+  4  GROUP BY P.DOC_ID;
+SELECT COUNT(P.DOC_ID) AS PATIENTS, D.DOC_NAME, P.DOC_ID
+                                    *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression 
+
+
+SQL> SELECT COUNT(P.DOC_ID) AS PATIENTS, P.DOC_ID
+  2  FROM PATIENT P, DOCTOR D
+  3  WHERE P.DOC_ID=D.DOC_ID
+  4  GROUP BY P.DOC_ID;
+
+  PATIENTS     DOC_ID                                                           
+---------- ----------                                                           
+         5        504                                                           
+        10        235                                                           
+         1        356                                                           
+         1        558                                                           
+         1        432                                                           
+         4        509                                                           
+         1        389                                                           
+
+7 rows selected.
+
+SQL> SELECT COUNT(P.DOC_ID) AS PATIENTS, D.DOC_NAME, P.DOC_ID
+  2  FROM PATIENT P, DOCTOR D
+  3  WHERE P.DOC_ID=D.DOC_ID
+  4  GROUP BY D.DOC_NAME, P.DOC_ID;
+
+  PATIENTS DOC_NAME      DOC_ID                                                 
+---------- --------- ----------                                                 
+         1 Harrison         432                                                 
+        10 Smith            235                                                 
+         4 Vester           509                                                 
+         5 Cotner           504                                                 
+         1 Lewis            389                                                 
+         1 James            356                                                 
+         1 James            558                                                 
+
+7 rows selected.
+
+SQL> SELECT COUNT(MAKE) AS FREQ, S.SNAME, C.SUPPID
+  2  FROM SUPPLIER S, COMPUTER C
+  3  ON S.SUPPID=C.SUPPID
+  4  GROUP BY SNAME
+  5  /
+ON S.SUPPID=C.SUPPID
+*
+ERROR at line 3:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> 
+SQL> SELECT COUNT(MAKE) AS FREQ, S.SNAME, C.SUPPID
+  2  FROM SUPPLIER S, COMPUTER C
+  3  ON S.SUPPID=C.SUPPID
+  4  GROUP BY S.SNAME;
+ON S.SUPPID=C.SUPPID
+*
+ERROR at line 3:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> SELECT COUNT(MAKE) AS FREQ, S.SNAME, C.SUPPID
+  2  FROM SUPPLIER S, COMPUTER C
+  3  WHERE S.SUPPID=C.SUPPID
+  4  GROUP BY S.SNAME;
+SELECT COUNT(MAKE) AS FREQ, S.SNAME, C.SUPPID
+                                     *
+ERROR at line 1:
+ORA-00979: not a GROUP BY expression 
+
+
+SQL> 
+SQL> SELECT COUNT(MAKE) AS FREQ, S.SNAME, C.SUPPID
+  2  FROM SUPPLIER S, COMPUTER C
+  3  WHERE S.SUPPID=C.SUPPID
+  4  GROUP BY S.SNAME, C.SUPPID
+  5  /
+
+      FREQ SNAME               SUPPID                                           
+---------- --------------- ----------                                           
+         1 Compaq Sdn.Bhd         122                                           
+         1 ASUS Sdn.Bhd           123                                           
+         1 IBM Sdn.Bhd            124                                           
+         3 Apple Sdn.Bhd          125                                           
+
+SQL> SELECT COUNT(P.DOC_ID) AS PATIENTS, D.DOC_NAME, P.DOC_ID
+  2  FROM PATIENT P, DOCTOR D
+  3  WHERE P.DOC_ID=D.DOC_ID
+  4  GROUP BY D.DOC_NAME, P.DOC_ID
+  5  ORDER BY PATIENTS AS DESC;
+ORDER BY PATIENTS AS DESC
+                  *
+ERROR at line 5:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> SELECT COUNT(P.DOC_ID) AS PATIENTS, D.DOC_NAME, P.DOC_ID
+  2  FROM PATIENT P, DOCTOR D
+  3  WHERE P.DOC_ID=D.DOC_ID
+  4  GROUP BY D.DOC_NAME, P.DOC_ID
+  5  ORDER BY PATIENTS DESC;
+
+  PATIENTS DOC_NAME      DOC_ID                                                 
+---------- --------- ----------                                                 
+        10 Smith            235                                                 
+         5 Cotner           504                                                 
+         4 Vester           509                                                 
+         1 James            558                                                 
+         1 Lewis            389                                                 
+         1 James            356                                                 
+         1 Harrison         432                                                 
+
+7 rows selected.
+
+SQL> SELECT COUNT(MAKE) AS FREQ, S.SNAME, C.SUPPID
+  2  FROM SUPPLIER S, COMPUTER C
+  3  WHERE S.SUPPID=C.SUPPID
+  4  GROUP BY S.SNAME, C.SUPPID
+  5  ORDER BY FREQ DESC;
+
+      FREQ SNAME               SUPPID                                           
+---------- --------------- ----------                                           
+         3 Apple Sdn.Bhd          125                                           
+         1 IBM Sdn.Bhd            124                                           
+         1 Compaq Sdn.Bhd         122                                           
+         1 ASUS Sdn.Bhd           123                                           
+
+SQL> set serveroutput on
+SQL> begin
+  2  dbms_output.put_line('Hello World!');
+  3  end;
+  4  /
+Hello World!                                                                    
+
+PL/SQL procedure successfully completed.
+
+SQL> DECLARE
+  2  v_value1 NUMBER(2) := 3;
+  3  v_value2 NUMBER(2) := 4;
+  4  v_result NUMBER(5);
+  5  BEGIN
+  6  v_result := v_value1 * v_value2;
+  7  DBMS_OUTPUT.PUT_LINE(v_value1||' x '||v_value2||' = '||v_result);
+  8  END;
+  9  /
+3 x 4 = 12                                                                      
+
+PL/SQL procedure successfully completed.
+
+SQL> SELECT COUNT(MAKE) AS FREQ, S.SNAME, C.SUPPID
+  2  FROM SUPPLIER S, COMPUTER C
+  3  WHERE S.SUPPID=C.SUPPID
+  4  GROUP BY S.SNAME, C.SUPPID
+  5  ORDER BY FREQ DESC
+  6  ROWNUM =1;
+ROWNUM =1
+*
+ERROR at line 6:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> 
+SQL> SELECT COUNT(MAKE) AS FREQ, S.SNAME, C.SUPPID
+  2  FROM SUPPLIER S, COMPUTER C
+  3  WHERE S.SUPPID=C.SUPPID
+  4  ROWNUM =1
+  5  GROUP BY S.SNAME, C.SUPPID
+  6  ORDER BY FREQ DESC;
+ROWNUM =1
+*
+ERROR at line 4:
+ORA-00933: SQL command not properly ended 
+
+
+SQL> DECLARE
+  2  v_value1 DOCTOR.SALPERMON%TYPE := 3;
+  3  v_value2 DOCTOR.SALPERMON%TYPE := 4;
+  4  v_result NUMBER(5);
+  5  BEGIN
+  6  v_result := v_value1 * v_value2;
+  7  DBMS_OUTPUT.PUT_LINE(v_value1||' x '||v_value2||' = '||v_result);
+  8  END;
+  9  /
+3 x 4 = 12                                                                      
+
+PL/SQL procedure successfully completed.
+
+SQL> exit
