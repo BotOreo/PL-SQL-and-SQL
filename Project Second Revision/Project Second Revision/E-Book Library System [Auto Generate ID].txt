@@ -1,0 +1,108 @@
+
+-- DELETE EXISTING SEQUENCE & TRIGGER -------
+
+DROP SEQUENCE member_seq;
+DROP SEQUENCE author_seq;
+DROP SEQUENCE ebook_seq;
+DROP SEQUENCE issue_seq;
+DROP SEQUENCE lent_seq;
+
+-- GENERATE MEMBER ID ---------------------
+
+CREATE SEQUENCE member_seq
+   START WITH 1
+   INCREMENT BY 1
+   MAXVALUE 999
+   NOCYCLE
+   CACHE 20;
+
+CREATE OR REPLACE TRIGGER memberid_trig
+   BEFORE INSERT ON member
+   FOR EACH ROW
+
+BEGIN
+   SELECT LPAD(member_seq.NEXTVAL, 3, '0')
+   INTO :NEW.memberid
+   FROM dual;
+END;
+/
+
+-- GENERATE AUTHOR ID ---------------------------------
+
+CREATE SEQUENCE author_seq
+   START WITH 1
+   INCREMENT BY 1
+   MAXVALUE 999
+   NOCYCLE
+   CACHE 20;
+
+CREATE OR REPLACE TRIGGER authorid_trig
+   BEFORE INSERT ON author
+   FOR EACH ROW
+
+BEGIN
+   SELECT LPAD(author_seq.NEXTVAL, 3, '0')
+   INTO :NEW.authorid
+   FROM dual;
+END;
+/
+
+-- GENERATE E-BOOK ID -------------------------------
+
+CREATE SEQUENCE ebook_seq
+   START WITH 1
+   INCREMENT BY 1
+   MAXVALUE 999
+   NOCYCLE
+   CACHE 20;
+
+CREATE OR REPLACE TRIGGER ebookid_trig
+   BEFORE INSERT ON ebook
+   FOR EACH ROW
+
+BEGIN
+   SELECT LPAD(ebook_seq.NEXTVAL, 3, '0')
+   INTO :NEW.ebookid
+   FROM dual;
+END;
+/
+
+-- GENERATE LENT ID ------------------
+
+CREATE SEQUENCE lent_seq
+   START WITH 1
+   INCREMENT BY 1
+   NOMAXVALUE
+   NOCYCLE
+   CACHE 20;
+
+CREATE OR REPLACE TRIGGER lentid_trig
+   BEFORE INSERT ON lent
+   FOR EACH ROW
+
+BEGIN
+   SELECT lent_seq.NEXTVAL
+   INTO :NEW.lentid
+   FROM dual;
+END;
+/
+
+-- GENERATE ISSUE ID ------------------
+
+CREATE SEQUENCE issue_seq
+   START WITH 1
+   INCREMENT BY 1
+   NOMAXVALUE
+   NOCYCLE
+   CACHE 20;
+
+CREATE OR REPLACE TRIGGER issueid_trig
+   BEFORE INSERT ON issue
+   FOR EACH ROW
+
+BEGIN
+   SELECT issue_seq.NEXTVAL
+   INTO :NEW.issueid
+   FROM dual;
+END;
+/

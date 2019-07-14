@@ -1,0 +1,11 @@
+
+-- ADD COLUMN ---------------------------------------------
+
+ALTER TABLE member
+   ADD memberdatecreated DATE;
+
+ALTER TABLE author
+   ADD authordatecreated DATE;
+
+ALTER TABLE lent
+   ADD subscriptfee NUMBER(3, 2);

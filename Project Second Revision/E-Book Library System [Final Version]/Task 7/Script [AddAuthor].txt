@@ -1,0 +1,10 @@
+SET SERVEROUTPUT ON;
+SET VERIFY OFF;
+ACCEPT name PROMPT 'Enter the Author name : ';
+ACCEPT pasword PROMPT 'Create new password : ';
+ACCEPT statuses PROMPT 'Status (ACTIVE/INACTIVE) : ';
+
+BEGIN
+   AddAuthor('&name','&pasword','&statuses');
+END;
+/

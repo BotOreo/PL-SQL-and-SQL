@@ -1,0 +1,47 @@
+
+-- FUNCTION: CHECK E-BOOK AVAILABILITY -----------------------------------
+
+CREATE OR REPLACE FUNCTION chkavailable_sf(id IN VARCHAR2) RETURN NUMBER IS
+   validation       NUMBER;
+   startdate        DATE;
+   finishdate       DATE;
+
+BEGIN
+   BEGIN
+      SELECT lentdate, enddate
+      INTO startdate, finishdate
+      FROM lent
+      WHERE ebookid = id;
+
+      IF SYSDATE > startdate AND SYSDATE < finishdate THEN
+         validation := 1;
+      ELSE
+         validation := 0;
+      END IF;
+
+   EXCEPTION
+      WHEN NO_DATA_FOUND THEN
+         validation := 0;
+   END;
+
+   RETURN (validation);
+END chkavailable_sf;
+/
+
+-- FUNCTION: GET EXPIRATION DATE FOR ISSUEING E-BOOK -------------------------
+
+CREATE OR REPLACE FUNCTION getexpdate_sf (id in VARCHAR2) RETURN DATE IS
+   issueperiod ebook.duration%TYPE;
+   expdate DATE;
+
+BEGIN
+   SELECT duration
+   INTO issueperiod
+   FROM ebook
+   WHERE ebookid = id;
+
+   expdate := (SYSDATE + issueperiod);
+
+   RETURN (expdate);
+END getexpdate_sf;
+/

@@ -1,0 +1,57 @@
+set serveroutput on
+set verify off
+
+create or replace procedure AddAuthor(
+ authorname IN author.authorname%TYPE,
+ password IN author.pswd%TYPE,
+ stat IN author.status%TYPE)
+
+IS
+
+BEGIN
+		
+	INSERT INTO AUTHOR ("AUTHORNAME","PSWD","STATUS")
+	VALUES(authorname,password,UPPER(stat));	
+
+		
+END;
+/
+
+-------------------------------------------
+
+create or replace procedure AddBook(
+	btitle IN ebook.title%TYPE,
+	durations IN ebook.duration%TYPE,
+	genres IN ebook.genre%TYPE)
+
+IS
+
+BEGIN
+		
+	INSERT INTO EBOOK ("TITLE","DURATION","GENRE")
+		VALUES(btitle,durations,UPPER(genres));	
+	
+		
+END;
+/
+-------------------------------------------
+
+create or replace procedure AddLent(
+	lent_date IN lent.lentdate%TYPE,
+	end_date IN lent.enddate%TYPE,
+	e_bookid IN lent.ebookid%TYPE,
+	author_id IN lent.authorid%TYPE,
+	serv IN lent.service%TYPE)
+
+IS
+
+BEGIN
+		
+	INSERT INTO LENT("LENTDATE", "ENDDATE", "EBOOKID", "AUTHORID","SERVICE")
+		VALUES (TO_DATE(lent_date), TO_DATE(end_date), e_bookid, author_id, serv);	
+	
+		
+END;
+/
+
+

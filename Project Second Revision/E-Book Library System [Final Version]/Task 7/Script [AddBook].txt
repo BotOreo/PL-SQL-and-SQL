@@ -1,0 +1,10 @@
+SET SERVEROUTPUT ON;
+SET VERIFY OFF;
+ACCEPT title PROMPT 'Enter book title : ';
+ACCEPT duration PROMPT 'Max borrow duration : ';
+ACCEPT genre PROMPT 'Genre:  ';
+
+BEGIN
+   AddBook('&title','&duration','&genre');
+END;
+/

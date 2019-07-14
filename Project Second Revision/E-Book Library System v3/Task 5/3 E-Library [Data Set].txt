@@ -1,0 +1,160 @@
+
+-- DATA TABLE MEMBER -------------------------------
+
+INSERT INTO member (membername, pswd, stud, status)
+VALUES ('Luqman Saari', '12345', 'YES', 'ACTIVE');
+
+INSERT INTO member (membername, pswd, stud, status)
+VALUES ('Arif Aziz', 'ILoveYou', 'YES', 'ACTIVE');
+
+INSERT INTO member (membername, pswd, stud, status)
+VALUES ('Asmak Nordin', '12345', 'NO', 'ACTIVE');
+
+INSERT INTO member (membername, pswd, stud, status)
+VALUES ('Laila Farhan', '12345', 'NO', 'INACTIVE');
+
+INSERT INTO member (membername, pswd, stud, status)
+VALUES ('Ilwa Chang', '12345', 'NO', 'ACTIVE');
+
+INSERT INTO member (membername, pswd, stud, status)
+VALUES ('Kang Seuk', '12345', 'NO', 'INACTIVE');
+
+INSERT INTO member (membername, pswd, stud, status)
+VALUES ('Hamadi Suhaimi', 'aabbcc12', 'YES', 'ACTIVE');
+
+INSERT INTO member (membername, pswd, stud, status)
+VALUES ('Liyana Aziz', '12345', 'NO', 'ACTIVE');
+
+INSERT INTO member (membername, pswd, stud, status)
+VALUES ('Hidayah Mat', '12345', 'NO', 'INACTIVE');
+
+INSERT INTO member (membername, pswd, stud, status)
+VALUES ('Aizat Ghuffar', 'AiAmFar', 'NO', 'ACTIVE');
+
+-- DATA TABLE AUTHOR --------------------------------------------------------------
+
+INSERT INTO author (authorname, pswd, status)
+VALUES ('Suzanne Collins', '54321', 'ACTIVE');
+
+INSERT INTO author (authorname, pswd, status)
+VALUES ('Ryo Shirakome', '54321', 'ACTIVE');
+
+INSERT INTO author (authorname, pswd, status)
+VALUES ('Katharine Brooks', '54321', 'ACTIVE');
+
+INSERT INTO author (authorname, pswd, status)
+VALUES ('Ilwa Chang', '54321', 'ACTIVE');
+
+INSERT INTO author (authorname, pswd, status)
+VALUES ('Liyana Aziz', '54321', 'ACTIVE');
+
+INSERT INTO author (authorname, pswd, status)
+VALUES ('Stephen Pople', '54321', 'INACTIVE');
+
+INSERT INTO author (authorname, pswd, status)
+VALUES ('John Rowling', '54321', 'ACTIVE');
+
+INSERT INTO author (authorname, pswd, status)
+VALUES ('Lisa Kleypas', '54321', 'ACTIVE');
+
+INSERT INTO author (authorname, pswd, status)
+VALUES ('Aslam Ahmad', '54321', 'INACTIVE');
+
+INSERT INTO author (authorname, pswd, status)
+VALUES ('Fatin Mohamad', '54321', 'ACTIVE');
+
+-- DATA TABLE EBOOK -------------------------------------------------------------
+
+INSERT INTO ebook (title, duration, genre)
+VALUES ('The Hunger Games', 21, 'NOVEL SURVIVAL');
+
+INSERT INTO ebook (title, duration, genre)
+VALUES ('Commonplace Job to World Strongest', 14,'LIGHT NOVEL FANTASY');
+
+INSERT INTO ebook (title, duration, genre)
+VALUES ('The Scream', 21, 'NOVEL HORROR');
+
+INSERT INTO ebook (title, duration, genre)
+VALUES ('You Majored in What?', 30, 'EDUCATION');
+
+INSERT INTO ebook (title, duration, genre)
+VALUES ('Complete Physics for Cambridge IGCSE', 30,'EDUCATION');
+
+INSERT INTO ebook (title, duration, genre)
+VALUES ('Gravitational Implication Research', 30, 'REPORT');
+
+INSERT INTO ebook (title, duration, genre)
+VALUES ('Harry Potter and the Sorcerers Stone', 21, 'NOVEL FANTASY');
+
+INSERT INTO ebook (title, duration, genre)
+VALUES ('Devils Daughter', 21, 'NOVEL ROMANCE');
+
+INSERT INTO ebook (title, duration, genre)
+VALUES ('Fairy Tales', 14, 'NOVEL ONESHOT');
+
+INSERT INTO ebook (title, duration, genre)
+VALUES ('Philosophy of Islamization', 21, 'EDUCATION');
+
+-- DATA TABLE LENT ---------------------------------------------------------------
+
+INSERT INTO lent (lentdate, enddate, ebookid, authorid, service)
+VALUES (TO_DATE('01-MAY-2010'), TO_DATE('01-MAY-2015'), '001', '001', 'FREE');
+
+INSERT INTO lent (lentdate, enddate, ebookid, authorid, service)
+VALUES (TO_DATE('10-JUL-2012'), TO_DATE('10-JUL-2020'), '002', '002', 'FREE');
+
+INSERT INTO lent (lentdate, enddate, ebookid, authorid, service)
+VALUES (TO_DATE('06-APR-2014'), TO_DATE('06-APR-2019'), '003', '001', 'FREE');
+
+INSERT INTO lent (lentdate, enddate, ebookid, authorid, service)
+VALUES (TO_DATE('01-JAN-2015'), TO_DATE('01-JAN-2025'), '004', '003', 'FREE');
+
+INSERT INTO lent (lentdate, enddate, ebookid, authorid, service)
+VALUES (TO_DATE('03-MAR-2015'), TO_DATE('03-MAR-2020'), '005', '006', 'FREE');
+
+INSERT INTO lent (lentdate, enddate, ebookid, authorid, service)
+VALUES (TO_DATE('01-JAN-2017'), TO_DATE('01-JAN-2022'), '006', '006', 'PREMIUM');
+
+INSERT INTO lent (lentdate, enddate, ebookid, authorid, service)
+VALUES (TO_DATE('06-OCT-2018'), TO_DATE('06-OCT-2025'), '007', '007', 'FREE');
+
+INSERT INTO lent (lentdate, enddate, ebookid, authorid, service)
+VALUES (TO_DATE('01-DEC-2018'), TO_DATE('01-DEC-2020'), '008', '008', 'PREMIUM');
+
+INSERT INTO lent (lentdate, enddate, ebookid, authorid, service)
+VALUES (TO_DATE('02-JAN-2019'), TO_DATE('02-JAN-2030'), '009', '009', 'FREE');
+
+INSERT INTO lent (lentdate, enddate, ebookid, authorid, service)
+VALUES (TO_DATE('23-MAR-2019'), TO_DATE('23-MAR-2025'), '010', '010', 'FREE');
+
+-- DATA TABLE ISSUE --------------------------------------------------------------
+
+INSERT INTO issue (issueddate, expdate, ebookid, memberid)
+VALUES (TO_DATE('15-SEP-2013'), TO_DATE('29-SEP-2013'), '002', '001');
+
+INSERT INTO issue (issueddate, expdate, ebookid, memberid)
+VALUES (TO_DATE('22-DEC-2013'), TO_DATE('12-JAN-2014'), '001', '005');
+
+INSERT INTO issue (issueddate, expdate, ebookid, memberid)
+VALUES (TO_DATE('13-MAR-2015'), TO_DATE('13-APR-2015'), '004', '004');
+
+INSERT INTO issue (issueddate, expdate, ebookid, memberid)
+VALUES (TO_DATE('20-MAR-2015'), TO_DATE('20-APR-2015'), '005', '004');
+
+INSERT INTO issue (issueddate, expdate, ebookid, memberid)
+VALUES (TO_DATE('01-NOV-2018'), TO_DATE('22-NOV-2018'), '007', '002');
+
+INSERT INTO issue (issueddate, expdate, ebookid, memberid)
+VALUES (TO_DATE('01-NOV-2018'), TO_DATE('22-NOV-2018'), '003', '002');
+
+INSERT INTO issue (issueddate, expdate, ebookid, memberid)
+VALUES (TO_DATE('24-DEC-2018'), TO_DATE('24-JAN-2019'), '006', '006');
+
+INSERT INTO issue (issueddate, expdate, ebookid, memberid)
+VALUES (TO_DATE('24-DEC-2018'), TO_DATE('24-JAN-2019'), '006', '006');
+
+INSERT INTO issue (issueddate, expdate, ebookid, memberid)
+VALUES (TO_DATE('14-JAN-2019'), TO_DATE('28-JAN-2019'), '002', '008');
+
+INSERT INTO issue (issueddate, expdate, ebookid, memberid)
+VALUES (TO_DATE('26-APR-2019'), TO_DATE('26-MAY-2019'), '010', '009');

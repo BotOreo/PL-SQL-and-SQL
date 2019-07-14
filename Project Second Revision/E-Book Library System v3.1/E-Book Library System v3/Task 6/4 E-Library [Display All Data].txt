@@ -1,0 +1,8 @@
+
+-- DISPLAY ALL DATA FROM TABLE -------------------------------
+
+SELECT * FROM member;
+SELECT * FROM author;
+SELECT * FROM ebook;
+SELECT * FROM lent;
+SELECT * FROM issue;

@@ -1,0 +1,58 @@
+
+-- DELETE EXISTING TABLE -------------
+
+DROP TABLE member CASCADE CONSTRAINT;
+DROP TABLE author CASCADE CONSTRAINT;
+DROP TABLE ebook CASCADE CONSTRAINT;
+DROP TABLE issue CASCADE CONSTRAINT;
+DROP TABLE lent CASCADE CONSTRAINT;
+
+-- TABLE MEMBER ------------------------------------------
+
+CREATE TABLE member (
+   memberid           VARCHAR2(10)          PRIMARY KEY,
+   membername         VARCHAR2(30),
+   pswd               VARCHAR2(8),
+   stud               VARCHAR2(3),
+   status             VARCHAR2(8));
+
+-- TABLE AUTHOR ----------------------------------------
+
+CREATE TABLE author (
+   authorid           VARCHAR2(10)          PRIMARY KEY,
+   authorname         VARCHAR2(30),
+   pswd               VARCHAR2(8),
+   status             VARCHAR2(8));
+
+-- TABLE EBOOK ------------------------------------------------------------
+
+CREATE TABLE ebook (
+   ebookid            VARCHAR2(10)          PRIMARY KEY,
+   title              VARCHAR2(50),
+   duration           NUMBER(3),
+   genre              VARCHAR2(30));
+
+-- TABLE LENT ------------------------------------------------------------
+
+CREATE TABLE lent (
+   lentid             NUMBER,
+   lentdate           DATE,
+   enddate            DATE,
+   ebookid            VARCHAR2(10),
+   authorid           VARCHAR2(10),
+   service            VARCHAR2(10),
+   CONSTRAINT lent_lentid_PK PRIMARY KEY (lentid),
+   CONSTRAINT lent_ebookid_FK FOREIGN KEY (ebookid) REFERENCES ebook,
+   CONSTRAINT lent_authorid_FK FOREIGN KEY (authorid) REFERENCES author);
+
+-- TABLE ISSUE ------------------------------------------------------------
+
+CREATE TABLE issue (
+   issueid            NUMBER,
+   issueddate         DATE,
+   expdate            DATE,
+   ebookid            VARCHAR2(10),
+   memberid           VARCHAR2(10),
+   CONSTRAINT issue_issueid_PK PRIMARY KEY (issueid),
+   CONSTRAINT issue_ebookid_FK FOREIGN KEY (ebookid) REFERENCES ebook,
+   CONSTRAINT issue_memberid_FK FOREIGN KEY (memberid) REFERENCES member);

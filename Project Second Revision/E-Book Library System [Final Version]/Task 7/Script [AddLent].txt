@@ -1,0 +1,12 @@
+SET SERVEROUTPUT ON;
+SET VERIFY OFF;
+ACCEPT lentdate PROMPT 'Enter lend date : ';
+ACCEPT enddate PROMPT 'Enter end lend date : ';
+ACCEPT bookid PROMPT 'Enter Book ID : ';
+ACCEPT authorid PROMPT 'Enter Author ID : ';
+ACCEPT service PROMPT 'Enter service type (FREE/PREMIUM) : ';
+
+BEGIN
+   AddLent('&lentdate','&enddate','&bookid', '&authorid', '&service');
+END;
+/
