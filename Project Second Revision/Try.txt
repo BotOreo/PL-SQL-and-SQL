@@ -1,0 +1,22 @@
+INSERT INTO MEMBER (membername, pswd, stud, status) 
+VALUES ('Zaki Azfar', '1234abcd', 'YES', 'ACTIVE');
+
+------------------------------------AUTHOR-------------------------------
+
+INSERT INTO AUTHOR (AUTHORNAME, PSWD, STATUS)
+VALUES(TO_DATE('01-MAY-99'), TO_DATE('01-MAY-25'), 5328650589, 41881, 'FINISHED','FREE');
+
+-----------------------------------EBOOK------------------------------------
+
+INSERT INTO EBOOK (TITLE, AUTHORID, DURATION, GENRE) 
+VALUES ('Zaki Azfar', '1234abcd', 'YES', 'ACTIVE');
+
+-----------------------------------ISSUE------------------------------------
+
+INSERT INTO ISSUE
+VALUES(TO_DATE('15-JUL-01'), TO_DATE('18-JUL-01'), 1518000778, 00829, 'OVERDUE', 'FINE: RM 15');
+
+-------------------------------------LENT----------------------------------
+
+INSERT INTO LENT(LENTID, LENTDATE, ENDDATE, EBOOKID, AUTHORID, SERVICE)
+VALUES(TO_DATE('01-MAY-99'), TO_DATE('01-MAY-25'), 5328650589, 41881, 'FINISHED','FREE');
